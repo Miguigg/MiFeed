@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">design</string>
+    <string name="incioSesion">Inicia Sesión</string>
+    <string name="correo"></string>
+    <string name="contraseña"></string>
+    <string name="Login">Iniciar Sesión</string>
+    <string name="Reg">Ir a registro</string>
+    <string name="msg">La información es poder</string>
+</resources>
