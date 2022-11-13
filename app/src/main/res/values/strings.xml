@@ -8,4 +8,11 @@
     <string name="msg">La información es poder</string>
     <string name="toRegistro">Registrarme</string>
     <string name="toLogin">Iniciar sesión</string>
+    <string name="bienvenida">¡Bienvenido!</string>
+    <string name="registrate">Registro</string>
+    <string name="accionReg">Registrarme</string>
+    <string name="accionLog">Iniciar sesión</string>
+    <string name="cerrarApp">¿Seguiro que quieres salir de la aplicación?</string>
+    <string name="aceptarCierre">Cerrar</string>
+    <string name="cancelarCierre">Seguir en la aplicación</string>
 </resources>

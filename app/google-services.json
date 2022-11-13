@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "118997138945",
+    "firebase_url": "https://mifeed-3814d-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "mifeed-3814d",
+    "storage_bucket": "mifeed-3814d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118997138945:android:08f1c00bbd2c08f1108a00",
+        "android_client_info": {
+          "package_name": "com.example.mifeed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "118997138945-m6ucetm9nrnv86q2sujheqjdiiqrafjh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mifeed",
+            "certificate_hash": "3d3c522784b52cb6b8b5560983a6f642bf77576c"
+          }
+        },
+        {
+          "client_id": "118997138945-filfujqi9kgaqo1ncflq1srb0pns0ueg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCn-3hBW629YGSur4xur2lGeBSneCX58fA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "118997138945-filfujqi9kgaqo1ncflq1srb0pns0ueg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

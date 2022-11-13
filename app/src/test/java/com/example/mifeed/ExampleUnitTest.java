@@ -1,4 +1,4 @@
-package com.example.design;
+package com.example.mifeed;
 
 import org.junit.Test;
 
