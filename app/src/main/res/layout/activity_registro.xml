@@ -18,14 +18,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/top_wave1" />
+                android:contentDescription="@string/descripcionDecoracion"
+                app:srcCompat="@drawable/top_wave1"
+                tools:ignore="ImageContrastCheck" />
 
             <TextView
                 android:id="@+id/registro"
@@ -45,6 +47,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="32dp"
+                android:autofillHints=""
                 android:background="@drawable/edittext_fondo"
                 android:drawableStart="@drawable/user_material"
                 android:ems="10"
@@ -55,6 +58,16 @@
                 android:textColorHint="#ffffff"
                 tools:ignore="SpeakableTextPresentCheck" />
 
+            <TextView
+                android:id="@+id/errUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/errNombreUsuario"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <EditText
                 android:id="@+id/correo"
                 android:layout_width="match_parent"
@@ -62,6 +75,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="32dp"
+                android:autofillHints="emailAddress"
                 android:background="@drawable/edittext_fondo"
                 android:drawableStart="@drawable/email_material"
                 android:ems="10"
@@ -72,6 +86,16 @@
                 android:textColorHint="#ffffff"
                 tools:ignore="SpeakableTextPresentCheck" />
 
+            <TextView
+                android:id="@+id/errEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/errEmailNoValido"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <EditText
                 android:id="@+id/contrasenha1"
                 android:layout_width="match_parent"
@@ -79,6 +103,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="32dp"
+                android:autofillHints="password"
                 android:background="@drawable/edittext_fondo"
                 android:drawableStart="@drawable/passwd_material"
                 android:ems="10"
@@ -96,6 +121,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="32dp"
+                android:autofillHints="password"
                 android:background="@drawable/edittext_fondo"
                 android:drawableStart="@drawable/passwd_material"
                 android:ems="10"
@@ -106,22 +132,78 @@
                 android:textColorHint="#ffffff"
                 tools:ignore="SpeakableTextPresentCheck" />
 
+            <TextView
+                android:id="@+id/errPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/errContraseñaDebil"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="46dp"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/aceptar"
+                        android:contentDescription="@string/descripcionRegistroGoogle" />
+
+                    <ImageView
+                        android:id="@+id/imageView16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:foregroundGravity="left"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView14"
+                        app:layout_constraintStart_toStartOf="@+id/imageView14"
+                        app:layout_constraintTop_toTopOf="@+id/imageView14"
+                        app:srcCompat="@drawable/googleg_standard_color_18"
+                        android:contentDescription="@string/descripcionlogoGoogle" />
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/regConEmail"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/imageView14"
+                        app:layout_constraintHorizontal_bias="0.525"
+                        app:layout_constraintStart_toEndOf="@+id/imageView16"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.733" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/accionRegistro"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="10dp">
 
                     <ImageView
                         android:id="@+id/imageView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/descripcionRegistro"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -152,6 +234,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:contentDescription="@string/descripcionLogin"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

@@ -8,12 +8,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class MainActivity extends AppCompatActivity {
     FirebaseFirestore f;
-    Map<String,Object> user = new HashMap<>();
     ConstraintLayout btnLog;
     ConstraintLayout btnReg;
     @Override
@@ -29,12 +25,6 @@ public class MainActivity extends AppCompatActivity {
         btnReg.setOnClickListener(view -> {
             gotoRegistro();
         });
-
-
-        user.put("nomre","paco");
-        user.put("Correo","aaaaaaaa");
-        user.put("contraseña","aaaaa");
-        f.collection("Users").add(user);
     }
 
     private void gotoRegistro() {

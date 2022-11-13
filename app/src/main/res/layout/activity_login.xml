@@ -143,6 +143,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
@@ -150,39 +151,42 @@
         </LinearLayout>
 
     </ScrollView>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
+        android:layout_gravity="bottom|left|end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
         app:srcCompat="@drawable/top_wave2invertida" />
 
     <TextView
         android:id="@+id/msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="870dp"
-        android:layout_marginBottom="500dp"
+        android:layout_marginTop="400dp"
         android:text="@string/msg"
         android:textColor="#FFFFFF"
         android:textColorHint="#FFFFFF"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/scrollView2" />
+        app:layout_constraintStart_toStartOf="@+id/scrollView2"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="99dp"
         android:layout_height="60dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="85dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/msg"
         app:srcCompat="@drawable/iconv2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
