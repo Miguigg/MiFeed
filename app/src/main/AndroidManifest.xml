@@ -4,7 +4,6 @@
 
     <application
         android:allowBackup="true"
-        android:windowSoftInputMode="adjustPan"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -12,19 +11,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MiFeed"
+        android:windowSoftInputMode="adjustPan"
         tools:targetApi="31">
         <activity
-            android:name=".registroActivity"
-            android:windowSoftInputMode="adjustPan"
+            android:name=".vistageneralActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
+            android:name=".registroActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".loginActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:exported="false">
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

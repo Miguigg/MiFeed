@@ -16,7 +16,7 @@
     <string name="cerrarApp">¿Seguiro que quieres salir de la aplicación?</string>
     <string name="aceptarCierre">Cerrar</string>
     <string name="cancelarCierre">Seguir en la aplicación</string>
-
+    <string name="prefs">MiFeedPrefs</string>
 
     <string name="errNombreUsuario">Debes introducir tu nombre</string>
     <string name="errContraseñaVacia">Debes introducir una contraseña para la cuenta</string>
@@ -26,7 +26,6 @@
     <string name="errEmailNoValido">El email no es valido</string>
     <string name="errEmailExistente">El email ya esta asignado a otra cuenta</string>
     <string name="errEmailVacio">Debes introducir un email</string>
-
 
 
     <string name="descripcionLogin">Botón para iniciar sesión</string>

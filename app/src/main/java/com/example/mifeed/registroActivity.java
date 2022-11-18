@@ -1,6 +1,8 @@
 package com.example.mifeed;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -158,9 +160,20 @@ public class registroActivity extends AppCompatActivity implements View.OnClickL
                             }
                           });
                 }else{
-                  Toast.makeText(registroActivity.this,"Errorrrr",Toast.LENGTH_LONG).show();
+                  Toast.makeText(registroActivity.this,String.valueOf(task.getException()),Toast.LENGTH_LONG).show();
                 }
               }
             });
+    setSession(usuario.getEmail(),mAuth.getCurrentUser().getUid());
+  }
+
+  private void setSession(String email, String id) {
+    SharedPreferences sharedpreferences = getSharedPreferences("sesion", Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = sharedpreferences.edit();
+    editor.putString("email",email);
+    editor.putString("id",id);
+    Toast.makeText(registroActivity.this,email,Toast.LENGTH_LONG).show();
+    editor.commit();
+    editor.apply();
   }
 }
