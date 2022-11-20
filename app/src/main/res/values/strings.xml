@@ -19,6 +19,7 @@
     <string name="prefs">MiFeedPrefs</string>
 
     <string name="errNombreUsuario">Debes introducir tu nombre</string>
+    <string name="errNombreUsuarioNoValido">Solo puedes introducir hasta 15 caracteres, sin especiales</string>
     <string name="errContraseñaVacia">Debes introducir una contraseña para la cuenta</string>
     <string name="errContraseñaNoCoincide">Las contraseña no coinciden</string>
     <string name="errContraseñaDebil">Tu contraseña es demasiado debil</string>

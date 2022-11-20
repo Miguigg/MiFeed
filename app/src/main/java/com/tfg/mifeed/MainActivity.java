@@ -1,4 +1,4 @@
-package com.example.mifeed;
+package com.tfg.mifeed;
 
 import android.content.Context;
 import android.content.Intent;

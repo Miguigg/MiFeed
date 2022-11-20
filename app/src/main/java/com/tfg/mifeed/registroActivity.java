@@ -1,10 +1,9 @@
-package com.example.mifeed;
+package com.tfg.mifeed;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.example.mifeed.core.Usuario;
+import com.tfg.mifeed.R;
+import com.tfg.mifeed.core.Usuario;
+import com.tfg.mifeed.core.validaciones;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -27,7 +28,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class registroActivity extends AppCompatActivity implements View.OnClickListener {
-
+  private validaciones validaciones = new validaciones();
   private FirebaseAuth mAuth;
   FirebaseFirestore f;
   Map<String, Object> user = new HashMap<>();
@@ -85,14 +86,38 @@ public class registroActivity extends AppCompatActivity implements View.OnClickL
 
     boolean isvalid = true;
 
-    if (nombreUsuario.isEmpty()) {
+
+    if(validaciones.validacionUser(nombreUsuario) == "vacio"){
+      errUsuario.setText(R.string.errNombreUsuario);
+      errUsuario.setVisibility(View.VISIBLE);
+      isvalid = false;
+    }else if(validaciones.validacionUser(nombreUsuario) == "noValido"){
+      errUsuario.setText(R.string.errNombreUsuarioNoValido);
+      errUsuario.setVisibility(View.VISIBLE);
+      isvalid = false;
+    }else{
+      errUsuario.setVisibility(View.GONE);
+    }
+
+    /*if (nombreUsuario.isEmpty()) {
       errUsuario.setVisibility(View.VISIBLE);
       isvalid = false;
     } else {
       errUsuario.setVisibility(View.GONE);
-    }
+    }*/
 
-    if (emailUsuario.isEmpty()) {
+    if(validaciones.validacionEmail(emailUsuario) == "vacio"){
+      errEmail.setText(R.string.errEmailVacio);
+      isvalid = false;
+      errEmail.setVisibility(View.VISIBLE);
+    }else if(validaciones.validacionEmail(emailUsuario) == "falso"){
+      errEmail.setText(R.string.errEmailNoValido);
+      isvalid = false;
+      errEmail.setVisibility(View.VISIBLE);
+    }else{
+      errEmail.setVisibility(View.GONE);
+    }
+   /* if (emailUsuario.isEmpty()) {
       errEmail.setText(R.string.errEmailVacio);
       isvalid = false;
       errEmail.setVisibility(View.VISIBLE);
@@ -102,7 +127,7 @@ public class registroActivity extends AppCompatActivity implements View.OnClickL
       errEmail.setVisibility(View.VISIBLE);
     } else {
       errEmail.setVisibility(View.GONE);
-    }
+    }*/
 
     if (contrasenhaUsuario1.isEmpty() || contrasenhaUsuario2.isEmpty()) {
       errPass.setText(R.string.errContraseñaVacia);

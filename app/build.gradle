@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.mifeed'
+    namespace 'com.tfg.mifeed'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.mifeed"
+        applicationId "com.tfg.mifeed"
         minSdk 30
         targetSdk 32
         versionCode 1

@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:118997138945:android:08f1c00bbd2c08f1108a00",
         "android_client_info": {
-          "package_name": "com.example.mifeed"
+          "package_name": "com.tfg.mifeed"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "118997138945-m6ucetm9nrnv86q2sujheqjdiiqrafjh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.mifeed",
+            "package_name": "com.tfg.mifeed",
             "certificate_hash": "3d3c522784b52cb6b8b5560983a6f642bf77576c"
           }
         },

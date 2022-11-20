@@ -1,8 +1,10 @@
-package com.example.mifeed;
+package com.tfg.mifeed;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.tfg.mifeed.R;
 
 public class vistageneralActivity extends AppCompatActivity {
 
