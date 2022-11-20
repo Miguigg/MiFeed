@@ -27,7 +27,7 @@
     <string name="errEmailNoValido">El email no es valido</string>
     <string name="errEmailExistente">El email ya esta asignado a otra cuenta</string>
     <string name="errEmailVacio">Debes introducir un email</string>
-
+    <string name="errLogin">El email o la contraseña introducidos no son validos</string>
 
     <string name="descripcionLogin">Botón para iniciar sesión</string>
     <string name="descripcionRegistro">Botó para ejecutar el registro</string>

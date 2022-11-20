@@ -13,19 +13,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.tfg.mifeed.R;
-import com.tfg.mifeed.core.Usuario;
-import com.tfg.mifeed.core.validaciones;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.tfg.mifeed.core.Usuario;
+import com.tfg.mifeed.core.validaciones;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
 
 public class registroActivity extends AppCompatActivity implements View.OnClickListener {
   private validaciones validaciones = new validaciones();
@@ -73,8 +71,6 @@ public class registroActivity extends AppCompatActivity implements View.OnClickL
 
   private void registroUsuario() {
 
-    Pattern p = Pattern.compile("^[a-zA-Z0-9áéíóúÁÉÍÓÚ]{3,40}$");
-
     String nombreUsuario = nombre.getText().toString().trim();
     String emailUsuario = email.getText().toString().trim();
     String contrasenhaUsuario1 = contrasenha1.getText().toString().trim();
@@ -99,13 +95,6 @@ public class registroActivity extends AppCompatActivity implements View.OnClickL
       errUsuario.setVisibility(View.GONE);
     }
 
-    /*if (nombreUsuario.isEmpty()) {
-      errUsuario.setVisibility(View.VISIBLE);
-      isvalid = false;
-    } else {
-      errUsuario.setVisibility(View.GONE);
-    }*/
-
     if(validaciones.validacionEmail(emailUsuario) == "vacio"){
       errEmail.setText(R.string.errEmailVacio);
       isvalid = false;
@@ -117,33 +106,23 @@ public class registroActivity extends AppCompatActivity implements View.OnClickL
     }else{
       errEmail.setVisibility(View.GONE);
     }
-   /* if (emailUsuario.isEmpty()) {
-      errEmail.setText(R.string.errEmailVacio);
-      isvalid = false;
-      errEmail.setVisibility(View.VISIBLE);
-    } else if (!Patterns.EMAIL_ADDRESS.matcher(emailUsuario).matches()) {
-      errEmail.setText(R.string.errEmailNoValido);
-      isvalid = false;
-      errEmail.setVisibility(View.VISIBLE);
-    } else {
-      errEmail.setVisibility(View.GONE);
-    }*/
 
-    if (contrasenhaUsuario1.isEmpty() || contrasenhaUsuario2.isEmpty()) {
+    if (validaciones.validacionContraseña(contrasenhaUsuario1,contrasenhaUsuario2) == "vacia"){
       errPass.setText(R.string.errContraseñaVacia);
       isvalid = false;
       errPass.setVisibility(View.VISIBLE);
-    } else if (!p.matcher(contrasenhaUsuario1).matches()) {
+    }else if(validaciones.validacionContraseña(contrasenhaUsuario1,contrasenhaUsuario2) == "noSegura"){
       errPass.setText(R.string.errContraseñaDebil);
       isvalid = false;
       errPass.setVisibility(View.VISIBLE);
-    } else if (!contrasenhaUsuario1.equals(contrasenhaUsuario2)) {
+    }else if(validaciones.validacionContraseña(contrasenhaUsuario1,contrasenhaUsuario2) == "distintas"){
       errPass.setText(R.string.errContraseñaNoCoincide);
       isvalid = false;
       errPass.setVisibility(View.VISIBLE);
-    } else {
+    }else{
       errPass.setVisibility(View.GONE);
     }
+
     if (isvalid) {
       insercionEnFirebase(new Usuario(nombreUsuario, emailUsuario, contrasenhaUsuario1));
     }
@@ -189,7 +168,6 @@ public class registroActivity extends AppCompatActivity implements View.OnClickL
                 }
               }
             });
-    setSession(usuario.getEmail(),mAuth.getCurrentUser().getUid());
   }
 
   private void setSession(String email, String id) {

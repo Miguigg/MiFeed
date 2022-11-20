@@ -24,10 +24,8 @@ public class validaciones {
             return "ok";
         }
     }
-    //public static String validarContraseñaLogin(){
 
-    //}
-    public static String validarContraseñaReg(String contraseñaUsuario1, String contraseñaUsuario2){
+    public static String validacionContraseña(String contraseñaUsuario1, String contraseñaUsuario2){
         Pattern formato = Pattern.compile("^[a-zA-Z0-9áéíóúÁÉÍÓÚ]{3,40}$");
         if(contraseñaUsuario1.isEmpty() || contraseñaUsuario2.isEmpty()){
             return "vacia";
@@ -35,6 +33,16 @@ public class validaciones {
             return "noSegura";
         }else if(!contraseñaUsuario1.equals(contraseñaUsuario2)){
             return "distintas";
+        }else{
+            return "ok";
+        }
+    }
+    public static String validacionContraseña(String contraseñaLogin){
+        Pattern formato = Pattern.compile("^[a-zA-Z0-9áéíóúÁÉÍÓÚ]{3,40}$");
+        if(!formato.matcher(contraseñaLogin).matches()){
+            return "noSegura";
+        }else if(contraseñaLogin.isEmpty()){
+            return "vacia";
         }else{
             return "ok";
         }
