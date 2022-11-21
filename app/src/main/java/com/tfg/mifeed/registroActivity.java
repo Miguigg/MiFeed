@@ -149,11 +149,8 @@ public class registroActivity extends AppCompatActivity implements View.OnClickL
                             @Override
                             public void onComplete(@NonNull Task<DocumentReference> task) {
                               if (task.isSuccessful()) {
-                                Toast.makeText(
-                                        registroActivity.this,
-                                        "Registro Exitoso",
-                                        Toast.LENGTH_LONG)
-                                    .show();
+                                Intent intent = new Intent(registroActivity.this,MainActivity.class);
+                                startActivity(intent);
                               }else{
                                 Toast.makeText(
                                                 registroActivity.this,

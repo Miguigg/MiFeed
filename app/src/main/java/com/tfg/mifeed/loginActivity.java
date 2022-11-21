@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.tfg.mifeed.core.validaciones;
 
 public class loginActivity extends AppCompatActivity {
@@ -84,9 +86,15 @@ public class loginActivity extends AppCompatActivity {
         @Override
         public void onComplete(@NonNull Task<AuthResult> task) {
           if(task.isSuccessful()){
-            startActivity(new Intent(loginActivity.this, vistageneralActivity.class));
-            finish();
-            errPass.setVisibility(View.GONE);
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if(user.isEmailVerified()){
+              startActivity(new Intent(loginActivity.this, vistageneralActivity.class));
+              finish();
+              errPass.setVisibility(View.GONE);
+            }else{
+              user.sendEmailVerification();
+              Toast.makeText(loginActivity.this,"Te hemos enviado un email para que confimes el correo",Toast.LENGTH_LONG).show();
+            }
           }else{
             errPass.setText(R.string.errLogin);
             errPass.setVisibility(View.VISIBLE);
