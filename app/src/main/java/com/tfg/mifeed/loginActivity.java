@@ -1,5 +1,6 @@
 package com.tfg.mifeed;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -27,6 +29,7 @@ public class loginActivity extends AppCompatActivity {
   TextView errPass;
   private FirebaseAuth mAuth;
   private com.tfg.mifeed.core.validaciones validaciones = new validaciones();
+  boolean emailIsSent;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -37,6 +40,7 @@ public class loginActivity extends AppCompatActivity {
     errPass = findViewById(R.id.errLoginPass);
     loginApp = findViewById(R.id.ejecutarInicio);
     toReg = findViewById(R.id.toRegistro);
+    emailIsSent = false;
     mAuth = FirebaseAuth.getInstance();
     loginApp.setOnClickListener(view -> {
       iniciarSesion();
@@ -92,8 +96,29 @@ public class loginActivity extends AppCompatActivity {
               finish();
               errPass.setVisibility(View.GONE);
             }else{
-              user.sendEmailVerification();
-              Toast.makeText(loginActivity.this,"Te hemos enviado un email para que confimes el correo",Toast.LENGTH_LONG).show();
+              if(!emailIsSent){
+                user.sendEmailVerification();
+                Toast.makeText(loginActivity.this,R.string.confirmacionCorreo,Toast.LENGTH_LONG).show();
+                emailIsSent = true;
+              }else{
+                AlertDialog.Builder b = new AlertDialog.Builder(loginActivity.this);
+                AlertDialog alert = b.create();
+                b.setMessage(R.string.alertCorreo);
+                b.setPositiveButton(R.string.volverMandar, new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                    user.sendEmailVerification();
+                    Toast.makeText(loginActivity.this,R.string.confirmacionCorreo,Toast.LENGTH_LONG).show();
+                  }
+                });
+                b.setNegativeButton(R.string.entendido, new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialog, int which) {
+                    alert.cancel();
+                  }
+                });
+                b.show();
+              }
             }
           }else{
             errPass.setText(R.string.errLogin);

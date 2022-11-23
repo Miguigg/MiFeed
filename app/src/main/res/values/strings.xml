@@ -28,6 +28,10 @@
     <string name="errEmailExistente">El email ya esta asignado a otra cuenta</string>
     <string name="errEmailVacio">Debes introducir un email</string>
     <string name="errLogin">El email o la contraseña introducidos no son validos</string>
+    <string name="confirmacionCorreo">Te hemos envíado un correo para que verifiques tu cuenta</string>
+    <string name="alertCorreo">Tienes que verificar tu cuenta para poder iniciar sesión, revisa tu spam si no lo encuentras</string>
+    <string name="volverMandar">Volver a mandar email</string>
+    <string name="entendido">Entendido</string>
 
     <string name="descripcionLogin">Botón para iniciar sesión</string>
     <string name="descripcionRegistro">Botó para ejecutar el registro</string>
