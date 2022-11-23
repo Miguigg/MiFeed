@@ -17,6 +17,8 @@
     <string name="aceptarCierre">Cerrar</string>
     <string name="cancelarCierre">Seguir en la aplicación</string>
     <string name="prefs">MiFeedPrefs</string>
+    <string name="olvido">Olvidé mi contraseña</string>
+    <string name="cambio">Cambiar tu contraseña</string>
 
     <string name="errNombreUsuario">Debes introducir tu nombre</string>
     <string name="errNombreUsuarioNoValido">Solo puedes introducir hasta 15 caracteres, sin especiales</string>
