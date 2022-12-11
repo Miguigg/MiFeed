@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CC4949"
-    tools:context="com.tfg.mifeed.loginActivity">
+    tools:context="com.tfg.mifeed.view.loginActivity">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -75,7 +75,7 @@
                 android:drawableStart="@drawable/passwd_material"
                 android:ems="10"
                 android:hint="@string/correo"
-                android:inputType="textPersonName"
+                android:inputType="textPersonName|textPassword"
                 android:padding="8dp"
                 android:textColor="#ffffff"
                 android:textColorHint="#ffffff"
@@ -169,6 +169,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/toReset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -219,7 +220,7 @@
         android:id="@+id/imageView6"
         android:layout_width="113dp"
         android:layout_height="97dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

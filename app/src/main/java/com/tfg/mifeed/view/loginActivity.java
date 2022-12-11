@@ -1,4 +1,4 @@
-package com.tfg.mifeed;
+package com.tfg.mifeed.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,12 +18,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.tfg.mifeed.R;
 import com.tfg.mifeed.core.validaciones;
 
 public class loginActivity extends AppCompatActivity {
-  private ActivityResultLauncher<Intent> activityResultLauncher;
   private EditText correo,contraseña;
-  private ConstraintLayout loginApp, toReg;
+  private ConstraintLayout loginApp, toReg, toReset;
   TextView errEmail;
   TextView errPass;
   private FirebaseAuth mAuth;
@@ -40,10 +39,17 @@ public class loginActivity extends AppCompatActivity {
     errPass = findViewById(R.id.errLoginPass);
     loginApp = findViewById(R.id.ejecutarInicio);
     toReg = findViewById(R.id.toRegistro);
+    toReset = findViewById(R.id.toReset);
     emailIsSent = false;
     mAuth = FirebaseAuth.getInstance();
+
     loginApp.setOnClickListener(view -> {
       iniciarSesion();
+    });
+
+    toReset.setOnClickListener(v -> {
+      startActivity(new Intent(loginActivity.this, resetContrasenha.class));
+      finish();
     });
 
     toReg.setOnClickListener(
@@ -92,7 +98,7 @@ public class loginActivity extends AppCompatActivity {
           if(task.isSuccessful()){
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if(user.isEmailVerified()){
-              startActivity(new Intent(loginActivity.this, vistageneralActivity.class));
+              startActivity(new Intent(loginActivity.this, gestioncuentaActivity.class));
               finish();
               errPass.setVisibility(View.GONE);
             }else{

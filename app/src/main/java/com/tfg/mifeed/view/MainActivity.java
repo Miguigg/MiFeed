@@ -1,4 +1,4 @@
-package com.tfg.mifeed;
+package com.tfg.mifeed.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.tfg.mifeed.R;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseFirestore f;

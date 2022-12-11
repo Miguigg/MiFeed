@@ -1,4 +1,4 @@
-package com.tfg.mifeed;
+package com.tfg.mifeed.view;
 
 import android.app.Application;
 

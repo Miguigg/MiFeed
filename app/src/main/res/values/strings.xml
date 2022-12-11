@@ -19,6 +19,9 @@
     <string name="prefs">MiFeedPrefs</string>
     <string name="olvido">Olvidé mi contraseña</string>
     <string name="cambio">Cambiar tu contraseña</string>
+    <string name="confirmacioCambio">Te hemos mandado un correo con ayuda</string>
+    <string name="logoutText">Cerrar sesión</string>
+
 
     <string name="errNombreUsuario">Debes introducir tu nombre</string>
     <string name="errNombreUsuarioNoValido">Solo puedes introducir hasta 15 caracteres, sin especiales</string>
