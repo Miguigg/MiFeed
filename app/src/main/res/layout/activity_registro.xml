@@ -126,7 +126,7 @@
                 android:drawableStart="@drawable/passwd_material"
                 android:ems="10"
                 android:hint="@string/correo"
-                android:inputType="numberPassword"
+                android:inputType="textPassword"
                 android:padding="8dp"
                 android:textColor="#ffffff"
                 android:textColorHint="#ffffff"

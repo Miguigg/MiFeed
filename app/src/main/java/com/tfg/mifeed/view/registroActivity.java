@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tfg.mifeed.R;
@@ -162,7 +164,13 @@ public class registroActivity extends AppCompatActivity implements View.OnClickL
                             }
                           });
                 }else{
-                  Toast.makeText(registroActivity.this,String.valueOf(task.getException()),Toast.LENGTH_LONG).show();
+                  try {
+                    throw task.getException();
+                  } catch(FirebaseAuthUserCollisionException e) {
+                    Toast.makeText(registroActivity.this,"Email ya Existe",Toast.LENGTH_LONG).show();
+                  } catch(Exception e) {
+                    Log.e("TAG", e.getMessage());
+                  }
                 }
               }
             });
