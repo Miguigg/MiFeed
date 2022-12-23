@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">MiFeed</string>
     <string name="incioSesion">Inicia Sesión</string>
-    <string name="correo"></string>
-    <string name="contraseña"></string>
+    <string name="correo">Correo</string>
+    <string name="contraseña">Contraseña</string>
     <string name="Login">Iniciar Sesión</string>
     <string name="Reg">Ir a registro</string>
     <string name="msg">La información es poder</string>
@@ -13,7 +13,7 @@
     <string name="accionReg">Registrarme</string>
     <string name="regConEmail">Registrarme con Google</string>
     <string name="accionLog">Iniciar sesión</string>
-    <string name="cerrarApp">¿Seguiro que quieres salir de la aplicación?</string>
+    <string name="cerrarApp">¿Seguro que quieres salir de la aplicación?</string>
     <string name="aceptarCierre">Cerrar</string>
     <string name="cancelarCierre">Seguir en la aplicación</string>
     <string name="prefs">MiFeedPrefs</string>
@@ -39,7 +39,7 @@
     <string name="entendido">Entendido</string>
 
     <string name="descripcionLogin">Botón para iniciar sesión</string>
-    <string name="descripcionRegistro">Botó para ejecutar el registro</string>
+    <string name="descripcionRegistro">Botón para ejecutar el registro</string>
     <string name="descripcionLogotipo">Logotipo de la aplicación</string>
     <string name="descripcionDecoracion">Decoración aplicación</string>
     <string name="descripcionlogoGoogle">Logotipo Google</string>

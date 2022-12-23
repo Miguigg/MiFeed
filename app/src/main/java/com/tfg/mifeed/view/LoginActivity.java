@@ -19,15 +19,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.tfg.mifeed.R;
-import com.tfg.mifeed.core.validaciones;
+import com.tfg.mifeed.controlador.utilidades.Validaciones;
 
-public class loginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
   private EditText correo,contraseña;
   private ConstraintLayout loginApp, toReg, toReset;
   TextView errEmail;
   TextView errPass;
   private FirebaseAuth mAuth;
-  private com.tfg.mifeed.core.validaciones validaciones = new validaciones();
+  private Validaciones validaciones = new Validaciones();
   boolean emailIsSent;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +48,13 @@ public class loginActivity extends AppCompatActivity {
     });
 
     toReset.setOnClickListener(v -> {
-      startActivity(new Intent(loginActivity.this, resetContrasenha.class));
+      startActivity(new Intent(LoginActivity.this, ResetContrasenha.class));
       finish();
     });
 
     toReg.setOnClickListener(
         view -> {
-          startActivity(new Intent(loginActivity.this, registroActivity.class));
+          startActivity(new Intent(LoginActivity.this, RegistroActivity.class));
           finish();
         });
   }
@@ -98,23 +98,23 @@ public class loginActivity extends AppCompatActivity {
           if(task.isSuccessful()){
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if(user.isEmailVerified()){
-              startActivity(new Intent(loginActivity.this, gestioncuentaActivity.class));
+              startActivity(new Intent(LoginActivity.this, GestioncuentaActivity.class));
               finish();
               errPass.setVisibility(View.GONE);
             }else{
               if(!emailIsSent){
                 user.sendEmailVerification();
-                Toast.makeText(loginActivity.this,R.string.confirmacionCorreo,Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this,R.string.confirmacionCorreo,Toast.LENGTH_LONG).show();
                 emailIsSent = true;
               }else{
-                AlertDialog.Builder b = new AlertDialog.Builder(loginActivity.this);
+                AlertDialog.Builder b = new AlertDialog.Builder(LoginActivity.this);
                 AlertDialog alert = b.create();
                 b.setMessage(R.string.alertCorreo);
                 b.setPositiveButton(R.string.volverMandar, new DialogInterface.OnClickListener() {
                   @Override
                   public void onClick(DialogInterface dialog, int which) {
                     user.sendEmailVerification();
-                    Toast.makeText(loginActivity.this,R.string.confirmacionCorreo,Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,R.string.confirmacionCorreo,Toast.LENGTH_LONG).show();
                   }
                 });
                 b.setNegativeButton(R.string.entendido, new DialogInterface.OnClickListener() {
@@ -137,7 +137,7 @@ public class loginActivity extends AppCompatActivity {
 
 
   public void onBackPressed() {
-    Intent intent = new Intent(loginActivity.this, MainActivity.class);
+    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
     startActivity(intent);
     finish();
   }

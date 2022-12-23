@@ -1,10 +1,10 @@
-package com.tfg.mifeed.core;
+package com.tfg.mifeed.controlador.utilidades;
 
 import android.util.Patterns;
 
 import java.util.regex.Pattern;
 
-public class validaciones {
+public class Validaciones {
     public static String validacionEmail(String emailUsuario){
         if (emailUsuario.isEmpty()) {
             return "vacio";

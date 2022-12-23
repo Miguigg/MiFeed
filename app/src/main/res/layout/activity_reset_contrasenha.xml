@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CC4949"
-    tools:context=".view.resetContrasenha">
+    tools:context=".view.ResetContrasenha">
 
     <ImageView
         android:id="@+id/imageView10"
@@ -15,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/iconv2" />
+        app:srcCompat="@drawable/ic_app_v2" />
 
     <TextView
         android:id="@+id/registro2"
@@ -47,8 +47,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="100dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/edittext_fondo"
-            android:drawableStart="@drawable/email_material"
+            android:background="@drawable/fondo_editext"
+            android:drawableStart="@drawable/ic_email"
             android:ems="10"
             android:hint="@string/correo"
             android:inputType="textPersonName"
@@ -72,7 +72,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/aceptar" />
+                app:srcCompat="@drawable/btn_aceptar" />
 
             <TextView
                 android:id="@+id/textView6"

@@ -22,18 +22,18 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tfg.mifeed.R;
-import com.tfg.mifeed.core.Usuario;
-import com.tfg.mifeed.core.validaciones;
+import com.tfg.mifeed.modelo.Usuario;
+import com.tfg.mifeed.controlador.utilidades.Validaciones;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class registroActivity extends AppCompatActivity implements View.OnClickListener {
-  private validaciones validaciones = new validaciones();
+public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
+  private Validaciones validaciones = new Validaciones();
   private FirebaseAuth mAuth;
   FirebaseFirestore f;
   Map<String, Object> user = new HashMap<>();
-  final appActivity app = (appActivity) this.getApplication();
+  final AppActivity app = (AppActivity) this.getApplication();
   private EditText nombre, email, contrasenha1, contrasenha2;
   private ConstraintLayout registro, toInicioSesion;
 
@@ -55,7 +55,7 @@ public class registroActivity extends AppCompatActivity implements View.OnClickL
 
   @Override
   public void onBackPressed() {
-    startActivity(new Intent(registroActivity.this, MainActivity.class));
+    startActivity(new Intent(RegistroActivity.this, MainActivity.class));
     finish();
   }
 
@@ -66,7 +66,7 @@ public class registroActivity extends AppCompatActivity implements View.OnClickL
         registroUsuario();
         break;
       case R.id.accionInicio:
-        startActivity(new Intent(registroActivity.this, loginActivity.class));
+        startActivity(new Intent(RegistroActivity.this, LoginActivity.class));
         finish();
         break;
     }
@@ -152,11 +152,11 @@ public class registroActivity extends AppCompatActivity implements View.OnClickL
                             @Override
                             public void onComplete(@NonNull Task<DocumentReference> task) {
                               if (task.isSuccessful()) {
-                                Intent intent = new Intent(registroActivity.this,MainActivity.class);
+                                Intent intent = new Intent(RegistroActivity.this,MainActivity.class);
                                 startActivity(intent);
                               }else{
                                 Toast.makeText(
-                                                registroActivity.this,
+                                                RegistroActivity.this,
                                                 "Registro fallido",
                                                 Toast.LENGTH_LONG)
                                         .show();
@@ -167,7 +167,7 @@ public class registroActivity extends AppCompatActivity implements View.OnClickL
                   try {
                     throw task.getException();
                   } catch(FirebaseAuthUserCollisionException e) {
-                    Toast.makeText(registroActivity.this,"Email ya Existe",Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegistroActivity.this,"Email ya Existe",Toast.LENGTH_LONG).show();
                   } catch(Exception e) {
                     Log.e("TAG", e.getMessage());
                   }
@@ -181,7 +181,7 @@ public class registroActivity extends AppCompatActivity implements View.OnClickL
     SharedPreferences.Editor editor = sharedpreferences.edit();
     editor.putString("email",email);
     editor.putString("id",id);
-    Toast.makeText(registroActivity.this,email,Toast.LENGTH_LONG).show();
+    Toast.makeText(RegistroActivity.this,email,Toast.LENGTH_LONG).show();
     editor.commit();
     editor.apply();
   }

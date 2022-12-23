@@ -1,4 +1,4 @@
-package com.tfg.mifeed.core;
+package com.tfg.mifeed.modelo;
 
 public class Usuario {
     private String nombre;

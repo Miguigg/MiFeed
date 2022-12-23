@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CC4949"
-    tools:context="com.tfg.mifeed.view.registroActivity">
+    tools:context="com.tfg.mifeed.view.RegistroActivity">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -48,8 +48,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="32dp"
                 android:autofillHints=""
-                android:background="@drawable/edittext_fondo"
-                android:drawableStart="@drawable/user_material"
+                android:background="@drawable/fondo_editext"
+                android:drawableStart="@drawable/ic_user_slim"
                 android:ems="10"
                 android:hint="@string/correo"
                 android:inputType="textPersonName"
@@ -76,8 +76,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="32dp"
                 android:autofillHints="emailAddress"
-                android:background="@drawable/edittext_fondo"
-                android:drawableStart="@drawable/email_material"
+                android:background="@drawable/fondo_editext"
+                android:drawableStart="@drawable/ic_email"
                 android:ems="10"
                 android:hint="@string/correo"
                 android:inputType="textPersonName"
@@ -104,8 +104,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="32dp"
                 android:autofillHints="password"
-                android:background="@drawable/edittext_fondo"
-                android:drawableStart="@drawable/passwd_material"
+                android:background="@drawable/fondo_editext"
+                android:drawableStart="@drawable/ic_pass"
                 android:ems="10"
                 android:hint="@string/correo"
                 android:inputType="textPassword"
@@ -122,8 +122,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="32dp"
                 android:autofillHints="password"
-                android:background="@drawable/edittext_fondo"
-                android:drawableStart="@drawable/passwd_material"
+                android:background="@drawable/fondo_editext"
+                android:drawableStart="@drawable/ic_pass"
                 android:ems="10"
                 android:hint="@string/correo"
                 android:inputType="textPassword"
@@ -162,7 +162,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/atras" />
+                        app:srcCompat="@drawable/btn_atras" />
 
                     <TextView
                         android:id="@+id/textView2"
@@ -194,7 +194,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/aceptar" />
+                        app:srcCompat="@drawable/btn_aceptar" />
 
                     <TextView
                         android:id="@+id/textView5"

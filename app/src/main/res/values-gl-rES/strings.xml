@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MiFeed</string>
+    <string name="incioSesion">Inicia Sesión</string>
+    <string name="correo">Correo</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="Login">Iniciar Sesión</string>
+    <string name="Reg">Ir a registro</string>
+    <string name="msg">A información é poder</string>
+    <string name="toRegistro">Rexistrarme</string>
+    <string name="toLogin">Iniciar sesión</string>
+    <string name="bienvenida">Benvido!</string>
+    <string name="registrate">Rexistro</string>
+    <string name="accionReg">Rexistrarme</string>
+    <string name="regConEmail">Rexistrarme con Google</string>
+    <string name="accionLog">Iniciar sesión</string>
+    <string name="cerrarApp">Seguro que queres sair da aplicación?</string>
+    <string name="aceptarCierre">Pechar</string>
+    <string name="cancelarCierre">Seguir na aplicacion</string>
+    <string name="prefs">MiFeedPrefs</string>
+    <string name="olvido">Olvidei a miña contrasinal</string>
+    <string name="cambio">Cambiar a miña contrasinal</string>
+    <string name="confirmacioCambio">Hemos enviado un correo a  tua conta</string>
+    <string name="logoutText">Cerrar sesión</string>
+    <string name="errNombreUsuario">Debes introducir o teu nome</string>
+    <string name="errNombreUsuarioNoValido">So podes introducir hasta 15 caracteres, sin especiales</string>
+    <string name="errContraseñaVacia">Debes introducir unha contrasinal para a conta</string>
+    <string name="errContraseñaNoCoincide">As contrasinais non coinciden</string>
+    <string name="errContraseñaDebil">A tua contrasinal é demasiado débil</string>
+    <string name="errContraseñaMal">A contrasinal introducida é erronea</string>
+    <string name="errEmailNoValido">O email non é válido</string>
+    <string name="errEmailExistente">O email xa está asignado a outra conta</string>
+    <string name="errEmailVacio">Debes introducir un email</string>
+    <string name="errLogin">O email ou a contrasinal introducidos non son válidos</string>
+    <string name="confirmacionCorreo">Hemos envíado un correo para que verifiques a tua conta</string>
+    <string name="alertCorreo">Tés que verificar a tua conta, se non atopas o correo mira en spam</string>
+    <string name="volverMandar">Volver mandar o email</string>
+    <string name="entendido">Entendido</string>
+    <string name="descripcionLogin">Botón para iniciar sesión</string>
+    <string name="descripcionRegistro">Botón para ejecutar o rexistro</string>
+    <string name="descripcionLogotipo">Logotipo da aplicación</string>
+    <string name="descripcionDecoracion">Decoración aplicación</string>
+    <string name="descripcionlogoGoogle">Logotipo Google</string>
+    <string name="descripcionRegistroGoogle">Botón de registro con cuenta de Google</string>
+</resources>

@@ -9,7 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
 
-public class gestioncuentaActivity extends AppCompatActivity {
+public class GestioncuentaActivity extends AppCompatActivity {
     private ConstraintLayout btnLogout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,6 @@ public class gestioncuentaActivity extends AppCompatActivity {
 
     private void logout() {
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(gestioncuentaActivity.this,MainActivity.class));
+        startActivity(new Intent(GestioncuentaActivity.this,MainActivity.class));
     }
 }

@@ -15,10 +15,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
-import com.tfg.mifeed.core.validaciones;
+import com.tfg.mifeed.controlador.utilidades.Validaciones;
 
-public class resetContrasenha extends AppCompatActivity {
-    private validaciones validaciones = new validaciones();
+public class ResetContrasenha extends AppCompatActivity {
+    private Validaciones validaciones = new Validaciones();
     private EditText correo;
     private ConstraintLayout btnReseteo;
     FirebaseAuth auth;
@@ -56,9 +56,9 @@ public class resetContrasenha extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                   if (task.isSuccessful()) {
-                    Toast.makeText(resetContrasenha.this, R.string.confirmacioCambio,
+                    Toast.makeText(ResetContrasenha.this, R.string.confirmacioCambio,
                             Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(resetContrasenha.this,loginActivity.class));
+                    startActivity(new Intent(ResetContrasenha.this, LoginActivity.class));
                   } else {
                     errReset.setText(R.string.errEmailNoValido);
                     errReset.setVisibility(View.VISIBLE);

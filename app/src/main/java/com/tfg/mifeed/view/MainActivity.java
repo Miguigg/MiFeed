@@ -36,12 +36,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void gotoRegistro() {
-        startActivity(new Intent(MainActivity.this,registroActivity.class));
+        startActivity(new Intent(MainActivity.this, RegistroActivity.class));
         finish();
     }
 
     private void gotoLogin() {
-        startActivity(new Intent(MainActivity.this,loginActivity.class));
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
         finish();
     }
 }

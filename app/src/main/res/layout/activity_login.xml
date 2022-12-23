@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CC4949"
-    tools:context="com.tfg.mifeed.view.loginActivity">
+    tools:context="com.tfg.mifeed.view.LoginActivity">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -44,8 +44,8 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="80dp"
                 android:layout_marginEnd="32dp"
-                android:background="@drawable/edittext_fondo"
-                android:drawableStart="@drawable/email_material"
+                android:background="@drawable/fondo_editext"
+                android:drawableStart="@drawable/ic_email"
                 android:ems="10"
                 android:hint="@string/correo"
                 android:inputType="textPersonName"
@@ -71,10 +71,10 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="60dp"
                 android:layout_marginEnd="32dp"
-                android:background="@drawable/edittext_fondo"
-                android:drawableStart="@drawable/passwd_material"
+                android:background="@drawable/fondo_editext"
+                android:drawableStart="@drawable/ic_pass"
                 android:ems="10"
-                android:hint="@string/correo"
+                android:hint="@string/contraseña"
                 android:inputType="textPersonName|textPassword"
                 android:padding="8dp"
                 android:textColor="#ffffff"
@@ -116,7 +116,7 @@
                         app:layout_constraintHorizontal_bias="1.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/aceptar" />
+                        app:srcCompat="@drawable/btn_aceptar" />
 
                     <TextView
                         android:id="@+id/textView"
@@ -151,7 +151,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/atras" />
+                        app:srcCompat="@drawable/btn_atras" />
 
                     <TextView
                         android:id="@+id/textView2"
@@ -184,7 +184,7 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/problemas" />
+                        app:srcCompat="@drawable/btn_problemas" />
 
                     <TextView
                         android:id="@+id/textView3"
@@ -214,7 +214,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:srcCompat="@drawable/top_wave2invertida" />
+        app:srcCompat="@drawable/top_wave_invertida" />
 
     <ImageView
         android:id="@+id/imageView6"
@@ -224,6 +224,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/iconv2" />
+        app:srcCompat="@drawable/ic_app_v2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
