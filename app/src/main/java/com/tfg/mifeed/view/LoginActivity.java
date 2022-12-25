@@ -1,24 +1,21 @@
 package com.tfg.mifeed.view;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.tfg.mifeed.R;
+import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
 
 public class LoginActivity extends AppCompatActivity {
@@ -90,48 +87,47 @@ public class LoginActivity extends AppCompatActivity {
       errPass.setVisibility(View.GONE);
     }
 
-
     if(esValido){
-      mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-        @Override
-        public void onComplete(@NonNull Task<AuthResult> task) {
-          if(task.isSuccessful()){
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if(user.isEmailVerified()){
-              startActivity(new Intent(LoginActivity.this, GestioncuentaActivity.class));
-              finish();
-              errPass.setVisibility(View.GONE);
-            }else{
-              if(!emailIsSent){
-                user.sendEmailVerification();
-                Toast.makeText(LoginActivity.this,R.string.confirmacionCorreo,Toast.LENGTH_LONG).show();
-                emailIsSent = true;
-              }else{
-                AlertDialog.Builder b = new AlertDialog.Builder(LoginActivity.this);
-                AlertDialog alert = b.create();
-                b.setMessage(R.string.alertCorreo);
-                b.setPositiveButton(R.string.volverMandar, new DialogInterface.OnClickListener() {
-                  @Override
-                  public void onClick(DialogInterface dialog, int which) {
-                    user.sendEmailVerification();
-                    Toast.makeText(LoginActivity.this,R.string.confirmacionCorreo,Toast.LENGTH_LONG).show();
-                  }
-                });
-                b.setNegativeButton(R.string.entendido, new DialogInterface.OnClickListener() {
-                  @Override
-                  public void onClick(DialogInterface dialog, int which) {
-                    alert.cancel();
-                  }
-                });
-                b.show();
-              }
-            }
-          }else{
-            errPass.setText(R.string.errLogin);
-            errPass.setVisibility(View.VISIBLE);
+      Log.d("enviado",String.valueOf(emailIsSent));
+      FirebaseServices.ejecutarLogin(mAuth,emailIsSent,email,pass,this.findViewById(android.R.id.content));
+      this.emailIsSent = true;
+    }
+  }
+
+  public void respuestaLogin(String res, View v){
+    TextView errorContra = v.findViewById(R.id.errLoginPass);
+    switch (res){
+      case "emailVerificado":
+        Log.d("ver","entramos");
+        v.getContext().startActivity(new Intent(v.getContext(), GestioncuentaActivity.class));
+        finish();
+        errorContra.setVisibility(View.GONE);
+        break;
+      case "emailNoEnviado":
+        Toast.makeText(v.getContext(),R.string.confirmacionCorreo,Toast.LENGTH_LONG).show();
+        break;
+      case "emailYaEnviado":
+        AlertDialog.Builder b = new AlertDialog.Builder(v.getContext());
+        AlertDialog alert = b.create();
+        b.setMessage(R.string.alertCorreo);
+        b.setPositiveButton(R.string.volverMandar, new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            FirebaseServices.mandarEmailVerificacion(FirebaseAuth.getInstance().getCurrentUser());
+            errorContra.setVisibility(View.GONE);
           }
-        }
-      });
+        });
+        b.setNegativeButton(R.string.entendido, new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            alert.cancel();
+            errorContra.setVisibility(View.GONE);
+          }
+        });
+        b.show();
+      case "loginFallido":
+        errorContra.setText(R.string.errLogin);
+        errorContra.setVisibility(View.VISIBLE);
     }
   }
 

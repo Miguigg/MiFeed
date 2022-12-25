@@ -7,14 +7,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
+import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
 
 public class ResetContrasenha extends AppCompatActivity {
@@ -50,22 +48,19 @@ public class ResetContrasenha extends AppCompatActivity {
             errReset.setVisibility(View.GONE);
         }
         if(isvalid){
-      auth.sendPasswordResetEmail(email)
-          .addOnCompleteListener(
-              new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                  if (task.isSuccessful()) {
-                    Toast.makeText(ResetContrasenha.this, R.string.confirmacioCambio,
-                            Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(ResetContrasenha.this, LoginActivity.class));
-                  } else {
-                    errReset.setText(R.string.errEmailNoValido);
-                    errReset.setVisibility(View.VISIBLE);
-                  }
-                }
-              });
+            FirebaseServices.resetEmail(email,auth,this.findViewById(android.R.id.content));
         }
     }
-
+    public void validacionOK(boolean correcto, View v){
+        TextView errReset = v.findViewById(R.id.errReset);
+        if(correcto){
+            Toast.makeText(v.getContext(), R.string.confirmacioCambio,
+                    Toast.LENGTH_SHORT).show();
+            v.getContext().startActivity(new Intent(v.getContext(), LoginActivity.class));
+            finish();
+        }else{
+            errReset.setText(R.string.errEmailNoValido);
+            errReset.setVisibility(View.VISIBLE);
+        }
+    }
 }

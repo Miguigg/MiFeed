@@ -21,6 +21,7 @@
     <string name="cambio">Cambiar tu contraseña</string>
     <string name="confirmacioCambio">Te hemos mandado un correo con ayuda</string>
     <string name="logoutText">Cerrar sesión</string>
+    <string name="nombreUsr">Nombre usuario</string>
 
 
     <string name="errNombreUsuario">Debes introducir tu nombre</string>
@@ -33,6 +34,7 @@
     <string name="errEmailExistente">El email ya esta asignado a otra cuenta</string>
     <string name="errEmailVacio">Debes introducir un email</string>
     <string name="errLogin">El email o la contraseña introducidos no son validos</string>
+    <string name="errRegistro">Registro fallido</string>
     <string name="confirmacionCorreo">Te hemos envíado un correo para que verifiques tu cuenta</string>
     <string name="alertCorreo">Tienes que verificar tu cuenta para poder iniciar sesión, revisa tu spam si no lo encuentras</string>
     <string name="volverMandar">Volver a mandar email</string>

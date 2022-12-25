@@ -42,4 +42,6 @@
     <string name="descripcionDecoracion">Decoración aplicación</string>
     <string name="descripcionlogoGoogle">Logotipo Google</string>
     <string name="descripcionRegistroGoogle">Botón de registro con cuenta de Google</string>
+    <string name="nombreUsr">Nome de usuario</string>
+    <string name="errRegistro">Rexistro non válido</string>
 </resources>

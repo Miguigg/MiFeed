@@ -4,26 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tfg.mifeed.R;
-import com.tfg.mifeed.modelo.Usuario;
+import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
+import com.tfg.mifeed.modelo.Usuario;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +25,7 @@ import java.util.Map;
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
   private Validaciones validaciones = new Validaciones();
   private FirebaseAuth mAuth;
-  FirebaseFirestore f;
+  FirebaseFirestore firestore;
   Map<String, Object> user = new HashMap<>();
   final AppActivity app = (AppActivity) this.getApplication();
   private EditText nombre, email, contrasenha1, contrasenha2;
@@ -132,48 +126,23 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
   }
 
   private void insercionEnFirebase(Usuario usuario) {
-    f = FirebaseFirestore.getInstance();
-    mAuth
-        .createUserWithEmailAndPassword(usuario.getEmail(), usuario.getContraseña())
-        .addOnCompleteListener(
-            new OnCompleteListener<AuthResult>() {
-              @Override
-              public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
+    firestore = FirebaseFirestore.getInstance();
+    FirebaseServices.ejecutarRegistro(firestore,mAuth,usuario,this.findViewById(android.R.id.content));
+  }
 
-                  user.put("id", mAuth.getCurrentUser().getUid());
-                  user.put("nombre", usuario.getNombre());
-                  user.put("correo", usuario.getEmail());
-                  user.put("contraseña", usuario.getContraseña());
-                  f.collection("Users")
-                      .add(user)
-                      .addOnCompleteListener(
-                          new OnCompleteListener<DocumentReference>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentReference> task) {
-                              if (task.isSuccessful()) {
-                                Intent intent = new Intent(RegistroActivity.this,MainActivity.class);
-                                startActivity(intent);
-                              }else{
-                                Toast.makeText(
-                                                RegistroActivity.this,
-                                                "Registro fallido",
-                                                Toast.LENGTH_LONG)
-                                        .show();
-                              }
-                            }
-                          });
-                }else{
-                  try {
-                    throw task.getException();
-                  } catch(FirebaseAuthUserCollisionException e) {
-                    Toast.makeText(RegistroActivity.this,"Email ya Existe",Toast.LENGTH_LONG).show();
-                  } catch(Exception e) {
-                    Log.e("TAG", e.getMessage());
-                  }
-                }
-              }
-            });
+  public void respuestaRegistro(String res,View v){
+    switch (res){
+      case "valido":
+        Intent intent = new Intent(v.getContext(),MainActivity.class);
+        v.getContext().startActivity(intent);
+        finish();
+        break;
+      case "NoValido":
+        Toast.makeText(v.getContext(),R.string.errRegistro,Toast.LENGTH_LONG).show();
+        break;
+      case "yaExiste":
+        Toast.makeText(v.getContext(),R.string.errEmailExistente,Toast.LENGTH_LONG).show();
+    }
   }
 
   private void setSession(String email, String id) {
