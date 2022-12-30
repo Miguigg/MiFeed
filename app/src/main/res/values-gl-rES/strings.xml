@@ -44,4 +44,7 @@
     <string name="descripcionRegistroGoogle">Botón de registro con cuenta de Google</string>
     <string name="nombreUsr">Nome de usuario</string>
     <string name="errRegistro">Rexistro non válido</string>
+    <string name="RegCorrecto">Rexistrado correctamente</string>
+    <string name="errConn">Non tes conexion, non poderás rexistrarte ou logearte</string>
+    <string name="CorrectConn">Conexión establecida correctamente</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.tfg.mifeed.view;
+package com.tfg.mifeed.controlador.activities.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
 
 public class ResetContrasenha extends AppCompatActivity {
@@ -33,24 +34,29 @@ public class ResetContrasenha extends AppCompatActivity {
     }
 
     private void reseteo() {
-        String email = correo.getText().toString().trim();
-        TextView errReset = findViewById(R.id.errReset);
-        boolean isvalid = true;
-        if(validaciones.validacionEmail(email) == "vacio"){
-            errReset.setText(R.string.errEmailVacio);
-            isvalid = false;
-            errReset.setVisibility(View.VISIBLE);
-        }else if(validaciones.validacionEmail(email) == "falso"){
-            errReset.setText(R.string.errEmailNoValido);
-            isvalid = false;
-            errReset.setVisibility(View.VISIBLE);
+        if(!CheckConexion.getEstadoActual(ResetContrasenha.this)){
+            Toast.makeText(ResetContrasenha.this,R.string.errConn,Toast.LENGTH_LONG).show();
         }else{
-            errReset.setVisibility(View.GONE);
-        }
-        if(isvalid){
-            FirebaseServices.resetEmail(email,auth,this.findViewById(android.R.id.content));
+            String email = correo.getText().toString().trim();
+            TextView errReset = findViewById(R.id.errReset);
+            boolean isvalid = true;
+            if(validaciones.validacionEmail(email) == "vacio"){
+                errReset.setText(R.string.errEmailVacio);
+                isvalid = false;
+                errReset.setVisibility(View.VISIBLE);
+            }else if(validaciones.validacionEmail(email) == "falso"){
+                errReset.setText(R.string.errEmailNoValido);
+                isvalid = false;
+                errReset.setVisibility(View.VISIBLE);
+            }else{
+                errReset.setVisibility(View.GONE);
+            }
+            if(isvalid){
+                FirebaseServices.resetEmail(email,auth,this.findViewById(android.R.id.content));
+            }
         }
     }
+
     public void validacionOK(boolean correcto, View v){
         TextView errReset = v.findViewById(R.id.errReset);
         if(correcto){

@@ -1,4 +1,4 @@
-package com.tfg.mifeed.view;
+package com.tfg.mifeed.controlador.activities.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -14,8 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
 
 public class LoginActivity extends AppCompatActivity {
@@ -30,6 +32,13 @@ public class LoginActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
+
+    if(!CheckConexion.getEstadoActual(LoginActivity.this)){
+      Toast.makeText(LoginActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
+    }else{
+      Toast.makeText(LoginActivity.this,R.string.CorrectConn,Toast.LENGTH_LONG).show();
+    }
+
     correo = findViewById(R.id.editTextCorreo);
     contraseña = findViewById(R.id.editTextTextPass);
     errEmail = findViewById(R.id.errLoginEmail);
@@ -57,40 +66,43 @@ public class LoginActivity extends AppCompatActivity {
   }
 
   private void iniciarSesion() {
-    String email = correo.getText().toString().trim();
-    String pass = contraseña.getText().toString().trim();
-
-
-    boolean esValido = true;
-
-    if(validaciones.validacionEmail(email) == "vacio"){
-      errEmail.setText(R.string.errEmailVacio);
-      esValido = false;
-      errEmail.setVisibility(View.VISIBLE);
-    }else if(validaciones.validacionEmail(email) == "falso"){
-      errEmail.setText(R.string.errEmailNoValido);
-      esValido = false;
-      errEmail.setVisibility(View.VISIBLE);
+    if(!CheckConexion.getEstadoActual(LoginActivity.this)){
+      Toast.makeText(LoginActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
     }else{
-      errEmail.setVisibility(View.GONE);
-    }
+      String email = correo.getText().toString().trim();
+      String pass = contraseña.getText().toString().trim();
 
-    if(validaciones.validacionContraseña(pass) == "vacia"){
-      errPass.setText(R.string.errContraseñaVacia);
-      esValido = false;
-      errPass.setVisibility(View.VISIBLE);
-    }else if(validaciones.validacionContraseña(pass) == "noSegura"){
-      errPass.setText(R.string.errContraseñaDebil);
-      esValido = false;
-      errPass.setVisibility(View.VISIBLE);
-    }else{
-      errPass.setVisibility(View.GONE);
-    }
 
-    if(esValido){
-      Log.d("enviado",String.valueOf(emailIsSent));
-      FirebaseServices.ejecutarLogin(mAuth,emailIsSent,email,pass,this.findViewById(android.R.id.content));
-      this.emailIsSent = true;
+      boolean esValido = true;
+
+      if(validaciones.validacionEmail(email) == "vacio"){
+        errEmail.setText(R.string.errEmailVacio);
+        esValido = false;
+        errEmail.setVisibility(View.VISIBLE);
+      }else if(validaciones.validacionEmail(email) == "falso"){
+        errEmail.setText(R.string.errEmailNoValido);
+        esValido = false;
+        errEmail.setVisibility(View.VISIBLE);
+      }else{
+        errEmail.setVisibility(View.GONE);
+      }
+
+      if(validaciones.validacionContraseña(pass) == "vacia"){
+        errPass.setText(R.string.errContraseñaVacia);
+        esValido = false;
+        errPass.setVisibility(View.VISIBLE);
+      }else if(validaciones.validacionContraseña(pass) == "noSegura"){
+        errPass.setText(R.string.errContraseñaDebil);
+        esValido = false;
+        errPass.setVisibility(View.VISIBLE);
+      }else{
+        errPass.setVisibility(View.GONE);
+      }
+
+      if(esValido){
+        FirebaseServices.ejecutarLogin(mAuth,emailIsSent,email,pass,this.findViewById(android.R.id.content));
+        this.emailIsSent = true;
+      }
     }
   }
 
@@ -98,9 +110,9 @@ public class LoginActivity extends AppCompatActivity {
     TextView errorContra = v.findViewById(R.id.errLoginPass);
     switch (res){
       case "emailVerificado":
-        Log.d("ver","entramos");
-        v.getContext().startActivity(new Intent(v.getContext(), GestioncuentaActivity.class));
-        finish();
+        FirebaseFirestore db =  FirebaseFirestore.getInstance();
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseServices.comprobarLogin(db,userID, v.findViewById(android.R.id.content));
         errorContra.setVisibility(View.GONE);
         break;
       case "emailNoEnviado":
@@ -128,6 +140,19 @@ public class LoginActivity extends AppCompatActivity {
       case "loginFallido":
         errorContra.setText(R.string.errLogin);
         errorContra.setVisibility(View.VISIBLE);
+    }
+  }
+
+  public void accionLogin(View v, String res, String exito) {
+    switch (exito){
+      case "true":
+        Log.d("res",res);
+        v.getContext().startActivity(new Intent(v.getContext(), GestioncuentaActivity.class));
+        finish();
+        break;
+      case "false":
+        Toast.makeText(v.getContext(),R.string.errLogin,Toast.LENGTH_LONG).show();
+        break;
     }
   }
 

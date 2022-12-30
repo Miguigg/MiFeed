@@ -1,4 +1,4 @@
-package com.tfg.mifeed.view;
+package com.tfg.mifeed.controlador.activities.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tfg.mifeed.R;
+import com.tfg.mifeed.controlador.utilidades.Validaciones;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseFirestore f;
@@ -33,7 +34,10 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Validaciones.confirmarExit(MainActivity.this);
+    }
 
     private void gotoRegistro() {
         startActivity(new Intent(MainActivity.this, RegistroActivity.class));

@@ -14,6 +14,7 @@
     <string name="regConEmail">Registrarme con Google</string>
     <string name="accionLog">Iniciar sesión</string>
     <string name="cerrarApp">¿Seguro que quieres salir de la aplicación?</string>
+    <string name="borrarCuenta">¿Seguro que quieres borrar tu cuenta?</string>
     <string name="aceptarCierre">Cerrar</string>
     <string name="cancelarCierre">Seguir en la aplicación</string>
     <string name="prefs">MiFeedPrefs</string>
@@ -22,6 +23,15 @@
     <string name="confirmacioCambio">Te hemos mandado un correo con ayuda</string>
     <string name="logoutText">Cerrar sesión</string>
     <string name="nombreUsr">Nombre usuario</string>
+    <string name="RegCorrecto">Registrado correctamente</string>
+    <string name="editNombre">Modificar nombre</string>
+    <string name="editCorreo">Modificar correo</string>
+    <string name="editPass">Modificar contraseña</string>
+    <string name="txtEditPrensa">Modifica tu prensa</string>
+    <string name="txtEditPodcast">Modifica tus Podcast</string>
+    <string name="btnBorrarCuenta">Borrar cuenta</string>
+    <string name="errSesion">Ha ocurido un error con tu sesión, vuelve a iniciarla</string>
+    <string name="cuentaBorrada">Tu cuenta ha sido borrada correctamente</string>
 
 
     <string name="errNombreUsuario">Debes introducir tu nombre</string>
@@ -35,6 +45,8 @@
     <string name="errEmailVacio">Debes introducir un email</string>
     <string name="errLogin">El email o la contraseña introducidos no son validos</string>
     <string name="errRegistro">Registro fallido</string>
+    <string name="errConn">No tienes conexión, asi que no podrás logearte o registrarte</string>
+    <string name="CorrectConn">Conexión establecida correctamente</string>
     <string name="confirmacionCorreo">Te hemos envíado un correo para que verifiques tu cuenta</string>
     <string name="alertCorreo">Tienes que verificar tu cuenta para poder iniciar sesión, revisa tu spam si no lo encuentras</string>
     <string name="volverMandar">Volver a mandar email</string>

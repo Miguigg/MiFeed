@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CC4949"
-    tools:context="com.tfg.mifeed.view.LoginActivity">
+    tools:context="com.tfg.mifeed.controlador.activities.Activities.LoginActivity">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -93,6 +93,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_marginTop="40dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -215,15 +216,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
         app:srcCompat="@drawable/top_wave_invertida" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="113dp"
-        android:layout_height="97dp"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_app_v2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

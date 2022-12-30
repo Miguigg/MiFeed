@@ -1,4 +1,4 @@
-package com.tfg.mifeed.view;
+package com.tfg.mifeed.controlador.activities.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,17 +16,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
 import com.tfg.mifeed.modelo.Usuario;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
   private Validaciones validaciones = new Validaciones();
   private FirebaseAuth mAuth;
   FirebaseFirestore firestore;
-  Map<String, Object> user = new HashMap<>();
   final AppActivity app = (AppActivity) this.getApplication();
   private EditText nombre, email, contrasenha1, contrasenha2;
   private ConstraintLayout registro, toInicioSesion;
@@ -35,6 +32,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_registro);
+
     mAuth = FirebaseAuth.getInstance();
 
     nombre = findViewById(R.id.nombre);
@@ -67,61 +65,66 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
   }
 
   private void registroUsuario() {
-
-    String nombreUsuario = nombre.getText().toString().trim();
-    String emailUsuario = email.getText().toString().trim();
-    String contrasenhaUsuario1 = contrasenha1.getText().toString().trim();
-    String contrasenhaUsuario2 = contrasenha2.getText().toString().trim();
-
-    TextView errUsuario = findViewById(R.id.errUsuario);
-    TextView errPass = findViewById(R.id.errPass);
-    TextView errEmail = findViewById(R.id.errEmail);
-
-    boolean isvalid = true;
-
-
-    if(validaciones.validacionUser(nombreUsuario) == "vacio"){
-      errUsuario.setText(R.string.errNombreUsuario);
-      errUsuario.setVisibility(View.VISIBLE);
-      isvalid = false;
-    }else if(validaciones.validacionUser(nombreUsuario) == "noValido"){
-      errUsuario.setText(R.string.errNombreUsuarioNoValido);
-      errUsuario.setVisibility(View.VISIBLE);
-      isvalid = false;
+    //CheckConexion.comprobacionPeriodica(RegistroActivity.this);
+    if(!CheckConexion.getEstadoActual(RegistroActivity.this)){
+      Toast.makeText(RegistroActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
     }else{
-      errUsuario.setVisibility(View.GONE);
-    }
 
-    if(validaciones.validacionEmail(emailUsuario) == "vacio"){
-      errEmail.setText(R.string.errEmailVacio);
-      isvalid = false;
-      errEmail.setVisibility(View.VISIBLE);
-    }else if(validaciones.validacionEmail(emailUsuario) == "falso"){
-      errEmail.setText(R.string.errEmailNoValido);
-      isvalid = false;
-      errEmail.setVisibility(View.VISIBLE);
-    }else{
-      errEmail.setVisibility(View.GONE);
-    }
+      String nombreUsuario = nombre.getText().toString().trim();
+      String emailUsuario = email.getText().toString().trim();
+      String contrasenhaUsuario1 = contrasenha1.getText().toString().trim();
+      String contrasenhaUsuario2 = contrasenha2.getText().toString().trim();
 
-    if (validaciones.validacionContraseña(contrasenhaUsuario1,contrasenhaUsuario2) == "vacia"){
-      errPass.setText(R.string.errContraseñaVacia);
-      isvalid = false;
-      errPass.setVisibility(View.VISIBLE);
-    }else if(validaciones.validacionContraseña(contrasenhaUsuario1,contrasenhaUsuario2) == "noSegura"){
-      errPass.setText(R.string.errContraseñaDebil);
-      isvalid = false;
-      errPass.setVisibility(View.VISIBLE);
-    }else if(validaciones.validacionContraseña(contrasenhaUsuario1,contrasenhaUsuario2) == "distintas"){
-      errPass.setText(R.string.errContraseñaNoCoincide);
-      isvalid = false;
-      errPass.setVisibility(View.VISIBLE);
-    }else{
-      errPass.setVisibility(View.GONE);
-    }
+      TextView errUsuario = findViewById(R.id.errUsuario);
+      TextView errPass = findViewById(R.id.errPass);
+      TextView errEmail = findViewById(R.id.errEmail);
 
-    if (isvalid) {
-      insercionEnFirebase(new Usuario(nombreUsuario, emailUsuario, contrasenhaUsuario1));
+      boolean isvalid = true;
+
+
+      if(validaciones.validacionUser(nombreUsuario) == "vacio"){
+        errUsuario.setText(R.string.errNombreUsuario);
+        errUsuario.setVisibility(View.VISIBLE);
+        isvalid = false;
+      }else if(validaciones.validacionUser(nombreUsuario) == "noValido"){
+        errUsuario.setText(R.string.errNombreUsuarioNoValido);
+        errUsuario.setVisibility(View.VISIBLE);
+        isvalid = false;
+      }else{
+        errUsuario.setVisibility(View.GONE);
+      }
+
+      if(validaciones.validacionEmail(emailUsuario) == "vacio"){
+        errEmail.setText(R.string.errEmailVacio);
+        isvalid = false;
+        errEmail.setVisibility(View.VISIBLE);
+      }else if(validaciones.validacionEmail(emailUsuario) == "falso"){
+        errEmail.setText(R.string.errEmailNoValido);
+        isvalid = false;
+        errEmail.setVisibility(View.VISIBLE);
+      }else{
+        errEmail.setVisibility(View.GONE);
+      }
+
+      if (validaciones.validacionContraseña(contrasenhaUsuario1,contrasenhaUsuario2) == "vacia"){
+        errPass.setText(R.string.errContraseñaVacia);
+        isvalid = false;
+        errPass.setVisibility(View.VISIBLE);
+      }else if(validaciones.validacionContraseña(contrasenhaUsuario1,contrasenhaUsuario2) == "noSegura"){
+        errPass.setText(R.string.errContraseñaDebil);
+        isvalid = false;
+        errPass.setVisibility(View.VISIBLE);
+      }else if(validaciones.validacionContraseña(contrasenhaUsuario1,contrasenhaUsuario2) == "distintas"){
+        errPass.setText(R.string.errContraseñaNoCoincide);
+        isvalid = false;
+        errPass.setVisibility(View.VISIBLE);
+      }else{
+        errPass.setVisibility(View.GONE);
+      }
+
+      if (isvalid) {
+        insercionEnFirebase(new Usuario(nombreUsuario, emailUsuario, contrasenhaUsuario1));
+      }
     }
   }
 
@@ -135,6 +138,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
       case "valido":
         Intent intent = new Intent(v.getContext(),MainActivity.class);
         v.getContext().startActivity(intent);
+        Toast.makeText(v.getContext(),R.string.RegCorrecto,Toast.LENGTH_LONG).show();
         finish();
         break;
       case "NoValido":

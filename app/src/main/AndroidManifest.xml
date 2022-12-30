@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,21 +14,21 @@
         android:windowSoftInputMode="adjustPan"
         tools:targetApi="31">
         <activity
-            android:name=".view.ResetContrasenha"
+            android:name=".controlador.activities.Activities.ResetContrasenha"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".view.GestioncuentaActivity"
+            android:name=".controlador.activities.Activities.GestioncuentaActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".view.RegistroActivity"
+            android:name=".controlador.activities.Activities.RegistroActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan">
             <meta-data
@@ -36,7 +36,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".view.LoginActivity"
+            android:name=".controlador.activities.Activities.LoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan">
             <meta-data
@@ -44,7 +44,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".view.MainActivity"
+            android:name=".controlador.activities.Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
