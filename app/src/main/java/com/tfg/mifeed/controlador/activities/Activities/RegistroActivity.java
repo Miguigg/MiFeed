@@ -24,7 +24,6 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
   private Validaciones validaciones = new Validaciones();
   private FirebaseAuth mAuth;
   FirebaseFirestore firestore;
-  final AppActivity app = (AppActivity) this.getApplication();
   private EditText nombre, email, contrasenha1, contrasenha2;
   private ConstraintLayout registro, toInicioSesion;
 
@@ -32,8 +31,6 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_registro);
-
-    mAuth = FirebaseAuth.getInstance();
 
     nombre = findViewById(R.id.nombre);
     email = findViewById(R.id.correo);
@@ -43,11 +40,14 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     toInicioSesion = findViewById(R.id.accionInicio);
     registro.setOnClickListener(this);
     toInicioSesion.setOnClickListener(this);
+    mAuth = FirebaseAuth.getInstance();
+    //final AppActivity app = (AppActivity) this.getApplication();
+    //Toast.makeText(RegistroActivity.this,String.valueOf(app.generarBarraInferior()),Toast.LENGTH_LONG).show();
   }
 
   @Override
   public void onBackPressed() {
-    startActivity(new Intent(RegistroActivity.this, MainActivity.class));
+    startActivity(new Intent(RegistroActivity.this, BienvenidaActivity.class));
     finish();
   }
 
@@ -136,7 +136,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
   public void respuestaRegistro(String res,View v){
     switch (res){
       case "valido":
-        Intent intent = new Intent(v.getContext(),MainActivity.class);
+        Intent intent = new Intent(v.getContext(), BienvenidaActivity.class);
         v.getContext().startActivity(intent);
         Toast.makeText(v.getContext(),R.string.RegCorrecto,Toast.LENGTH_LONG).show();
         finish();

@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_login);
 
+    //comprobamos  que el usuario tenga conexion en este momento
     if(!CheckConexion.getEstadoActual(LoginActivity.this)){
       Toast.makeText(LoginActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
     }else{
@@ -66,6 +67,11 @@ public class LoginActivity extends AppCompatActivity {
   }
 
   private void iniciarSesion() {
+    /*
+    * obtiene los datos introducido por el usuario y utiliza las funciones de la clase Validaciones
+    * para comprobar que sean validos, si es así, llama a la funciones correspondiente a la login
+    * ejecutarLogin()
+    * */
     if(!CheckConexion.getEstadoActual(LoginActivity.this)){
       Toast.makeText(LoginActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
     }else{
@@ -100,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
       }
 
       if(esValido){
+        //llama a la funcion de login de FirebaseServices
         FirebaseServices.ejecutarLogin(mAuth,emailIsSent,email,pass,this.findViewById(android.R.id.content));
         this.emailIsSent = true;
       }
@@ -107,18 +114,24 @@ public class LoginActivity extends AppCompatActivity {
   }
 
   public void respuestaLogin(String res, View v){
+    /*
+    * Función accedida por FirebaseServices y que comprueba si fue un login exitoso y actua en consecuencia
+    * */
     TextView errorContra = v.findViewById(R.id.errLoginPass);
     switch (res){
+      //Si los datos son correctos y el email esta verificado, ejecuta el login
       case "emailVerificado":
         FirebaseFirestore db =  FirebaseFirestore.getInstance();
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseServices.comprobarLogin(db,userID, v.findViewById(android.R.id.content));
         errorContra.setVisibility(View.GONE);
         break;
+      //Si el email no esta verificado y MiFeed aun no se lo ha mandado, se lo envia y le avisa
       case "emailNoEnviado":
         Toast.makeText(v.getContext(),R.string.confirmacionCorreo,Toast.LENGTH_LONG).show();
         break;
       case "emailYaEnviado":
+        //Si el email ya ha sido enviado, le pregunta si quiere que se le mande otro
         AlertDialog.Builder b = new AlertDialog.Builder(v.getContext());
         AlertDialog alert = b.create();
         b.setMessage(R.string.alertCorreo);
@@ -138,12 +151,18 @@ public class LoginActivity extends AppCompatActivity {
         });
         b.show();
       case "loginFallido":
+        //Si algo falla durante el proceso, avisa de que ha ocurrido un error
         errorContra.setText(R.string.errLogin);
         errorContra.setVisibility(View.VISIBLE);
     }
   }
 
   public void accionLogin(View v, String res, String exito) {
+    /*
+    * Una vez ejecutado el login, se comprueba si es la primera vez que el usuario inicia sesion y,
+    * por tanto, se le debe mostrar la sucesion de pestañas para que elija sus temas favoritos y sus
+    * medios de comunicacion preferidos
+    * */
     switch (exito){
       case "true":
         Log.d("res",res);
@@ -158,7 +177,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
   public void onBackPressed() {
-    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+    Intent intent = new Intent(LoginActivity.this, BienvenidaActivity.class);
     startActivity(intent);
     finish();
   }

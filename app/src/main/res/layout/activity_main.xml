@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CC4949"
-    tools:context="com.tfg.mifeed.controlador.activities.Activities.MainActivity">
+    tools:context="com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity">
 
     <ImageView
         android:id="@+id/superior"

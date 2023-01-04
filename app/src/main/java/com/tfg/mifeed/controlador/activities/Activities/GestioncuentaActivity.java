@@ -18,6 +18,10 @@ import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 
 public class GestioncuentaActivity extends AppCompatActivity {
+  /*
+  * Aporta lógica a la vista de edición de cuentas de usuario, esta se conecta a Firebase para
+  * realizar los cambios después de las validaciones
+  * */
   private ConstraintLayout btnLogout;
   private FirebaseFirestore db;
   private FirebaseUser fUser;
@@ -41,6 +45,7 @@ public class GestioncuentaActivity extends AppCompatActivity {
     fUser = FirebaseAuth.getInstance().getCurrentUser();
     userID = fUser.getUid();
 
+    //Solicida al serivicio de conexion con Firebase los datos del usuario actual para mostrarlo
     FirebaseServices.getInfoUsuario(userID, db, this.findViewById(android.R.id.content));
 
     btnLogout.setOnClickListener(
@@ -54,7 +59,33 @@ public class GestioncuentaActivity extends AppCompatActivity {
         });
   }
 
+
+  public void respuestaDatosUsuario(View v) {
+    /*En caso de que no se haya podido obtener los datos por un problema en la sesion,
+     * se cierra esta y se redirige a la bienvenida*/
+    Toast.makeText(v.getContext(), R.string.errSesion, Toast.LENGTH_SHORT).show();
+    FirebaseAuth.getInstance().signOut();
+    v.getContext().startActivity(new Intent(v.getContext(), BienvenidaActivity.class));
+  }
+
+  public void respuestaDatosUsuario(String nombre, String email, String pass, View v) {
+    /*En caso de que la respuesta sea correcta, se envian los datos y esta funcion se encarga de mostrarlos*/
+    Toast.makeText(v.getContext(), nombre, Toast.LENGTH_SHORT).show();
+    EditText editTextNombre, editTextPass, editTextEmail;
+    editTextNombre = v.findViewById(R.id.modifNombre);
+    editTextPass = v.findViewById(R.id.modifPass);
+    editTextEmail = v.findViewById(R.id.modifCorreo);
+
+    editTextEmail.setHint(nombre);
+    editTextNombre.setHint(email);
+    editTextPass.setHint(pass);
+  }
+
   private void borrarCuentaDialog() {
+    /*
+    * Muestra un dialogo para avisar al usuario de que está apunto de eliminar todos sus datos
+    * y le pide confirmacion
+    * */
     AlertDialog.Builder builder = new AlertDialog.Builder(GestioncuentaActivity.this);
     builder.setTitle(R.string.cerrarApp);
     builder
@@ -71,43 +102,43 @@ public class GestioncuentaActivity extends AppCompatActivity {
   }
 
   private void borrarCuenta() {
+    /*
+    * Una vez el usuario acepta, obtenemos la instancia actual de firebase y el usuario actual,
+    * luego se procede a llamar a la funcion de borrado de cuenta que está en
+    * com.tfg.mifeed.controlador.firebase.FirebaseServices
+    * */
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseServices.borrarSesionUsuario(user,this.findViewById(android.R.id.content),db,userID);
   }
 
   private void logout() {
+    /*
+    * Aporta funcionalidad al boton de cerrar sesión de la aplicación.
+    * */
     FirebaseAuth.getInstance().signOut();
-    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    startActivity(new Intent(getApplicationContext(), BienvenidaActivity.class));
   }
 
   public void respuestaBorrado(View v, String res) {
+    /*
+     * recibe como parametro la vista actual para poder mostrar el comentario temporal "toast" y el
+     * string generado en FirebaseServices en función de la respuesta del servidor
+     * */
+
     switch (res) {
+      //Si ha ido bien, redirige a la pestaña de bienvenida y finaliza esta
       case "true":
         Toast.makeText(v.getContext(), R.string.cuentaBorrada, Toast.LENGTH_LONG).show();
-        v.getContext().startActivity(new Intent(v.getContext(),MainActivity.class));
+        v.getContext().startActivity(new Intent(v.getContext(), BienvenidaActivity.class));
         finish();
         break;
+      /*Si falla algo, muestra un error y cierra automaticamente la sesion del usuario porque hay
+      * un problema con ella*/
       case "false":
         Toast.makeText(v.getContext(), R.string.errSesion, Toast.LENGTH_LONG).show();
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getApplicationContext(), BienvenidaActivity.class));
         break;
     }
-  }
-
-  public void respuestaDatosUsuario(View v) {
-    Toast.makeText(v.getContext(), R.string.errSesion, Toast.LENGTH_SHORT).show();
-    FirebaseAuth.getInstance().signOut();
-    v.getContext().startActivity(new Intent(v.getContext(), MainActivity.class));
-  }
-
-  public void respuestaDatosUsuario(String nombre, String email, String pass, View v) {
-    Toast.makeText(v.getContext(), nombre, Toast.LENGTH_SHORT).show();
-    EditText editTextNombre, editTextPass, editTextEmail;
-    editTextNombre = v.findViewById(R.id.modifNombre);
-    editTextPass = v.findViewById(R.id.modifPass);
-    editTextEmail = v.findViewById(R.id.modifCorreo);
-
-    editTextEmail.setHint(nombre);
-    editTextNombre.setHint(email);
-    editTextPass.setHint(pass);
   }
 }

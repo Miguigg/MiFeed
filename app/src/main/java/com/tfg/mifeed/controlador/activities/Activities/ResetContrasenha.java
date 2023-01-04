@@ -34,6 +34,10 @@ public class ResetContrasenha extends AppCompatActivity {
     }
 
     private void reseteo() {
+        /*
+        * Se ejecuta cuando el usuario toca el boton de ejecutar el cambio de contraseña, antes de ello
+        * se valida el email y se llama a la funcion de FirebaseServices
+        * */
         if(!CheckConexion.getEstadoActual(ResetContrasenha.this)){
             Toast.makeText(ResetContrasenha.this,R.string.errConn,Toast.LENGTH_LONG).show();
         }else{

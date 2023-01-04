@@ -5,19 +5,13 @@
     <string name="contraseña">Contraseña</string>
     <string name="Login">Iniciar Sesión</string>
     <string name="Reg">Ir a registro</string>
-    <string name="msg">La información es poder</string>
     <string name="toRegistro">Registrarme</string>
     <string name="toLogin">Iniciar sesión</string>
     <string name="bienvenida">¡Bienvenido!</string>
     <string name="registrate">Registro</string>
     <string name="accionReg">Registrarme</string>
-    <string name="regConEmail">Registrarme con Google</string>
-    <string name="accionLog">Iniciar sesión</string>
     <string name="cerrarApp">¿Seguro que quieres salir de la aplicación?</string>
-    <string name="borrarCuenta">¿Seguro que quieres borrar tu cuenta?</string>
     <string name="aceptarCierre">Cerrar</string>
-    <string name="cancelarCierre">Seguir en la aplicación</string>
-    <string name="prefs">MiFeedPrefs</string>
     <string name="olvido">Olvidé mi contraseña</string>
     <string name="cambio">Cambiar tu contraseña</string>
     <string name="confirmacioCambio">Te hemos mandado un correo con ayuda</string>
@@ -29,6 +23,7 @@
     <string name="editPass">Modificar contraseña</string>
     <string name="txtEditPrensa">Modifica tu prensa</string>
     <string name="txtEditPodcast">Modifica tus Podcast</string>
+    <string name="txtEditDatos">Modifica tus datos</string>
     <string name="btnBorrarCuenta">Borrar cuenta</string>
     <string name="errSesion">Ha ocurido un error con tu sesión, vuelve a iniciarla</string>
     <string name="cuentaBorrada">Tu cuenta ha sido borrada correctamente</string>
@@ -39,7 +34,6 @@
     <string name="errContraseñaVacia">Debes introducir una contraseña para la cuenta</string>
     <string name="errContraseñaNoCoincide">Las contraseña no coinciden</string>
     <string name="errContraseñaDebil">Tu contraseña es demasiado debil</string>
-    <string name="errContraseñaMal">La contraseña introducida es erronea</string>
     <string name="errEmailNoValido">El email no es valido</string>
     <string name="errEmailExistente">El email ya esta asignado a otra cuenta</string>
     <string name="errEmailVacio">Debes introducir un email</string>
@@ -54,10 +48,7 @@
 
     <string name="descripcionLogin">Botón para iniciar sesión</string>
     <string name="descripcionRegistro">Botón para ejecutar el registro</string>
-    <string name="descripcionLogotipo">Logotipo de la aplicación</string>
     <string name="descripcionDecoracion">Decoración aplicación</string>
-    <string name="descripcionlogoGoogle">Logotipo Google</string>
-    <string name="descripcionRegistroGoogle">Botón de registro con cuenta de Google</string>
 
 
 </resources>

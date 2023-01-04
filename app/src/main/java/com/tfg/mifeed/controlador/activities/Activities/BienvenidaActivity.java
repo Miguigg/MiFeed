@@ -10,7 +10,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
 
-public class MainActivity extends AppCompatActivity {
+public class BienvenidaActivity extends AppCompatActivity {
+
+    /*
+    *Clase que aporta funcionalidad a la vista de bienvenida y se mostrará al acceder a la aplicación
+    */
+
     FirebaseFirestore f;
     ConstraintLayout btnLog,btnReg;
 
@@ -36,16 +41,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Validaciones.confirmarExit(MainActivity.this);
+        Validaciones.confirmarExit(BienvenidaActivity.this);
     }
 
     private void gotoRegistro() {
-        startActivity(new Intent(MainActivity.this, RegistroActivity.class));
+        /*Apora al boton de registro la capacidad de redirigir a la penstaña de
+        *registro y finalizar esta actividad
+        * para evitar ciclos en las actividades*/
+        startActivity(new Intent(BienvenidaActivity.this, RegistroActivity.class));
         finish();
     }
 
     private void gotoLogin() {
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        /*Apora al boton de registro la capacidad de redirigir a la penstaña de
+         *login y finalizar esta actividad
+         * para evitar ciclos en las actividades*/
+        startActivity(new Intent(BienvenidaActivity.this, LoginActivity.class));
         finish();
     }
 }
