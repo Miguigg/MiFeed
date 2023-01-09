@@ -9,6 +9,9 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.tfg.mifeed.R;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
 public class Validaciones {
@@ -68,5 +71,26 @@ public class Validaciones {
             })
             .setNegativeButton("No",null)
             .show();
+  }
+
+  public static String hashearMD5(String password) {
+    /*Dada la contraseña introducida por el usuario, se calcula el hash md5 para guardarla en su
+     *coleccion de firebase*/
+    try {
+      MessageDigest md = MessageDigest.getInstance("MD5");
+
+      byte[] messageDigest = md.digest(password.getBytes());
+
+      BigInteger no = new BigInteger(1, messageDigest);
+
+      StringBuilder hashtext = new StringBuilder(no.toString(16));
+      while (hashtext.length() < 32) {
+        hashtext.insert(0, "0");
+      }
+      return hashtext.toString();
+
+    } catch (NoSuchAlgorithmException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

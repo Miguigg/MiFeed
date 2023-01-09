@@ -1,5 +1,7 @@
 package com.tfg.mifeed.controlador.firebase;
 
+import static com.tfg.mifeed.controlador.utilidades.Validaciones.hashearMD5;
+
 import android.util.Log;
 import android.view.View;
 
@@ -75,7 +77,7 @@ public class FirebaseServices {
                   user.put("id", userAuth.getCurrentUser().getUid());
                   user.put("nombre", usuario.getNombre());
                   user.put("correo", usuario.getEmail());
-                  user.put("contraseña", usuario.getContraseña());
+                  user.put("contraseña", hashearMD5(usuario.getContraseña()));//insertamos la contraseña encriptada
                   user.put("firstLogin", "true");
                   user.put("notificaciones", "true");
                   user.put("borradoPodcast", "true");
@@ -185,8 +187,10 @@ public class FirebaseServices {
             });
   }
 
-  public static void comprobarPass(String valorNombre,String valorPass,String valorCorreo,View v, String valorIntroducido) {
-    GestioncuentaActivity gest = new GestioncuentaActivity();
+  public static void comprobarPass(String valorNombre,String valorPass,String valorCorreo,View v, String PassAnterior) {
+    /*valorNombre,valorPass... son los nuevos datos que el usuario quiere estableces, PassAnterior es la contraseña
+    * que se tenia antes*/
+      GestioncuentaActivity gest = new GestioncuentaActivity();
     String id = userAuth.getCurrentUser().getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
     ref.get()
@@ -196,7 +200,8 @@ public class FirebaseServices {
               public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
                   String pass = documentSnapshot.getString("contraseña");
-                  if (pass.equals(valorIntroducido)) {
+                  String passAnteriorHasheada = hashearMD5(PassAnterior);
+                  if (pass.equals(passAnteriorHasheada)) {
                     gest.respuestaTestPass(valorNombre,valorPass,valorCorreo,v, "true");
                   } else {
                     gest.respuestaTestPass(valorNombre,valorPass,valorCorreo,v, "false");
@@ -214,7 +219,7 @@ public class FirebaseServices {
             });
   }
 
-    public static void comprobarPass(View v, String valorIntroducido) {
+    public static void comprobarPass(View v, String valorIntroducido) {//todo lo mismo que anteiror
         GestioncuentaActivity gest = new GestioncuentaActivity();
         String id = userAuth.getCurrentUser().getUid();
         DocumentReference ref = instancia.collection("Users").document(id);
