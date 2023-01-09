@@ -27,7 +27,11 @@
     <string name="btnBorrarCuenta">Borrar cuenta</string>
     <string name="errSesion">Ha ocurido un error con tu sesión, vuelve a iniciarla</string>
     <string name="cuentaBorrada">Tu cuenta ha sido borrada correctamente</string>
-
+    <string name="notificaciones">Notificaciones</string>
+    <string name="BorradoPodcast">Borrado de podcast</string>
+    <string name="salvarNube">Salvar etiquetas en la nube</string>
+    <string name="idiomaAplicacion">Idioma de la app</string>
+    <string name="confirmaCont">Confirma la contraseña</string>
 
     <string name="errNombreUsuario">Debes introducir tu nombre</string>
     <string name="errNombreUsuarioNoValido">Solo puedes introducir hasta 15 caracteres, sin especiales</string>

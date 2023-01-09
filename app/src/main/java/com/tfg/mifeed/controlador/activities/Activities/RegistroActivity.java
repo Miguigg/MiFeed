@@ -12,8 +12,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
@@ -22,10 +20,10 @@ import com.tfg.mifeed.modelo.Usuario;
 
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
   private Validaciones validaciones = new Validaciones();
-  private FirebaseAuth mAuth;
-  FirebaseFirestore firestore;
+  private FirebaseServices conexion;
   private EditText nombre, email, contrasenha1, contrasenha2;
   private ConstraintLayout registro, toInicioSesion;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +38,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     toInicioSesion = findViewById(R.id.accionInicio);
     registro.setOnClickListener(this);
     toInicioSesion.setOnClickListener(this);
-    mAuth = FirebaseAuth.getInstance();
+    conexion = new FirebaseServices();
     //final AppActivity app = (AppActivity) this.getApplication();
     //Toast.makeText(RegistroActivity.this,String.valueOf(app.generarBarraInferior()),Toast.LENGTH_LONG).show();
   }
@@ -129,8 +127,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
   }
 
   private void insercionEnFirebase(Usuario usuario) {
-    firestore = FirebaseFirestore.getInstance();
-    FirebaseServices.ejecutarRegistro(firestore,mAuth,usuario,this.findViewById(android.R.id.content));
+    FirebaseServices.ejecutarRegistro(usuario,this.findViewById(android.R.id.content));
   }
 
   public void respuestaRegistro(String res,View v){

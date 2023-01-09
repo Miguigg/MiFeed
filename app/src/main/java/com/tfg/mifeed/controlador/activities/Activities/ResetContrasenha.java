@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
@@ -20,17 +19,17 @@ public class ResetContrasenha extends AppCompatActivity {
     private Validaciones validaciones = new Validaciones();
     private EditText correo;
     private ConstraintLayout btnReseteo;
-    FirebaseAuth auth;
+    FirebaseServices conexion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_reset_contrasenha);
         correo = findViewById(R.id.correoRenovacion);
         btnReseteo = findViewById(R.id.btnReseteo);
         btnReseteo.setOnClickListener(v -> {
             reseteo();
         });
+        conexion = new FirebaseServices();
     }
 
     private void reseteo() {
@@ -56,7 +55,7 @@ public class ResetContrasenha extends AppCompatActivity {
                 errReset.setVisibility(View.GONE);
             }
             if(isvalid){
-                FirebaseServices.resetEmail(email,auth,this.findViewById(android.R.id.content));
+                FirebaseServices.resetEmail(email,this.findViewById(android.R.id.content));
             }
         }
     }

@@ -27,10 +27,17 @@ import java.util.Map;
 
 public class FirebaseServices {
 
-  public static void ejecutarLogin(
-      FirebaseAuth mAuth, boolean emailSent, String email, String pass, View v) {
+  private static FirebaseFirestore instancia;
+  private static FirebaseAuth userAuth;
+
+  public FirebaseServices() {
+    this.instancia = FirebaseFirestore.getInstance();
+    this.userAuth = FirebaseAuth.getInstance();
+  }
+
+  public static void ejecutarLogin(boolean emailSent, String email, String pass, View v) {
     Log.d("enviado", String.valueOf(emailSent));
-    mAuth
+    userAuth
         .signInWithEmailAndPassword(email, pass)
         .addOnCompleteListener(
             new OnCompleteListener<AuthResult>() {
@@ -42,8 +49,7 @@ public class FirebaseServices {
                     login.respuestaLogin("emailVerificado", v);
                   } else {
                     if (!emailSent) {
-                      FirebaseServices.mandarEmailVerificacion(
-                          FirebaseAuth.getInstance().getCurrentUser());
+                      FirebaseServices.mandarEmailVerificacion();
                       login.respuestaLogin("emailNoEnviado", v);
                     } else {
                       login.respuestaLogin("emailYaEnviado", v);
@@ -56,10 +62,9 @@ public class FirebaseServices {
             });
   }
 
-  public static void ejecutarRegistro(
-      FirebaseFirestore firestore, FirebaseAuth mAuth, Usuario usuario, View v) {
+  public static void ejecutarRegistro(Usuario usuario, View v) {
     RegistroActivity registroActivity = new RegistroActivity();
-    mAuth
+    userAuth
         .createUserWithEmailAndPassword(usuario.getEmail(), usuario.getContraseña())
         .addOnCompleteListener(
             new OnCompleteListener<AuthResult>() {
@@ -67,14 +72,17 @@ public class FirebaseServices {
               public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                   Map<String, Object> user = new HashMap<>();
-                  user.put("id", mAuth.getCurrentUser().getUid());
+                  user.put("id", userAuth.getCurrentUser().getUid());
                   user.put("nombre", usuario.getNombre());
                   user.put("correo", usuario.getEmail());
                   user.put("contraseña", usuario.getContraseña());
-                  user.put("firstLogin","true");
-                  firestore
+                  user.put("firstLogin", "true");
+                  user.put("notificaciones", "true");
+                  user.put("borradoPodcast", "true");
+                  user.put("guardarEtiquetas", "true");
+                  instancia
                       .collection("Users")
-                      .document(mAuth.getCurrentUser().getUid())
+                      .document(userAuth.getCurrentUser().getUid())
                       .set(user)
                       .addOnCompleteListener(
                           new OnCompleteListener<Void>() {
@@ -100,13 +108,14 @@ public class FirebaseServices {
             });
   }
 
-  public static void mandarEmailVerificacion(FirebaseUser user) {
-    user.sendEmailVerification();
+  public static void mandarEmailVerificacion() {
+    userAuth.getCurrentUser().sendEmailVerification();
   }
 
-  public static void resetEmail(String email, FirebaseAuth auth, View v) {
+  public static void resetEmail(String email, View v) {
     ResetContrasenha rst = new ResetContrasenha();
-    auth.sendPasswordResetEmail(email)
+    userAuth
+        .sendPasswordResetEmail(email)
         .addOnCompleteListener(
             new OnCompleteListener<Void>() {
               @Override
@@ -118,9 +127,10 @@ public class FirebaseServices {
             });
   }
 
-  public static void getInfoUsuario(String userID, FirebaseFirestore db, View v) {
+  public static void getInfoUsuario(View v) {
     GestioncuentaActivity ges = new GestioncuentaActivity();
-    DocumentReference ref = db.collection("Users").document(userID);
+    String id = userAuth.getCurrentUser().getUid();
+    DocumentReference ref = instancia.collection("Users").document(id);
     ref.get()
         .addOnSuccessListener(
             new OnSuccessListener<DocumentSnapshot>() {
@@ -148,34 +158,97 @@ public class FirebaseServices {
             });
   }
 
-  public static void comprobarLogin(FirebaseFirestore db, String userID, View v){
-      LoginActivity login = new LoginActivity();
-      DocumentReference ref = db.collection("Users").document(userID);
-      ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-          @Override
-          public void onSuccess(DocumentSnapshot documentSnapshot) {
-              if(documentSnapshot.exists()){
+  public static void comprobarLogin(View v) {
+    LoginActivity login = new LoginActivity();
+    String id = userAuth.getCurrentUser().getUid();
+    DocumentReference ref = instancia.collection("Users").document(id);
+    ref.get()
+        .addOnSuccessListener(
+            new OnSuccessListener<DocumentSnapshot>() {
+              @Override
+              public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
                   String firstLogin = documentSnapshot.getString("firstLogin");
-                  login.accionLogin(v,firstLogin,"true");
-              }else{
-                  login.accionLogin(v,"err","false");
+                  login.accionLogin(v, firstLogin, "true");
+                } else {
+                  login.accionLogin(v, "err", "false");
+                }
               }
-          }
-      }).addOnFailureListener(new OnFailureListener() {
-          @Override
-          public void onFailure(@NonNull Exception e) {
-              Log.d("e", String.valueOf(e));
-              login.accionLogin(v,"err", "false");
-          }
-      });
+            })
+        .addOnFailureListener(
+            new OnFailureListener() {
+              @Override
+              public void onFailure(@NonNull Exception e) {
+                Log.d("e", String.valueOf(e));
+                login.accionLogin(v, "err", "false");
+              }
+            });
   }
 
-  public static void borrarSesionUsuario(
-      FirebaseUser usr, View v, FirebaseFirestore db, String userID) {
+  public static void comprobarPass(String valorNombre,String valorPass,String valorCorreo,View v, String valorIntroducido) {
+    GestioncuentaActivity gest = new GestioncuentaActivity();
+    String id = userAuth.getCurrentUser().getUid();
+    DocumentReference ref = instancia.collection("Users").document(id);
+    ref.get()
+        .addOnSuccessListener(
+            new OnSuccessListener<DocumentSnapshot>() {
+              @Override
+              public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                  String pass = documentSnapshot.getString("contraseña");
+                  if (pass.equals(valorIntroducido)) {
+                    gest.respuestaTestPass(valorNombre,valorPass,valorCorreo,v, "true");
+                  } else {
+                    gest.respuestaTestPass(valorNombre,valorPass,valorCorreo,v, "false");
+                  }
+                }
+              }
+            })
+        .addOnFailureListener(
+            new OnFailureListener() {
+              @Override
+              public void onFailure(@NonNull Exception e) {
+                Log.d("e", String.valueOf(e));
+                gest.respuestaTestPass(valorNombre,valorPass,valorCorreo,v, "false");
+              }
+            });
+  }
 
-    DocumentReference ref = db.collection("Users").document(userID);
+    public static void comprobarPass(View v, String valorIntroducido) {
+        GestioncuentaActivity gest = new GestioncuentaActivity();
+        String id = userAuth.getCurrentUser().getUid();
+        DocumentReference ref = instancia.collection("Users").document(id);
+        ref.get()
+                .addOnSuccessListener(
+                        new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.exists()) {
+                                    String pass = documentSnapshot.getString("contraseña");
+                                    if (pass.equals(valorIntroducido)) {
+                                        borrarSesionUsuario(v);
+                                    } else {
+                                        gest.respuestaBorrado(v, "false");
+                                    }
+                                }
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("e", String.valueOf(e));
+                            }
+                        });
+    }
+
+  public static void borrarSesionUsuario(View v) {
+    FirebaseUser usuario = userAuth.getCurrentUser();
+    String id = usuario.getUid();
+    DocumentReference ref = instancia.collection("Users").document(id);
     borrarDatosUsuario(ref);
-    usr.delete()
+    usuario
+        .delete()
         .addOnCompleteListener(
             new OnCompleteListener<Void>() {
               @Override
