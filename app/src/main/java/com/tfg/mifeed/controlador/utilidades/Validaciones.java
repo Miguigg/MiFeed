@@ -37,7 +37,7 @@ public class Validaciones {
   }
 
   public static String validacionContraseña(String contraseñaUsuario1, String contraseñaUsuario2) {
-    Pattern formato = Pattern.compile("^[a-zA-Z0-9áéíóúÁÉÍÓÚ]{3,40}$");
+    Pattern formato = Pattern.compile("^[a-zA-Z0-9áéíóúÁÉÍÓÚ]{4,40}$");
     if (contraseñaUsuario1.isEmpty() || contraseñaUsuario2.isEmpty()) {
       return "vacia";
     } else if (!formato.matcher(contraseñaUsuario1).matches()) {
@@ -50,12 +50,11 @@ public class Validaciones {
   }
 
   public static String validacionContraseña(String contraseñaLogin) {
-    Pattern formato = Pattern.compile("^[a-zA-Z0-9áéíóúÁÉÍÓÚ]{3,40}$");
+    /*Para el uso del login*/
+    Pattern formato = Pattern.compile("^[a-zA-Z0-9áéíóúÁÉÍÓÚ]{4,40}$");
     if (!formato.matcher(contraseñaLogin).matches()) {
       return "noSegura";
-    } else if (contraseñaLogin.isEmpty()) {
-      return "vacia";
-    } else {
+    }else {
       return "ok";
     }
   }

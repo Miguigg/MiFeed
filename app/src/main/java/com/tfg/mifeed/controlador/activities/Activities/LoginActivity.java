@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
         esValido = false;
         errPass.setVisibility(View.VISIBLE);
       }else if(validaciones.validacionContraseña(pass) == "noSegura"){
-        errPass.setText(R.string.errContraseñaDebil);
+        errPass.setText(R.string.errContraseñaVacia);
         esValido = false;
         errPass.setVisibility(View.VISIBLE);
       }else{
@@ -175,5 +175,9 @@ public class LoginActivity extends AppCompatActivity {
     Intent intent = new Intent(LoginActivity.this, BienvenidaActivity.class);
     startActivity(intent);
     finish();
+  }
+
+  public View getCurrentView(){
+    return this.getCurrentView();
   }
 }

@@ -2,8 +2,10 @@ package com.tfg.mifeed.controlador.firebase;
 
 import static com.tfg.mifeed.controlador.utilidades.Validaciones.hashearMD5;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -12,12 +14,15 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.tfg.mifeed.R;
+import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 import com.tfg.mifeed.controlador.activities.Activities.GestioncuentaActivity;
 import com.tfg.mifeed.controlador.activities.Activities.LoginActivity;
 import com.tfg.mifeed.controlador.activities.Activities.RegistroActivity;
@@ -77,10 +82,11 @@ public class FirebaseServices {
                   user.put("id", userAuth.getCurrentUser().getUid());
                   user.put("nombre", usuario.getNombre());
                   user.put("correo", usuario.getEmail());
-                  user.put("contraseña", hashearMD5(usuario.getContraseña()));//insertamos la contraseña encriptada
+                  user.put(
+                      "contraseña",
+                      hashearMD5(usuario.getContraseña())); // insertamos la contraseña encriptada
                   user.put("firstLogin", "true");
                   user.put("notificaciones", "true");
-                  user.put("borradoPodcast", "true");
                   user.put("guardarEtiquetas", "true");
                   instancia
                       .collection("Users")
@@ -130,6 +136,7 @@ public class FirebaseServices {
   }
 
   public static void getInfoUsuario(View v) {
+
     GestioncuentaActivity ges = new GestioncuentaActivity();
     String id = userAuth.getCurrentUser().getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
@@ -141,8 +148,9 @@ public class FirebaseServices {
                 if (documentSnapshot.exists()) {
                   String nombre = documentSnapshot.getString("nombre");
                   String correo = documentSnapshot.getString("correo");
-                  String pass = documentSnapshot.getString("contraseña");
-                  ges.respuestaDatosUsuario(nombre, correo, pass, v);
+                  String notificaciones = documentSnapshot.getString("notificaciones");
+                  String nube = documentSnapshot.getString("guardarEtiquetas");
+                  ges.respuestaDatosUsuario(nombre,correo,notificaciones,nube, v);
 
                 } else {
 
@@ -160,7 +168,98 @@ public class FirebaseServices {
             });
   }
 
+  public static void editarUsuario(Usuario usuario, String passAnterior, View v) {
+
+    if (usuario.getContraseña().equals("")) {
+      usuario.setContraseña(passAnterior);
+    }
+
+    userAuth
+        .getCurrentUser()
+        .updatePassword(usuario.getContraseña())
+        .addOnCompleteListener(
+            new OnCompleteListener<Void>() {
+              @Override
+              public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                  Log.d("exito", "contraseña modificada");
+                } else {
+                  Toast.makeText(v.getContext(), R.string.errSesion, Toast.LENGTH_SHORT).show();
+                }
+              }
+            });
+
+    String id = userAuth.getCurrentUser().getUid();
+
+    DocumentReference ref = instancia.collection("Users").document(id);
+    Map<String, Object> user = new HashMap<>();
+    user.put("nombre", usuario.getNombre());
+    user.put("correo", usuario.getEmail());
+    user.put("contraseña", hashearMD5(usuario.getContraseña()));
+    user.put("firstLogin", "false");
+    if (usuario.isNotificaciones()) {
+      user.put("notificaciones", "true");
+    } else {
+      user.put("notificaciones", "false");
+    }
+    if (usuario.isEtiquetasNube()) {
+      user.put("guardarEtiquetas", "true");
+    } else {
+      user.put("guardarEtiquetas", "false");
+    }
+
+    ref.set(user)
+        .addOnCompleteListener(
+            new OnCompleteListener<Void>() {
+              @Override
+              public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                  Log.d("exito", "Modificado con exito");
+                } else {
+                  Toast.makeText(v.getContext(), R.string.errSesion, Toast.LENGTH_SHORT).show();
+                }
+              }
+            });
+
+    if (!usuario.getEmail().equals(userAuth.getCurrentUser().getEmail())) {
+      userAuth
+          .getCurrentUser()
+          .reauthenticate(
+              EmailAuthProvider.getCredential(
+                  userAuth.getCurrentUser().getEmail(), passAnterior))
+          .addOnCompleteListener(
+              new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                  if (task.isSuccessful()) {
+                    Log.d("exito", "Modificación exitosa");
+                  } else {
+                    Log.e("fracaso", "Error de sesion");
+                  }
+
+                  userAuth
+                      .getCurrentUser()
+                      .updateEmail(usuario.getEmail())
+                      .addOnCompleteListener(
+                          new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                              if (task.isSuccessful()) {
+                                FirebaseAuth.getInstance().signOut();
+                                  Toast.makeText(v.getContext(), R.string.modificacionCorreo, Toast.LENGTH_SHORT).show();
+                                  v.getContext()
+                                    .startActivity(
+                                        new Intent(v.getContext(), BienvenidaActivity.class));
+                              }
+                            }
+                          });
+                }
+              });
+    }
+  }
+
   public static void comprobarLogin(View v) {
+      /*Funcion que comprueba si es la primera vez que se inicia con este usuario*/
     LoginActivity login = new LoginActivity();
     String id = userAuth.getCurrentUser().getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
@@ -187,10 +286,10 @@ public class FirebaseServices {
             });
   }
 
-  public static void comprobarPass(String valorNombre,String valorPass,String valorCorreo,View v, String PassAnterior) {
+  public static void comprobarPass(Usuario usuario, View v, String PassAnterior) {
     /*valorNombre,valorPass... son los nuevos datos que el usuario quiere estableces, PassAnterior es la contraseña
-    * que se tenia antes*/
-      GestioncuentaActivity gest = new GestioncuentaActivity();
+     * que se tenia antes*/
+    GestioncuentaActivity gest = new GestioncuentaActivity();
     String id = userAuth.getCurrentUser().getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
     ref.get()
@@ -201,10 +300,11 @@ public class FirebaseServices {
                 if (documentSnapshot.exists()) {
                   String pass = documentSnapshot.getString("contraseña");
                   String passAnteriorHasheada = hashearMD5(PassAnterior);
+
                   if (pass.equals(passAnteriorHasheada)) {
-                    gest.respuestaTestPass(valorNombre,valorPass,valorCorreo,v, "true");
+                    gest.respuestaTestPass(usuario, PassAnterior, v, "true");
                   } else {
-                    gest.respuestaTestPass(valorNombre,valorPass,valorCorreo,v, "false");
+                    gest.respuestaTestPass(usuario, PassAnterior, v, "false");
                   }
                 }
               }
@@ -214,39 +314,43 @@ public class FirebaseServices {
               @Override
               public void onFailure(@NonNull Exception e) {
                 Log.d("e", String.valueOf(e));
-                gest.respuestaTestPass(valorNombre,valorPass,valorCorreo,v, "false");
+                gest.respuestaTestPass(usuario, PassAnterior, v, "false");
               }
             });
   }
 
-    public static void comprobarPass(View v, String valorIntroducido) {//todo lo mismo que anteiror
-        GestioncuentaActivity gest = new GestioncuentaActivity();
-        String id = userAuth.getCurrentUser().getUid();
-        DocumentReference ref = instancia.collection("Users").document(id);
-        ref.get()
-                .addOnSuccessListener(
-                        new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                if (documentSnapshot.exists()) {
-                                    String pass = documentSnapshot.getString("contraseña");
-                                    if (pass.equals(valorIntroducido)) {
-                                        borrarSesionUsuario(v);
-                                    } else {
-                                        gest.respuestaBorrado(v, "false");
-                                    }
-                                }
-                            }
-                        })
-                .addOnFailureListener(
-                        new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d("e", String.valueOf(e));
-                            }
-                        });
-    }
+  public static void comprobarPass(View v, String valorIntroducido) {
+      /*Funcion que comprueba la contraseña antes de ejecutar el borrado del usuario*/
+    GestioncuentaActivity gest = new GestioncuentaActivity();
+    String id = userAuth.getCurrentUser().getUid();
+    DocumentReference ref = instancia.collection("Users").document(id);
+    ref.get()
+        .addOnSuccessListener(
+            new OnSuccessListener<DocumentSnapshot>() {
+              @Override
+              public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                  String pass = documentSnapshot.getString("contraseña");
+                  String valorIntroducidoHasheado = hashearMD5(valorIntroducido);
+                  if (pass.equals(valorIntroducidoHasheado)) {
+                    borrarSesionUsuario(v);
+                  } else {
+                    gest.respuestaBorrado(v, "false");
+                  }
+                }
+              }
+            })
+        .addOnFailureListener(
+            new OnFailureListener() {
+              @Override
+              public void onFailure(@NonNull Exception e) {
+                Log.d("e", String.valueOf(e));
+              }
+            });
+  }
 
+  /*Borrado esta implementado en dos funciones, la primera se encarga de eliminar el documento
+  * asociado a un usuario. La segunda se encarga de borrar la autenticacion de firebase*/
   public static void borrarSesionUsuario(View v) {
     FirebaseUser usuario = userAuth.getCurrentUser();
     String id = usuario.getUid();
