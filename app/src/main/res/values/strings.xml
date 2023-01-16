@@ -33,6 +33,7 @@
     <string name="idiomaAplicacion">Idioma de la app</string>
     <string name="confirmaCont">Confirma la contraseña</string>
     <string name="modificacionCorreo">Has tus datos, debes volver a iniciar sesión para confirmar</string>
+    <string name="modificacionCuenta">Tus datos han sido modificados exitosamente</string>
 
     <string name="errNombreUsuario">Debes introducir tu nombre</string>
     <string name="errNombreUsuarioNoValido">Solo puedes introducir hasta 15 caracteres, sin especiales</string>
@@ -44,6 +45,7 @@
     <string name="errEmailVacio">Debes introducir un email</string>
     <string name="errLogin">El email o la contraseña introducidos no son validos</string>
     <string name="errContraseña">La contraseña no es correcta</string>
+    <string name="errEdicionCuenta">Ha ocurrido un error al modificar tus datos</string>
     <string name="errRegistro">Registro fallido</string>
     <string name="errConn">No tienes conexión, asi que no podrás logearte o registrarte</string>
     <string name="CorrectConn">Conexión establecida correctamente</string>

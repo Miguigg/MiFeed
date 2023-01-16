@@ -182,6 +182,7 @@ public class FirebaseServices {
               @Override
               public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    Toast.makeText(v.getContext(), R.string.modificacionCuenta, Toast.LENGTH_SHORT).show();
                   Log.d("exito", "contraseña modificada");
                 } else {
                   Toast.makeText(v.getContext(), R.string.errSesion, Toast.LENGTH_SHORT).show();
@@ -214,7 +215,8 @@ public class FirebaseServices {
               @Override
               public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                  Log.d("exito", "Modificado con exito");
+                    Toast.makeText(v.getContext(), R.string.modificacionCuenta, Toast.LENGTH_SHORT).show();
+                    Log.d("exito", "Modificación exitosa");
                 } else {
                   Toast.makeText(v.getContext(), R.string.errSesion, Toast.LENGTH_SHORT).show();
                 }
@@ -232,8 +234,10 @@ public class FirebaseServices {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                   if (task.isSuccessful()) {
+                      Toast.makeText(v.getContext(), R.string.modificacionCuenta, Toast.LENGTH_SHORT).show();
                     Log.d("exito", "Modificación exitosa");
                   } else {
+                      Toast.makeText(v.getContext(), R.string.errEdicionCuenta , Toast.LENGTH_SHORT).show();
                     Log.e("fracaso", "Error de sesion");
                   }
 
