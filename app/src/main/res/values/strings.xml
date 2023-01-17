@@ -32,9 +32,14 @@
     <string name="salvarNube">Salvar etiquetas en la nube</string>
     <string name="idiomaAplicacion">Idioma de la app</string>
     <string name="confirmaCont">Confirma la contraseña</string>
-    <string name="modificacionCorreo">Has tus datos, debes volver a iniciar sesión para confirmar</string>
+    <string name="modificacionCorreo">Modificación exitosa, debes volver a iniciar sesión</string>
     <string name="modificacionCuenta">Tus datos han sido modificados exitosamente</string>
-
+    <string name="modificacionPass">Contraseña modificada con exito</string>
+    <string name="errModifPass">La contraseña no se ha podido modificar</string>
+    <string name="modificacionEmail">Se ha modificado el correo exitosamente</string>
+    <string name="errModificacionEmail">Error al modificar el email</string>
+    <string name="modificacionNombre">Se ha modificado el nombre con exito</string>
+    <string name="errModifNombre">Error al modificar el nombre</string>
     <string name="errNombreUsuario">Debes introducir tu nombre</string>
     <string name="errNombreUsuarioNoValido">Solo puedes introducir hasta 15 caracteres, sin especiales</string>
     <string name="errContraseñaVacia">Debes introducir una contraseña para la cuenta</string>
@@ -53,10 +58,16 @@
     <string name="alertCorreo">Tienes que verificar tu cuenta para poder iniciar sesión, revisa tu spam si no lo encuentras</string>
     <string name="volverMandar">Volver a mandar email</string>
     <string name="entendido">Entendido</string>
+    <string name="atras">Volver</string>
+    <string name="Historial">Historial</string>
 
     <string name="descripcionLogin">Botón para iniciar sesión</string>
     <string name="descripcionRegistro">Botón para ejecutar el registro</string>
     <string name="descripcionDecoracion">Decoración aplicación</string>
+    <string name="descripcionInputNombre">Nombre de usuario</string>
+    <string name="descripcionInputEmail">Email de tu cuenta</string>
+    <string name="descripcionInputPass">Escribe tu nueva contraseña</string>
+    <string name="descripcionInputPass2">Repetir nueva contraseña</string>
 
 
 </resources>

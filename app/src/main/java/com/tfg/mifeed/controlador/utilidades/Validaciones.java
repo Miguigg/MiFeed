@@ -26,7 +26,7 @@ public class Validaciones {
   }
 
   public static String validacionUser(String nombreUsuario) {
-    Pattern formato = Pattern.compile("(^$|^[A-Za-z0-9\\s(),.¿?=\\-+áéíóúñÁÉÍÓÚÑ]{1,15}$)");
+    Pattern formato = Pattern.compile("(^$|^[A-Za-z0-9\\s()=\\-+áéíóúñÁÉÍÓÚÑ]{1,15}$)");
     if (nombreUsuario.isEmpty()) {
       return "vacio";
     } else if (!formato.matcher(nombreUsuario).matches()) {
@@ -40,10 +40,10 @@ public class Validaciones {
     Pattern formato = Pattern.compile("^[a-zA-Z0-9áéíóúÁÉÍÓÚ]{4,40}$");
     if (contraseñaUsuario1.isEmpty() || contraseñaUsuario2.isEmpty()) {
       return "vacia";
-    } else if (!formato.matcher(contraseñaUsuario1).matches()) {
-      return "noSegura";
     } else if (!contraseñaUsuario1.equals(contraseñaUsuario2)) {
       return "distintas";
+    } else if (!formato.matcher(contraseñaUsuario1).matches()) {
+      return "noSegura";
     } else {
       return "ok";
     }
@@ -54,22 +54,25 @@ public class Validaciones {
     Pattern formato = Pattern.compile("^[a-zA-Z0-9áéíóúÁÉÍÓÚ]{4,40}$");
     if (!formato.matcher(contraseñaLogin).matches()) {
       return "noSegura";
-    }else {
+    } else {
       return "ok";
     }
   }
 
   public static void confirmarExit(Context c) {
-    new AlertDialog.Builder(c).setMessage(R.string.cerrarApp)
-            .setCancelable(false)
-            .setPositiveButton("Seguro", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    ((Activity)(c)).finish();
-                }
+    new AlertDialog.Builder(c)
+        .setMessage(R.string.cerrarApp)
+        .setCancelable(false)
+        .setPositiveButton(
+            "Seguro",
+            new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialog, int which) {
+                ((Activity) (c)).finish();
+              }
             })
-            .setNegativeButton("No",null)
-            .show();
+        .setNegativeButton("No", null)
+        .show();
   }
 
   public static String hashearMD5(String password) {

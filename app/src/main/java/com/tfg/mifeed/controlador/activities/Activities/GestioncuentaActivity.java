@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -32,8 +33,7 @@ public class GestioncuentaActivity extends AppCompatActivity {
   private Switch notificaciones, guardadoNube;
   private View actualView;
   private EditText nombre, pass, pass2, correo;
-  private TextView err;
-
+  private TextView errUsuario,errEmail,errPass;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,9 @@ public class GestioncuentaActivity extends AppCompatActivity {
     btnEditMedios = findViewById(R.id.btnEditPrensa);
     notificaciones = findViewById(R.id.switchNotificaciones);
     guardadoNube = findViewById(R.id.switchGuardadoNube);
-    err = findViewById(R.id.errores);
+    errUsuario = findViewById(R.id.errEditUsuario);
+    errEmail = findViewById(R.id.errEditEmail);
+    errPass = findViewById(R.id.errEditPass);
 
     btnModificaDatos = findViewById(R.id.btnModificarDatos);
     actualView = this.findViewById(android.R.id.content);
@@ -91,38 +93,45 @@ public class GestioncuentaActivity extends AppCompatActivity {
     boolean notificacionesActivas = notificaciones.isChecked();
     boolean guardadoNubeActivo = guardadoNube.isChecked();
 
+
     boolean isValid = true;
     if(!correo.getText().toString().isEmpty()){
-      if (Validaciones.validacionEmail(valorCorreo).equals("noValido")) {
+      if (Validaciones.validacionEmail(valorCorreo).equals("falso")) {
         isValid = false;
-        err.setText(R.string.errEmailNoValido);
-        err.setVisibility(View.VISIBLE);
+        errEmail.setText(R.string.errEmailNoValido);
+        errEmail.setVisibility(View.VISIBLE);
+      }else{
+        errEmail.setVisibility(View.GONE);
       }
     }
 
 
     if (!pass.getText().toString().isEmpty()) {
+      Log.d("datos",pass.getText().toString());
       if (Validaciones.validacionContraseña(valorContrasenha1, valorContrasenha2).equals("noSegura")) {
         isValid = false;
-        err.setText(R.string.errContraseñaDebil);
-        err.setVisibility(View.VISIBLE);
+        errPass.setText(R.string.errContraseñaDebil);
+        errPass.setVisibility(View.VISIBLE);
       } else if (Validaciones.validacionContraseña(valorContrasenha1, valorContrasenha2).equals("distintas")) {
         isValid = false;
-        err.setText(R.string.errContraseñaNoCoincide);
-        err.setVisibility(View.VISIBLE);
+        errPass.setText(R.string.errContraseñaNoCoincide);
+        errPass.setVisibility(View.VISIBLE);
       }
     }else{
+      errPass.setVisibility(View.GONE);
       valorContrasenha1 = "";
     }
 
     if (Validaciones.validacionUser(valorNombre).equals("vacio")) {
       isValid = false;
-      err.setText(R.string.errNombreUsuario);
-      err.setVisibility(View.VISIBLE);
-    } else if (Validaciones.validacionUser(valorNombre).equals("falso")) {
+      errUsuario.setText(R.string.errNombreUsuario);
+      errUsuario.setVisibility(View.VISIBLE);
+    } else if (Validaciones.validacionUser(valorNombre).equals("noValido")) {
       isValid = false;
-      err.setText(R.string.errNombreUsuarioNoValido);
-      err.setVisibility(View.VISIBLE);
+      errUsuario.setText(R.string.errNombreUsuarioNoValido);
+      errUsuario.setVisibility(View.VISIBLE);
+    }else{
+      errUsuario.setVisibility(View.GONE);
     }
 
     if (isValid) {
@@ -134,8 +143,6 @@ public class GestioncuentaActivity extends AppCompatActivity {
                   notificacionesActivas,
                   guardadoNubeActivo);
       confirmarContrasenhaEdicion(nuevosDatos);
-    }else{
-      err.setVisibility(View.GONE);
     }
   }
 

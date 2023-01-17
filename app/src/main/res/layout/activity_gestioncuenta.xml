@@ -15,10 +15,11 @@
         android:autofillHints=""
         android:background="@drawable/fondo_input"
         android:ems="10"
+        android:hint="@string/descripcionInputNombre"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textAlignment="center"
-        android:textColorHint="#FF0000"
+        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,41 +31,46 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/fondo_input"
         android:ems="10"
+        android:hint="@string/descripcionInputEmail"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textAlignment="center"
-        android:textColorHint="#FF0000"
+        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtModifCorreo" />
+        app:layout_constraintTop_toBottomOf="@+id/txtModifCorreo"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/modifPass2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="235dp"
+        android:layout_height="48dp"
         android:layout_marginTop="15dp"
         android:background="@drawable/fondo_input"
         android:ems="10"
         android:gravity="center_horizontal|center_vertical"
-        android:inputType="textPersonName"
+        android:hint="@string/descripcionInputPass"
+        android:inputType="textPassword"
         android:minHeight="48dp"
         android:textAlignment="gravity"
-        android:textColorHint="#FF0000"
+        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtModifPass2" />
+        app:layout_constraintTop_toBottomOf="@+id/txtModifPass2"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <EditText
         android:id="@+id/modifPass"
-        android:layout_width="209dp"
-        android:layout_height="50dp"
+        android:layout_width="235dp"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/fondo_input"
         android:ems="10"
         android:gravity="center_horizontal|center_vertical"
-        android:inputType="textPersonName"
+        android:hint="@string/descripcionInputPass"
+        android:inputType="textPassword"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +94,6 @@
         android:id="@+id/txtModifCorreo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:foregroundGravity="center_horizontal"
         android:gravity="center_horizontal"
         android:text="@string/editCorreo"
@@ -96,32 +101,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/modifNombre" />
+        app:layout_constraintTop_toBottomOf="@+id/errEditUsuario" />
 
     <TextView
         android:id="@+id/txtModifPass1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:foregroundGravity="center_horizontal"
         android:text="@string/editPass"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/modifCorreo" />
+        app:layout_constraintTop_toBottomOf="@+id/errEditEmail" />
 
     <TextView
         android:id="@+id/txtModifPass2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:foregroundGravity="center_horizontal"
         android:gravity="center_horizontal"
         android:text="@string/confirmaCont"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/modifPass" />
+        app:layout_constraintTop_toBottomOf="@+id/errEditPass" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnEditPodcast"
@@ -164,7 +167,7 @@
         android:id="@+id/btnEditPrensa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="30dp"
         android:foregroundGravity="center_horizontal"
         app:layout_constraintStart_toStartOf="parent"
@@ -208,10 +211,10 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btnHistorial"
-            android:layout_width="73dp"
-            android:layout_height="39dp"
+            android:layout_width="119dp"
+            android:layout_height="34dp"
             android:layout_marginTop="2dp"
-            android:background="@drawable/fondo_btn2"
+            android:background="@drawable/fondobtn_accion"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -232,9 +235,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:text="Historial"
-                android:textColor="#000000"
-                android:textSize="10sp"
+                android:text="@string/Historial"
+                android:textColor="#FFB74D"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -424,32 +427,60 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:background="@drawable/fondobtn_accion"
         app:layout_constraintEnd_toStartOf="@+id/txtEditNombre"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/imageAtras"
             android:layout_width="33dp"
             android:layout_height="33dp"
-            android:background="@drawable/fondobtn_accion"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="?attr/actionModeCloseDrawable" />
+            app:srcCompat="?attr/actionModeCloseDrawable"
+            tools:ignore="ImageContrastCheck" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/textAtras"
             android:layout_width="44dp"
             android:layout_height="36dp"
-            android:background="@drawable/fondobtn_accion"
             android:gravity="center_vertical"
-            android:text="Volver"
+            android:text="@string/atras"
+            android:textColor="#FFB74D"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView6"
+            app:layout_constraintStart_toEndOf="@+id/imageAtras"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.51" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/errEditUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modifNombre" />
+
+    <TextView
+        android:id="@+id/errEditEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modifCorreo" />
+
+    <TextView
+        android:id="@+id/errEditPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modifPass" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
