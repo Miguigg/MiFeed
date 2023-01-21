@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CC4949"
-    tools:context="com.tfg.mifeed.controlador.activities.Activities.RegistroActivity">
+    tools:context="com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.RegistroActivity">
 
     <ScrollView
         android:id="@+id/scrollView2"

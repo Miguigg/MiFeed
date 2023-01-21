@@ -1,4 +1,4 @@
-package com.tfg.mifeed.controlador.activities.Activities;
+package com.tfg.mifeed.controlador.activities.Activities.GestionCuenta;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.tfg.mifeed.R;
+import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;

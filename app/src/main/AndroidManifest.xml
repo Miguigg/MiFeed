@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".controlador.activities.Activities.AppActivity"
         android:allowBackup="true"
@@ -15,21 +17,27 @@
         android:windowSoftInputMode="adjustPan"
         tools:targetApi="31">
         <activity
-            android:name=".controlador.activities.Activities.ResetContrasenha"
+            android:name=".controlador.activities.Activities.GestionCuenta.SeleccionMediosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controlador.activities.Activities.GestionCuenta.SeleccionTemasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controlador.activities.Activities.GestionCuenta.ResetContrasenha"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".controlador.activities.Activities.GestioncuentaActivity"
+            android:name=".controlador.activities.Activities.GestionCuenta.GestioncuentaActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".controlador.activities.Activities.RegistroActivity"
+            android:name=".controlador.activities.Activities.GestionCuenta.RegistroActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan">
             <meta-data
@@ -37,7 +45,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".controlador.activities.Activities.LoginActivity"
+            android:name=".controlador.activities.Activities.GestionCuenta.LoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan">
             <meta-data

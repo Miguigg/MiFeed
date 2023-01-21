@@ -1,10 +1,9 @@
-package com.tfg.mifeed.controlador.activities.Activities;
+package com.tfg.mifeed.controlador.activities.Activities.GestionCuenta;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -14,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.tfg.mifeed.R;
+import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.FavoritosActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
@@ -160,8 +161,13 @@ public class LoginActivity extends AppCompatActivity {
     * */
     switch (exito){
       case "true":
-        Log.d("res",res);
-        v.getContext().startActivity(new Intent(v.getContext(), GestioncuentaActivity.class));
+        //todo en funcion del valor de res (viene de firebase) redirige a pestañas configuracion cuenta o a pestaña favoritos
+        //todo favoritos muestra lista de noticias de los medios y un boton para editarlos abajo
+        if(res.equals("true")){
+          v.getContext().startActivity(new Intent(v.getContext(), SeleccionTemasActivity.class));
+        }else{
+          v.getContext().startActivity(new Intent(v.getContext(), FavoritosActivity.class));
+        }
         finish();
         break;
       case "false":
@@ -170,14 +176,9 @@ public class LoginActivity extends AppCompatActivity {
     }
   }
 
-
   public void onBackPressed() {
     Intent intent = new Intent(LoginActivity.this, BienvenidaActivity.class);
     startActivity(intent);
     finish();
-  }
-
-  public View getCurrentView(){
-    return this.getCurrentView();
   }
 }

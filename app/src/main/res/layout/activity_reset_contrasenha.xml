@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CC4949"
-    tools:context=".controlador.activities.Activities.ResetContrasenha">
+    tools:context=".controlador.activities.Activities.GestionCuenta.ResetContrasenha">
 
     <ImageView
         android:id="@+id/imageView10"

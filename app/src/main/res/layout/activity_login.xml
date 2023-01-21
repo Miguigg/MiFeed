@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CC4949"
-    tools:context="com.tfg.mifeed.controlador.activities.Activities.LoginActivity">
+    tools:context="com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.LoginActivity">
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -25,6 +25,7 @@
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/descripcionDecoracion"
                 app:srcCompat="@drawable/top_wave1" />
 
             <TextView
@@ -44,6 +45,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="80dp"
                 android:layout_marginEnd="32dp"
+                android:autofillHints="@string/correo"
                 android:background="@drawable/fondo_editext"
                 android:drawableStart="@drawable/ic_email"
                 android:ems="10"
@@ -71,6 +73,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="60dp"
                 android:layout_marginEnd="32dp"
+                android:autofillHints="@string/contraseña"
                 android:background="@drawable/fondo_editext"
                 android:drawableStart="@drawable/ic_pass"
                 android:ems="10"
@@ -112,6 +115,7 @@
                         android:id="@+id/imageView3"
                         android:layout_width="243dp"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/incioSesion"
                         android:padding="5dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="1.0"
@@ -149,6 +153,7 @@
                         android:id="@+id/imageView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/toRegistro"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -180,6 +185,7 @@
                         android:id="@+id/imageView7"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/olvido"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -212,6 +218,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|left|end"
+        android:contentDescription="@string/descripcionDecoracion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"

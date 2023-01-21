@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CC4949"
-    tools:context="com.tfg.mifeed.controlador.activities.Activities.GestioncuentaActivity">
+    tools:context="com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.GestioncuentaActivity">
 
     <EditText
         android:id="@+id/modifNombre"
@@ -47,6 +47,7 @@
         android:layout_width="235dp"
         android:layout_height="48dp"
         android:layout_marginTop="15dp"
+        android:autofillHints="@string/contraseña"
         android:background="@drawable/fondo_input"
         android:ems="10"
         android:gravity="center_horizontal|center_vertical"
@@ -66,6 +67,7 @@
         android:layout_width="235dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
+        android:autofillHints="@string/contraseña"
         android:background="@drawable/fondo_input"
         android:ems="10"
         android:gravity="center_horizontal|center_vertical"
@@ -131,7 +133,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="90dp"
         android:foregroundGravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -142,6 +144,7 @@
             android:id="@+id/editPocast"
             android:layout_width="129dp"
             android:layout_height="43dp"
+            android:contentDescription="@string/txtEditPodcast"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -168,7 +171,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:foregroundGravity="center_horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/modifPass2">
@@ -177,6 +180,7 @@
             android:id="@+id/editPrensa"
             android:layout_width="119dp"
             android:layout_height="44dp"
+            android:contentDescription="@string/txtEditPrensa"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -201,7 +205,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="25dp"
         android:foregroundGravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -214,7 +218,9 @@
             android:layout_width="119dp"
             android:layout_height="34dp"
             android:layout_marginTop="2dp"
+            android:layout_marginBottom="5dp"
             android:background="@drawable/fondobtn_accion"
+            android:contentDescription="@string/Historial"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -225,18 +231,19 @@
                 android:layout_width="22dp"
                 android:layout_height="17dp"
                 android:layout_marginStart="5dp"
+                android:contentDescription="@string/Historial"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_historial" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/txtHistorial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
                 android:text="@string/Historial"
-                android:textColor="#FFB74D"
+                android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -250,6 +257,7 @@
             android:layout_width="195dp"
             android:layout_height="46dp"
             android:layout_marginTop="10dp"
+            android:contentDescription="@string/btnBorrarCuenta"
             android:foregroundGravity="center_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -259,6 +267,7 @@
                 android:id="@+id/imageView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/btnBorrarCuenta"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_logout" />
@@ -280,6 +289,7 @@
                 android:id="@+id/imageView17"
                 android:layout_width="30dp"
                 android:layout_height="27dp"
+                android:contentDescription="@string/btnBorrarCuenta"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/textView13"
                 app:layout_constraintStart_toStartOf="@+id/imageView13"
@@ -291,6 +301,7 @@
             android:id="@+id/btnModificarDatos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/txtEditDatos"
             android:foregroundGravity="center_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -300,6 +311,7 @@
                 android:id="@+id/imageView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/txtEditDatos"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -324,6 +336,7 @@
                 android:id="@+id/imageView16"
                 android:layout_width="26dp"
                 android:layout_height="23dp"
+                android:contentDescription="@string/txtEditDatos"
                 android:forceDarkAllowed="false"
                 android:tintMode="multiply"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -335,8 +348,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btnlogout"
-            android:layout_width="195dp"
-            android:layout_height="44dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/incioSesion"
             android:foregroundGravity="center_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -347,6 +361,7 @@
                 android:layout_width="193dp"
                 android:layout_height="46dp"
                 android:layout_marginEnd="1dp"
+                android:contentDescription="@string/logoutText"
                 app:layout_constraintBaseline_toBaselineOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:srcCompat="@drawable/ic_logout" />
@@ -368,6 +383,7 @@
                 android:id="@+id/imageView18"
                 android:layout_width="30dp"
                 android:layout_height="27dp"
+                android:contentDescription="@string/logoutText"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/logout"
                 app:layout_constraintStart_toStartOf="@+id/imageView12"
@@ -396,7 +412,8 @@
             app:layout_constraintBottom_toTopOf="@+id/switchGuardadoNube"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <Switch
             android:id="@+id/switchGuardadoNube"
@@ -406,21 +423,10 @@
             android:text="@string/salvarNube"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/errores"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="#000000"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botonesAccion" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnAtras"
@@ -445,11 +451,11 @@
 
         <TextView
             android:id="@+id/textAtras"
-            android:layout_width="44dp"
-            android:layout_height="36dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="@string/atras"
-            android:textColor="#FFB74D"
+            android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageAtras"
             app:layout_constraintTop_toTopOf="parent"
