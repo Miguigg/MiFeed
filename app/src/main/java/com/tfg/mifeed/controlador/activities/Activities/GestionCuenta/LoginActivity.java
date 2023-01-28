@@ -14,7 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
-import com.tfg.mifeed.controlador.activities.Activities.Prensa.FavoritosActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.PrensaActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
@@ -166,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
         if(res.equals("true")){
           v.getContext().startActivity(new Intent(v.getContext(), SeleccionTemasActivity.class));
         }else{
-          v.getContext().startActivity(new Intent(v.getContext(), FavoritosActivity.class));
+          v.getContext().startActivity(new Intent(v.getContext(), PrensaActivity.class));
         }
         finish();
         break;

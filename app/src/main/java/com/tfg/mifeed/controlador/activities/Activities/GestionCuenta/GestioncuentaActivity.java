@@ -19,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.PrensaActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
@@ -29,25 +30,26 @@ public class GestioncuentaActivity extends AppCompatActivity {
    * Aporta lógica a la vista de edición de cuentas de usuario, esta se conecta a Firebase para
    * realizar los cambios después de las validaciones
    * */
-  private ConstraintLayout btnDelete, btnEditPodcast, btnEditMedios, btnModificaDatos, btnLogout;
+  private ConstraintLayout btnDelete, btnEditMedios, btnModificaDatos, btnLogout,btnAtras;
   @SuppressLint("UseSwitchCompatOrMaterialCode")
   private Switch notificaciones, guardadoNube;
   private View actualView;
   private EditText nombre, pass, pass2, correo;
   private TextView errUsuario,errEmail,errPass;
 
+  @SuppressLint("MissingInflatedId")
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_gestioncuenta);
 
     btnLogout = findViewById(R.id.btnlogout);
+    btnAtras = findViewById(R.id.btnAtras);
     nombre = findViewById(R.id.modifNombre);
     pass = findViewById(R.id.modifPass2);
     pass2 = findViewById(R.id.modifPass);
     correo = findViewById(R.id.modifCorreo);
     btnDelete = findViewById(R.id.btnBorrarCuenta);
-    btnEditPodcast = findViewById(R.id.btnEditPodcast);
     btnEditMedios = findViewById(R.id.btnEditPrensa);
     notificaciones = findViewById(R.id.switchNotificaciones);
     guardadoNube = findViewById(R.id.switchGuardadoNube);
@@ -83,6 +85,24 @@ public class GestioncuentaActivity extends AppCompatActivity {
             comprobarDatos();
           }
         });
+    btnEditMedios.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if(!CheckConexion.getEstadoActual(GestioncuentaActivity.this)){
+          Toast.makeText(GestioncuentaActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
+        }else{
+          startActivity(new Intent(getApplicationContext(), SeleccionTemasActivity.class));
+          finish();
+        }
+      }
+    });
+    btnAtras.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(getApplicationContext(), PrensaActivity.class));
+        finish();
+      }
+    });
   }
 
   private void comprobarDatos() {
@@ -245,7 +265,7 @@ public class GestioncuentaActivity extends AppCompatActivity {
   public void respuestaDatosUsuario(String nombre, String email,String notificaciones,String guardarEtiquetas ,View v) {
     /*En caso de que la respuesta sea correcta, se envian los datos y esta funcion se encarga de mostrarlos*/
     EditText editTextNombre, editTextEmail;
-    Switch switchNotificaciones,switchNube;
+    @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switchNotificaciones,switchNube;
     editTextNombre = v.findViewById(R.id.modifNombre);
     editTextEmail = v.findViewById(R.id.modifCorreo);
     switchNotificaciones = v.findViewById(R.id.switchNotificaciones);

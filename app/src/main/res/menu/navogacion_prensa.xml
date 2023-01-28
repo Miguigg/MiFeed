@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/txtFavs"
+        android:icon="@drawable/ic_favoritos"
+        android:id="@+id/frag_favotiros"/>
+    <item android:title="@string/txtCat"
+        android:icon="@drawable/ic_categorias"
+        android:id="@+id/frag_categorias"/>
+    <item android:title="@string/txtImp"
+        android:icon="@drawable/ic_importante"
+        android:id="@+id/frag_importantes" />
+    <item android:title="@string/txtEtiq"
+        android:icon="@drawable/ic_etiquetas"
+        android:id="@+id/frag_etiquetas"/>
+</menu>

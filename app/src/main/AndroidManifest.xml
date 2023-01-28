@@ -17,6 +17,15 @@
         android:windowSoftInputMode="adjustPan"
         tools:targetApi="31">
         <activity
+            android:name=".controlador.activities.Activities.Prensa.NoticiaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controlador.activities.Activities.Prensa.EtiquetaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controlador.activities.Activities.Prensa.PrensaActivity"
+            android:exported="false" />
+        <activity
             android:name=".controlador.activities.Activities.GestionCuenta.SeleccionMediosActivity"
             android:exported="false" />
         <activity

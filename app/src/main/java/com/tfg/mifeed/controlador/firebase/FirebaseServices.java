@@ -4,6 +4,7 @@ import static com.tfg.mifeed.controlador.utilidades.Validaciones.hashearMD5;
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -31,12 +33,19 @@ import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.RegistroAc
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.ResetContrasenha;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionMediosActivity;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionTemasActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.CategoriasFragment;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.EtiquetasFragment;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.FavoritosFragment;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.ImportantesFragment;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.NoticiaActivity;
+import com.tfg.mifeed.modelo.Etiqueta;
 import com.tfg.mifeed.modelo.Usuario;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class FirebaseServices {
 
@@ -44,8 +53,8 @@ public class FirebaseServices {
   private static FirebaseAuth userAuth;
 
   public FirebaseServices() {
-    this.instancia = FirebaseFirestore.getInstance();
-    this.userAuth = FirebaseAuth.getInstance();
+    instancia = FirebaseFirestore.getInstance();
+    userAuth = FirebaseAuth.getInstance();
   }
 
   public static void ejecutarLogin(boolean emailSent, String email, String pass, View v) {
@@ -163,6 +172,25 @@ public class FirebaseServices {
             });
   }
 
+    public static void mandarEmailVerificacion() {
+        userAuth.getCurrentUser().sendEmailVerification();
+    }
+
+    public static void resetEmail(String email, View v) {
+        ResetContrasenha rst = new ResetContrasenha();
+        userAuth
+                .sendPasswordResetEmail(email)
+                .addOnCompleteListener(
+                        new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    rst.validacionOK(task.isSuccessful(), v);
+                                }
+                            }
+                        });
+    }
+
   public static void setTemasUsuario(ArrayList<String> temas, View v){
       SeleccionTemasActivity seleccionTemasActivity = new SeleccionTemasActivity();
       String id = userAuth.getCurrentUser().getUid();
@@ -239,25 +267,6 @@ public class FirebaseServices {
               }
           }
       });
-  }
-
-  public static void mandarEmailVerificacion() {
-    userAuth.getCurrentUser().sendEmailVerification();
-  }
-
-  public static void resetEmail(String email, View v) {
-    ResetContrasenha rst = new ResetContrasenha();
-    userAuth
-        .sendPasswordResetEmail(email)
-        .addOnCompleteListener(
-            new OnCompleteListener<Void>() {
-              @Override
-              public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                  rst.validacionOK(task.isSuccessful(), v);
-                }
-              }
-            });
   }
 
   public static void getInfoUsuario(View v) {
@@ -498,5 +507,253 @@ public class FirebaseServices {
                 }
               }
             });
+  }
+
+  public static void getMediosUsuario(View v){
+      FavoritosFragment favoritosFragment = new FavoritosFragment();
+      String id = Objects.requireNonNull(userAuth.getCurrentUser()).getUid();
+      DocumentReference ref = instancia.collection("Users").document(id);
+      ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+          @Override
+          public void onSuccess(DocumentSnapshot documentSnapshot) {
+              if(documentSnapshot.exists()){
+                  ArrayList<String> listaMedios = (ArrayList<String>) documentSnapshot.get("medios");
+                  favoritosFragment.respuestaListaMedios(listaMedios,"true",v);
+              }else{
+                  ArrayList<String> listaMedios = new ArrayList<>();
+                  favoritosFragment.respuestaListaMedios(listaMedios,"false",v);
+              }
+          }
+      });
+  }
+
+  public static void getTemasUsuario(View v, String activity){
+      String id = userAuth.getCurrentUser().getUid();
+      DocumentReference ref = instancia.collection("Users").document(id);
+      ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+          @Override
+          public void onSuccess(DocumentSnapshot documentSnapshot) {
+              if(documentSnapshot.exists()){
+                  ArrayList<String> listaTemas = (ArrayList<String>) documentSnapshot.get("temas");
+                  if (activity.equals("favoritos")){
+                      FirebaseServices.respuestaFavoritos(v,listaTemas,"true");
+                  }else{
+                      FirebaseServices.respuestaCategorias(v,listaTemas,"true");
+                  }
+              }else{
+                  if (activity.equals("favoritos")){
+                      ArrayList<String> listaTemas = new ArrayList<>();
+                      FirebaseServices.respuestaFavoritos(v,listaTemas,"false");
+                  }else{
+                      ArrayList<String> listaTemas = new ArrayList<>();
+                      FirebaseServices.respuestaCategorias(v,listaTemas,"false");
+                  }
+              }
+          }
+      });
+  }
+  public static void respuestaFavoritos(View v, ArrayList<String> listaTemas, String codigo){
+      FavoritosFragment favoritosFragment = new FavoritosFragment();
+      favoritosFragment.respuestaListaTemas(listaTemas,codigo,v);
+  }
+
+  public static void respuestaCategorias(View v, ArrayList<String> listaTemas, String codigo){
+      CategoriasFragment categoriasFragment = new CategoriasFragment();
+      categoriasFragment.rellenarCategorias(v,listaTemas,codigo);
+  }
+
+  public static void getDominios(View view){
+      ImportantesFragment importantesFragment = new ImportantesFragment();
+      String id = userAuth.getCurrentUser().getUid();
+      DocumentReference ref = instancia.collection("Users").document(id);
+      ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+          @Override
+          public void onSuccess(DocumentSnapshot documentSnapshot) {
+              if(documentSnapshot.exists()){
+                  ArrayList<String> listaDominios = (ArrayList<String>) documentSnapshot.get("dominios");
+                  importantesFragment.respuestaListaDominios(listaDominios,"true",view);
+              }else{
+                  ArrayList<String> listaDominios = new ArrayList<>();
+                  importantesFragment.respuestaListaDominios(listaDominios,"false",view);
+              }
+          }
+      });
+  }
+
+  public static void crearEtiqueta(String nombre,View v){
+      EtiquetasFragment etiquetasFragment = new EtiquetasFragment();
+      Map<String,Object> etiqueta = new HashMap<>();
+      ArrayList<String> urls = new ArrayList<>();
+      ArrayList<String> titulos = new ArrayList<>();
+      etiqueta.put("creador",userAuth.getCurrentUser().getUid());
+      etiqueta.put("tituloEtiqueta",nombre);
+      etiqueta.put("titulos",Arrays.asList(titulos.toArray()));
+      etiqueta.put("urls",Arrays.asList(urls.toArray()));
+
+      instancia.collection("Etiquetas").document().set(etiqueta).addOnCompleteListener(new OnCompleteListener<Void>() {
+          @Override
+          public void onComplete(@NonNull Task<Void> task) {
+              if (task.isSuccessful()){
+                  etiquetasFragment.respuestaCreacionEtiqueta("true", v);
+              }else {
+                  etiquetasFragment.respuestaCreacionEtiqueta("false", v);
+              }
+          }
+      });
+  }
+
+  public static void deleteEtiqueta(String nombre,View v){
+      CollectionReference ref = instancia.collection("Etiquetas");
+      ref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+          @Override
+          public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+              boolean borrado = false;
+              for(int i = 0; i<queryDocumentSnapshots.getDocuments().size();i++){
+                  if(queryDocumentSnapshots.getDocuments().get(i).get("tituloEtiqueta").equals(nombre)){
+                      borrado = true;
+                      String id = queryDocumentSnapshots.getDocuments().get(i).getId();
+                      instancia.collection("Etiquetas").document(id).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                          @Override
+                          public void onComplete(@NonNull Task<Void> task) {
+                              if(task.isSuccessful()){
+                                  Toast.makeText(v.getContext(),R.string.eliminacionEtiqueta,Toast.LENGTH_SHORT).show();
+                                  getEtiquetas(v);
+                              }else{
+                                  Toast.makeText(v.getContext(),R.string.errEliminacionEtiqueta,Toast.LENGTH_SHORT).show();
+                                  getEtiquetas(v);
+                              }
+                          }
+                      });
+                  }
+              }
+              if(!borrado){
+                  Toast.makeText(v.getContext(),R.string.errEtiquetaNoEncontrada,Toast.LENGTH_SHORT).show();
+              }
+          }
+      });
+  }
+
+  public static void eliminarUrlLista(String url,String nombre,String nombreEtiqueta){
+      CollectionReference ref = instancia.collection("Etiquetas");
+      ref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+          @Override
+          public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+              for(int i = 0; i<queryDocumentSnapshots.getDocuments().size();i++){
+                  if(queryDocumentSnapshots.getDocuments().get(i).get("tituloEtiqueta").equals(nombreEtiqueta)){
+                      Log.d("test",url);
+                      String id = queryDocumentSnapshots.getDocuments().get(i).getId();
+                      instancia.collection("Etiquetas").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+                          @Override
+                          public void onSuccess(DocumentSnapshot documentSnapshot) {
+                              ArrayList<String> listaUrls = (ArrayList<String>) documentSnapshot.get("urls");
+                              ArrayList<String> listaTitulos = (ArrayList<String>) documentSnapshot.get("titulos");
+                              for(int i = 0; i<listaUrls.size();i++){
+                                  if(listaUrls.get(i).equals(url)){
+                                      listaUrls.remove(i);
+                                      listaTitulos.remove(i);
+                                  }
+                              }
+                              actualizarUrlsyTitulos(listaUrls,listaTitulos,nombreEtiqueta);
+                          }
+                      });
+                  }
+              }
+          }
+      });
+  }
+
+  public static void actualizarUrlsyTitulos(ArrayList<String> listaUrls,ArrayList<String> listaTitulos, String nombreEtiqueta){
+      CollectionReference ref = instancia.collection("Etiquetas");
+      String id = userAuth.getCurrentUser().getUid();
+      ref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+          @Override
+          public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+              for(int i = 0; i<queryDocumentSnapshots.getDocuments().size();i++){
+                  if(queryDocumentSnapshots.getDocuments().get(i).get("creador").equals(id) && queryDocumentSnapshots.getDocuments().get(i).get("tituloEtiqueta").equals(nombreEtiqueta) ){
+                      String idDocumento = queryDocumentSnapshots.getDocuments().get(i).getId();
+                      Map<String,Object> etiqueta = new HashMap<>();
+                      etiqueta.put("titulos",Arrays.asList(listaTitulos.toArray()));
+                      etiqueta.put("urls",Arrays.asList(listaUrls.toArray()));
+                      instancia.collection("Etiquetas").document(idDocumento).update(etiqueta);
+                  }
+              }
+          }
+      });
+  }
+
+  public static void insertarUrlEtiqueta(String url,String nombreSitio,String nombreEtiqueta){
+      CollectionReference ref = instancia.collection("Etiquetas");
+      String id = userAuth.getCurrentUser().getUid();
+      ref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+          @Override
+          public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+              for(int i = 0; i<queryDocumentSnapshots.getDocuments().size();i++){
+                  if(queryDocumentSnapshots.getDocuments().get(i).get("creador").equals(id) && queryDocumentSnapshots.getDocuments().get(i).get("tituloEtiqueta").equals(nombreEtiqueta) ){
+                      String idDocumento = queryDocumentSnapshots.getDocuments().get(i).getId();
+                      ArrayList<String> titulosNoticias = (ArrayList<String>) queryDocumentSnapshots.getDocuments().get(i).get("titulos");
+                      ArrayList<String> urlsNoticias = (ArrayList<String>)  queryDocumentSnapshots.getDocuments().get(i).get("urls");
+                      titulosNoticias.add(nombreSitio);
+                      urlsNoticias.add(url);
+                      Map<String,Object> etiqueta = new HashMap<>();
+                      etiqueta.put("creador",id);
+                      etiqueta.put("tituloEtiqueta",nombreEtiqueta);
+                      etiqueta.put("titulos",Arrays.asList(titulosNoticias.toArray()));
+                      etiqueta.put("urls",Arrays.asList(urlsNoticias.toArray()));
+                      instancia.collection("Etiquetas").document(idDocumento).update(etiqueta);
+                  }
+              }
+          }
+      });
+  }
+
+  public static void getNombresEtiquetas(View v, LayoutInflater inf){
+      NoticiaActivity noticiaActivity = new NoticiaActivity();
+      CollectionReference ref = instancia.collection("Etiquetas");
+      ArrayList<String> nombreEtiquetas = new ArrayList<>();
+      String id = userAuth.getCurrentUser().getUid();
+
+      ref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+          @Override
+          public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+              for(int i = 0; i<queryDocumentSnapshots.getDocuments().size();i++){
+                  if(queryDocumentSnapshots.getDocuments().get(i).get("creador").equals(id)){
+                      nombreEtiquetas.add((String) queryDocumentSnapshots.getDocuments().get(i).get("tituloEtiqueta"));
+                  }
+              }
+              if(nombreEtiquetas.size()>0){
+                  noticiaActivity.respuestaNombresEtiquetas("true",nombreEtiquetas,v, inf);
+              }else{
+                  noticiaActivity.respuestaNombresEtiquetas("false",nombreEtiquetas, v, inf);
+              }
+          }
+      });
+
+  }
+
+  public static void getEtiquetas(View v){
+      EtiquetasFragment etiquetasFragment = new EtiquetasFragment();
+      CollectionReference ref = instancia.collection("Etiquetas");
+      ArrayList<Etiqueta> etiquetasUsuario = new ArrayList<>();
+      String id = userAuth.getCurrentUser().getUid();
+      ref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+          @Override
+          public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+              for(int i = 0; i<queryDocumentSnapshots.getDocuments().size();i++){
+                  if(queryDocumentSnapshots.getDocuments().get(i).get("creador").equals(id)){
+                      String tituloEtiqueta = queryDocumentSnapshots.getDocuments().get(i).getString("tituloEtiqueta");
+                      ArrayList<String> titulosNoticias = (ArrayList<String>) queryDocumentSnapshots.getDocuments().get(i).get("titulos");
+                      ArrayList<String> urlsNoticias = (ArrayList<String>)  queryDocumentSnapshots.getDocuments().get(i).get("urls");
+                      Etiqueta etiqueta = new Etiqueta(tituloEtiqueta,urlsNoticias,titulosNoticias);
+                      etiquetasUsuario.add(etiqueta);
+                  }
+              }
+              if(etiquetasUsuario.size()>0){
+                  etiquetasFragment.respuestaGetEtiquetas("true",etiquetasUsuario,v);
+              }else{
+                  etiquetasFragment.respuestaGetEtiquetas("false",etiquetasUsuario,v);
+              }
+          }
+      });
   }
 }

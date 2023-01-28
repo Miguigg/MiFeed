@@ -21,20 +21,38 @@
     <string name="editNombre">Modificar nombre</string>
     <string name="editCorreo">Modificar correo</string>
     <string name="editPass">Modificar contraseña</string>
-    <string name="txtEditPrensa">Modifica tu prensa</string>
-    <string name="txtEditPodcast">Modifica tus Podcast</string>
-    <string name="txtEditDatos">Modifica tus datos</string>
-    <string name="txtDeporte">Noticias deportivas</string>
-    <string name="txtNegocios">Noticias de negocios</string>
-    <string name="txtOcio">Noticias de ocio (cine/tv...)</string>
-    <string name="txtCiencia">Noticias de ciencia</string>
-    <string name="txtMedicina">Noticias sobre salud</string>
-    <string name="txtTecnologia">Noticias de tecnologia</string>
-    <string name="txtTemas">Selecciona tus temas</string>
+    <string name="txtEditPrensa">Modifica temas y medios</string>
+    <string name="txtImportantes">Mantente al día</string>
+    <string name="txtEditDatos">Realizar modificación</string>
+    <string name="txtDeporte">Deporte</string>
+    <string name="txtNegocios">Negocios</string>
+    <string name="txtOcio">Ocio (cine/tv…)</string>
+    <string name="txtCiencia">Ciencia</string>
+    <string name="txtMedicina">Salud</string>
+    <string name="txtTecnologia">Tecnologia</string>
+    <string name="txtTemas">Temas</string>
     <string name="txtAceptar">Aceptar</string>
     <string name="txtSeleccionMedios">Selecciona al menos un medio</string>
+    <string name="txtFavs">Favoritos</string>
+    <string name="txtCat">Categorías</string>
+    <string name="txtImp">Importantes</string>
+    <string name="txtEtiq">Etiquetas</string>
+    <string name="txtNombreWeb">Nombre para asignar a la web</string>
+    <string name="txtPodcast">Podcast</string>
+    <string name="txtPrensa">Prensa</string>
+    <string name="txtSeleccionCat">Selecciona una categoría</string>
+    <string name="txtAjustes">Ajustes</string>
+    <string name="medios">Tus medios</string>
+    <string name="temas">Tus temas</string>
+    <string name="txtTusEtiquetas">Elige o crea una etiqueta</string>
+    <string name="txtTituloEtiqueta">Introduce el titulo de la etiqueta</string>
+    <string name="txtTituloArticulos">Los articulos en tu etiqueta</string>
+    <string name="eliminacionEtiqueta">Etiqueta eliminada correctamente</string>
+    <string name="errEliminacionEtiqueta">Error al eliminar la etiqueta</string>
+    <string name="errEtiquetaNoEncontrada">Error al buscar la etiqueta</string>
     <string name="btnBorrarCuenta">Borrar cuenta</string>
     <string name="errSesion">Ha ocurido un error con tu sesión, vuelve a iniciarla</string>
+    <string name="errArticulos">No se encontraron articulos en tu etiqueta</string>
     <string name="cuentaBorrada">Tu cuenta ha sido borrada correctamente</string>
     <string name="notificaciones">Notificaciones</string>
     <string name="BorradoPodcast">Borrado de podcast</string>
@@ -50,6 +68,7 @@
     <string name="modificacionNombre">Se ha modificado el nombre con exito</string>
     <string name="errModifNombre">Error al modificar el nombre</string>
     <string name="errSeleccionTemas">No has seleccionado ninguna opción</string>
+    <string name="errEtiquetas">No se han encontrado etiquetas</string>
     <string name="errNombreUsuario">Debes introducir tu nombre</string>
     <string name="errNombreUsuarioNoValido">Solo puedes introducir hasta 15 caracteres, sin especiales</string>
     <string name="errContraseñaVacia">Debes introducir una contraseña para la cuenta</string>
@@ -63,6 +82,7 @@
     <string name="errEdicionCuenta">Ha ocurrido un error al modificar tus datos</string>
     <string name="errRegistro">Registro fallido</string>
     <string name="errConn">No tienes conexión, asi que no podrás logearte o registrarte</string>
+    <string name="errNoticias">No se  nhan podido encontraroticias</string>
     <string name="errRecuperacion">Ha ocurrido un error al recuperar tu sesión</string>
     <string name="CorrectConn">Conexión establecida correctamente</string>
     <string name="confirmacionCorreo">Te hemos envíado un correo para que verifiques tu cuenta</string>
@@ -80,6 +100,8 @@
     <string name="descripcionInputPass">Escribe tu nueva contraseña</string>
     <string name="descripcionInputPass2">Repetir nueva contraseña</string>
     <string name="descripcionImgMedio">Logotipo periodico</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

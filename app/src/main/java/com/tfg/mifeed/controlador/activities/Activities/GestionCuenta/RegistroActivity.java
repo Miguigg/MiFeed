@@ -64,7 +64,6 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
   }
 
   private void registroUsuario() {
-    //CheckConexion.comprobacionPeriodica(RegistroActivity.this);
     if(!CheckConexion.getEstadoActual(RegistroActivity.this)){
       Toast.makeText(RegistroActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
     }else{

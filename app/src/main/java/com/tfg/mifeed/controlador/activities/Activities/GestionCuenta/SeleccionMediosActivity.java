@@ -13,9 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
-import com.tfg.mifeed.controlador.activities.Activities.Prensa.FavoritosActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.PrensaActivity;
 import com.tfg.mifeed.controlador.adaptadores.AdaptadorListaMedios;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 
 import java.util.ArrayList;
 
@@ -32,7 +33,11 @@ public class SeleccionMediosActivity extends AppCompatActivity {
         btnAceptar = findViewById(R.id.btnFinalizar);
         FirebaseServices.getMedios(this.findViewById(android.R.id.content));
         btnAceptar.setOnClickListener(v -> {
-            insertarMedios();
+            if(!CheckConexion.getEstadoActual(SeleccionMediosActivity.this)){
+                Toast.makeText(SeleccionMediosActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
+            }else{
+                insertarMedios();
+            }
         });
     }
 
@@ -66,7 +71,7 @@ public class SeleccionMediosActivity extends AppCompatActivity {
     public void respuestaInsercion(String res,View v){
         switch (res){
             case "true":
-                v.getContext().startActivity(new Intent(v.getContext(), FavoritosActivity.class));
+                v.getContext().startActivity(new Intent(v.getContext(), PrensaActivity.class));
                 finish();
                 break;
             case "false":

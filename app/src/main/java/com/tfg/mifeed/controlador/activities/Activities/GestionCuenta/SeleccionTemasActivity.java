@@ -12,8 +12,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
-import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionMediosActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 
 import java.util.ArrayList;
 
@@ -33,7 +33,11 @@ public class SeleccionTemasActivity extends AppCompatActivity {
     tecnologia = findViewById(R.id.switchTecnologia);
     btnAceptar = findViewById(R.id.btnAceptar);
     btnAceptar.setOnClickListener(v -> {
-      checkSelección();
+      if(!CheckConexion.getEstadoActual(SeleccionTemasActivity.this)){
+        Toast.makeText(SeleccionTemasActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
+      }else{
+        checkSelección();
+      }
     });
   }
 
