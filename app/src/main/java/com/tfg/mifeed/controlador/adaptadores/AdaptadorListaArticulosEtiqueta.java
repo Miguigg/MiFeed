@@ -1,16 +1,19 @@
 package com.tfg.mifeed.controlador.adaptadores;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.mifeed.R;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.NoticiaActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 
 import java.util.ArrayList;
@@ -21,11 +24,13 @@ public class AdaptadorListaArticulosEtiqueta extends RecyclerView.Adapter<Adapta
     private ArrayList<String> nombresWebs;
     private String nombreEtiqueta;
     private View v;
+    private Context context;
 
-    public AdaptadorListaArticulosEtiqueta(ArrayList<String> urls, ArrayList<String> nombres,String nombreEtiqueta, View v){
+    public AdaptadorListaArticulosEtiqueta(ArrayList<String> urls, ArrayList<String> nombres,String nombreEtiqueta, View v, Context c){
         this.nombresWebs = nombres;
         this.urls = urls;
         this.v = v;
+        this.context = c;
         this.nombreEtiqueta = nombreEtiqueta;
     }
 
@@ -45,10 +50,14 @@ public class AdaptadorListaArticulosEtiqueta extends RecyclerView.Adapter<Adapta
         TextView titulo = holder.tituloArticulo;
         TextView url = holder.urlArticulo;
         ImageView eliminar = holder.btnEliminar;
+        LinearLayout articulo = holder.articulo;
         titulo.setText(nombresWebs.get(position));
         url.setText(urls.get(position));
         eliminar.setOnClickListener(v1 -> {
             eliminarWeb(position);
+        });
+        articulo.setOnClickListener(v1 -> {
+            abrirUrl(urls.get(position));
         });
     }
     private void eliminarWeb(int posicion) {
@@ -57,6 +66,13 @@ public class AdaptadorListaArticulosEtiqueta extends RecyclerView.Adapter<Adapta
         nombresWebs.remove(posicion);
         notifyItemRemoved(posicion);
         notifyItemRangeChanged(posicion,urls.size());
+    }
+
+    private void abrirUrl(String url){
+        Intent intent = new Intent(context, NoticiaActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("enlace", url);
+        context.startActivity(intent);
     }
 
     @Override
@@ -68,12 +84,14 @@ public class AdaptadorListaArticulosEtiqueta extends RecyclerView.Adapter<Adapta
 
         TextView tituloArticulo,urlArticulo;
         ImageView btnEliminar;
+        LinearLayout articulo;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tituloArticulo = itemView.findViewById(R.id.tituloArticulo);
             urlArticulo = itemView.findViewById(R.id.urlArticulo);
             btnEliminar = itemView.findViewById(R.id.eliminarWeb);
+            articulo = itemView.findViewById(R.id.toUrl);
         }
     }
 }

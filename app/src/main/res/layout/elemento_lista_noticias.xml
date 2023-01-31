@@ -5,6 +5,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/toNoticia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -33,16 +34,15 @@
                 android:id="@+id/content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
 
             <ImageView
                 android:id="@+id/foto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
-                android:layout_marginBottom="0dp"
-                app:srcCompat="@drawable/ic_app_v2" />
+                android:layout_marginBottom="0dp" />
 
             <TextView
                 android:id="@+id/medio"

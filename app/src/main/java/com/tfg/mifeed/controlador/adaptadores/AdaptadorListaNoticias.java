@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -68,10 +69,10 @@ public class AdaptadorListaNoticias extends RecyclerView.Adapter<AdaptadorListaN
                 break;
         }
         if (getItemCount() > 0) {
-      holder.foto.setOnClickListener(
+      holder.toNoticia.setOnClickListener(
           v -> {
-            //todo redireccionar a activity para ver el articulo
             Intent intent = new Intent(context, NoticiaActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("enlace", listaNoticias.get(pos).getUrl());
             context.startActivity(intent);
           });
@@ -91,12 +92,14 @@ public class AdaptadorListaNoticias extends RecyclerView.Adapter<AdaptadorListaN
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView titulo, contenido, autor;
         ImageView foto;
+        LinearLayout toNoticia;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             titulo = itemView.findViewById(R.id.titulo);
             contenido = itemView.findViewById(R.id.content);
             autor = itemView.findViewById(R.id.medio);
             foto = itemView.findViewById(R.id.foto);
+            toNoticia = itemView.findViewById(R.id.toNoticia);
         }
     }
 }

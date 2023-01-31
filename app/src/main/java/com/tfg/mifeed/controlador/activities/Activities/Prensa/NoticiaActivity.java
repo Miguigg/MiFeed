@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -29,13 +31,16 @@ public class NoticiaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView( R.layout.activity_noticia);
+        setContentView(R.layout.activity_noticia);
         noticia = findViewById(R.id.webNoticia);
         btnAddTag = findViewById(R.id.btnAddTag);
         btnCompartir = findViewById(R.id.btnCompartir);
         btnAtrasWebview = findViewById(R.id.btnAtrasWebview);
         url = getIntent().getExtras().getString("enlace");
-
+        if(url.substring(0,5).equals("http:")){
+            url = "https:"+url.substring(5);
+        }
+        accederNoticia(url);
         btnAtrasWebview.setOnClickListener(v -> {
             startActivity(new Intent(NoticiaActivity.this,PrensaActivity.class));
             finish();
@@ -46,8 +51,9 @@ public class NoticiaActivity extends AppCompatActivity {
         });
 
         btnCompartir.setOnClickListener(v->{
-            //todo mirar como abrir el menu compartir en android
+            compartirNoticia();
         });
+        FirebaseServices.insertarHistorial(url,this.findViewById(android.R.id.content));
     }
 
     public void respuestaNombresEtiquetas(String res, ArrayList<String> nombres, View v, LayoutInflater inf){
@@ -93,4 +99,20 @@ public class NoticiaActivity extends AppCompatActivity {
                 });
         builder.show();
     }
+
+    private void accederNoticia(String url){
+        WebSettings ws = noticia.getSettings();
+        ws.setJavaScriptEnabled(true);
+        noticia.setWebViewClient(new WebViewClient());
+        noticia.loadUrl(url);
+    }
+
+    private void compartirNoticia(){
+      Intent intent = new Intent();
+      intent.setAction(Intent.ACTION_SEND);
+      intent.putExtra(Intent.EXTRA_TEXT,url);
+      intent.setType("text/plain");
+      startActivity(intent);
+    }
+
 }

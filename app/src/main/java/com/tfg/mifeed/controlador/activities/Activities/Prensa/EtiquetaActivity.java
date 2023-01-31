@@ -38,7 +38,7 @@ public class EtiquetaActivity extends AppCompatActivity {
         }else{
             LinearLayoutManager linearLayoutManager =
                     new LinearLayoutManager(this.findViewById(android.R.id.content).getContext(), LinearLayoutManager.VERTICAL, false);
-            AdaptadorListaArticulosEtiqueta adaptadorListaArticulosEtiqueta = new AdaptadorListaArticulosEtiqueta(urls,titulosPagina,tituloEtiqueta,this.findViewById(android.R.id.content));
+            AdaptadorListaArticulosEtiqueta adaptadorListaArticulosEtiqueta = new AdaptadorListaArticulosEtiqueta(urls,titulosPagina,tituloEtiqueta,this.findViewById(android.R.id.content),getApplicationContext());
 
             listaEtiquetas.setLayoutManager(linearLayoutManager);
             listaEtiquetas.setAdapter(adaptadorListaArticulosEtiqueta);

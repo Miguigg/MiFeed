@@ -47,9 +47,14 @@
     <string name="txtTusEtiquetas">Elige o crea una etiqueta</string>
     <string name="txtTituloEtiqueta">Introduce el titulo de la etiqueta</string>
     <string name="txtTituloArticulos">Los articulos en tu etiqueta</string>
+    <string name="txtEliminarHistorial">Eliminar historial</string>
+    <string name="txtShare">Compartido desde MiFeed</string>
     <string name="eliminacionEtiqueta">Etiqueta eliminada correctamente</string>
+    <string name="eliminacionHistorial">Web eliminada con exito</string>
+    <string name="errEliminacionHistorial">No se pudo eliminar la etiqueta</string>
     <string name="errEliminacionEtiqueta">Error al eliminar la etiqueta</string>
     <string name="errEtiquetaNoEncontrada">Error al buscar la etiqueta</string>
+    <string name="errSinHistorial">No se ha encontrado ningún historial</string>
     <string name="btnBorrarCuenta">Borrar cuenta</string>
     <string name="errSesion">Ha ocurido un error con tu sesión, vuelve a iniciarla</string>
     <string name="errArticulos">No se encontraron articulos en tu etiqueta</string>
@@ -69,6 +74,7 @@
     <string name="errModifNombre">Error al modificar el nombre</string>
     <string name="errSeleccionTemas">No has seleccionado ninguna opción</string>
     <string name="errEtiquetas">No se han encontrado etiquetas</string>
+    <string name="errHistorial">Tu historial no ha podido actualizarse</string>
     <string name="errNombreUsuario">Debes introducir tu nombre</string>
     <string name="errNombreUsuarioNoValido">Solo puedes introducir hasta 15 caracteres, sin especiales</string>
     <string name="errContraseñaVacia">Debes introducir una contraseña para la cuenta</string>
