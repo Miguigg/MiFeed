@@ -7,7 +7,7 @@
     android:layout_marginLeft="25dp"
     android:layout_marginRight="10dp"
     android:layout_marginBottom="5dp"
-    android:background="#C16363">
+    android:background="@color/fondoComponentes">
 
     <ImageView
         android:id="@+id/imgMedioUsuario"

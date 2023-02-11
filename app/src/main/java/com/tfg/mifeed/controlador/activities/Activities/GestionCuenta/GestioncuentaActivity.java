@@ -3,6 +3,7 @@ package com.tfg.mifeed.controlador.activities.Activities.GestionCuenta;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -264,7 +265,11 @@ public class GestioncuentaActivity extends AppCompatActivity {
      * Aporta funcionalidad al boton de cerrar sesión de la aplicación.
      * */
     FirebaseAuth.getInstance().signOut();
+    SharedPreferences preferences = getSharedPreferences("sesion", 0);
+    preferences.edit().remove("email").apply();
+    preferences.edit().remove("pass").apply();
     startActivity(new Intent(getApplicationContext(), BienvenidaActivity.class));
+
   }
 
   public void respuestaDatosUsuario(View v) {

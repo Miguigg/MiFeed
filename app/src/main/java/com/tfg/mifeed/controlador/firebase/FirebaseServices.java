@@ -3,6 +3,7 @@ package com.tfg.mifeed.controlador.firebase;
 import static com.tfg.mifeed.controlador.utilidades.Validaciones.hashearMD5;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,12 +35,14 @@ import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.RegistroAc
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.ResetContrasenha;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionMediosActivity;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionTemasActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Podcast.FragmentsPodcast.MasTardeFragment;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.CategoriasFragment;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.EtiquetasFragment;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.FavoritosFragment;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.ImportantesFragment;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.HistorialActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.NoticiaActivity;
+import com.tfg.mifeed.modelo.Episodio;
 import com.tfg.mifeed.modelo.Etiqueta;
 import com.tfg.mifeed.modelo.Usuario;
 
@@ -56,8 +59,14 @@ public class FirebaseServices {
   private static FirebaseAuth userAuth;
 
   public FirebaseServices() {
-    instancia = FirebaseFirestore.getInstance();
-    userAuth = FirebaseAuth.getInstance();
+      inicioServicios();
+  }
+
+  public static void inicioServicios(){
+      if(instancia == null){
+          instancia = FirebaseFirestore.getInstance();
+          userAuth = FirebaseAuth.getInstance();
+      }
   }
 
   public static void ejecutarLogin(boolean emailSent, String email, String pass, View v) {
@@ -81,23 +90,6 @@ public class FirebaseServices {
                   }
                 } else {
                   login.respuestaLogin("loginFallido", v);
-                }
-              }
-            });
-  }
-
-  public static void recuperarLogin(String email, String pass, View v) {
-    userAuth
-        .signInWithEmailAndPassword(email, pass)
-        .addOnCompleteListener(
-            new OnCompleteListener<AuthResult>() {
-              @Override
-              public void onComplete(@NonNull Task<AuthResult> task) {
-                BienvenidaActivity bienvenidaActivity = new BienvenidaActivity();
-                if (task.isSuccessful()) {
-                  bienvenidaActivity.respuestaLogin("true", v);
-                } else {
-                  bienvenidaActivity.respuestaLogin("false", v);
                 }
               }
             });
@@ -141,6 +133,7 @@ public class FirebaseServices {
               public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                   ArrayList<String> historial = new ArrayList<>();
+                  ArrayList<String> masTarde = new ArrayList<>();
                   Map<String, Object> user = new HashMap<>();
                   user.put("id", userAuth.getCurrentUser().getUid());
                   user.put("nombre", usuario.getNombre());
@@ -150,8 +143,10 @@ public class FirebaseServices {
                       hashearMD5(usuario.getContraseña())); // insertamos la contraseña encriptada
                   user.put("firstLogin", "true");
                   user.put("notificaciones", "true");
-                  user.put("guardarEtiquetas", "true");
+                  user.put("guardarHistorial", "true");
                   user.put("historial",Arrays.asList(historial.toArray()));
+                  user.put("masTarde",Arrays.asList(masTarde.toArray()));
+                  user.put("bibliotecaPodcast",Arrays.asList(masTarde.toArray()));
                   instancia
                       .collection("Users")
                       .document(userAuth.getCurrentUser().getUid())
@@ -304,7 +299,7 @@ public class FirebaseServices {
                   String nombre = documentSnapshot.getString("nombre");
                   String correo = documentSnapshot.getString("correo");
                   String notificaciones = documentSnapshot.getString("notificaciones");
-                  String nube = documentSnapshot.getString("guardarEtiquetas");
+                  String nube = documentSnapshot.getString("guardarHistorial");
                   ges.respuestaDatosUsuario(nombre, correo, notificaciones, nube, v);
 
                 } else {
@@ -337,11 +332,11 @@ public class FirebaseServices {
               @Override
               public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                  Toast.makeText(v.getContext(), R.string.modificacionPass, Toast.LENGTH_SHORT)
+                  Toast.makeText(v.getContext(), R.string.modificacionCuenta, Toast.LENGTH_SHORT)
                       .show();
                   Log.d("Contraseña", "contraseña modificada");
                 } else {
-                  Toast.makeText(v.getContext(), R.string.errModifPass, Toast.LENGTH_SHORT).show();
+                  Toast.makeText(v.getContext(), R.string.errModificarDatos, Toast.LENGTH_SHORT).show();
                 }
               }
             });
@@ -359,9 +354,9 @@ public class FirebaseServices {
       user.put("notificaciones", "false");
     }
     if (usuario.isEtiquetasNube()) {
-      user.put("guardarEtiquetas", "true");
+      user.put("guardarHistorial", "true");
     } else {
-      user.put("guardarEtiquetas", "false");
+      user.put("guardarHistorial", "false");
     }
 
     ref.update(user)
@@ -714,7 +709,7 @@ public class FirebaseServices {
                       .get(i)
                       .get("tituloEtiqueta")
                       .equals(nombreEtiqueta)) {
-                    Log.d("test", url);
+
                     String id = queryDocumentSnapshots.getDocuments().get(i).getId();
                     instancia
                         .collection("Etiquetas")
@@ -742,6 +737,30 @@ public class FirebaseServices {
                 }
               }
             });
+  }
+
+  public static void addPodcastBiblioteca(String id, Context c){
+      String idUsuario = userAuth.getCurrentUser().getUid();
+      DocumentReference ref = instancia.collection("Users").document(idUsuario);
+      ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+          @Override
+          public void onSuccess(DocumentSnapshot documentSnapshot) {
+              ArrayList<String> bibliotecaActual = (ArrayList<String>) documentSnapshot.get("bibliotecaPodcast");
+              bibliotecaActual.add(id);
+              Map<String, Object> lista = new HashMap<>();
+              lista.put("bibliotecaPodcast", bibliotecaActual);
+              ref.update(lista).addOnCompleteListener(new OnCompleteListener<Void>() {
+                  @Override
+                  public void onComplete(@NonNull Task<Void> task) {
+                      if(task.isSuccessful()){
+                          Toast.makeText(c,R.string.txtAddPodcast,Toast.LENGTH_SHORT).show();
+                      }else{
+                          Toast.makeText(c,R.string.errAddPodcast,Toast.LENGTH_SHORT).show();
+                      }
+                  }
+              });
+          }
+      });
   }
 
   public static void actualizarUrlsyTitulos(
@@ -885,6 +904,128 @@ public class FirebaseServices {
       });
   }
 
+
+    public static void addParaMasTarde(Episodio episodio,String titulo ,Context c){
+        String idUsuario = userAuth.getCurrentUser().getUid();
+        Map<String, Object> episodioMasTarde = new HashMap<>();
+        episodioMasTarde.put("usuario",idUsuario);
+        episodioMasTarde.put("nombreCapitulo",titulo);
+        episodioMasTarde.put("urlImagen",episodio.getImage());
+        episodioMasTarde.put("urlAudio",episodio.getAudio());
+        CollectionReference ref = instancia.collection("Episodios");
+        ArrayList<String> toret = new ArrayList<>();
+
+        ref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(int i = 0; i<queryDocumentSnapshots.getDocuments().size();i++){
+                    if(queryDocumentSnapshots.getDocuments().get(i).get("usuario").equals(idUsuario)){
+                        String nombreCapitulo = (String) queryDocumentSnapshots.getDocuments().get(i).get("nombreCapitulo");
+                        String urlAudio = (String) queryDocumentSnapshots.getDocuments().get(i).get("urlAudio");
+                        String urlImagen = (String) queryDocumentSnapshots.getDocuments().get(i).get("urlImagen");
+                        Episodio episodio = new Episodio(nombreCapitulo,urlImagen,urlAudio);
+                        toret.add(episodio.getTitle());
+                    }
+                }
+                if(!toret.contains(titulo)){
+                    instancia.collection("Episodios").document().set(episodioMasTarde).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(c,R.string.txtAddPodcast,Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(c,R.string.errAddPodcast,Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }else{
+                    Toast.makeText(c,R.string.errPodcastYaExiste,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+  public static void getPodcastMasTarde(View v){
+      MasTardeFragment masTardeFragment = new MasTardeFragment();
+      String id = userAuth.getCurrentUser().getUid();
+      CollectionReference ref = instancia.collection("Episodios");
+      ArrayList<Episodio> toret = new ArrayList<>();
+      ref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+          @Override
+          public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+              for(int i = 0; i<queryDocumentSnapshots.getDocuments().size();i++){
+                  if(queryDocumentSnapshots.getDocuments().get(i).get("usuario").equals(id)){
+                      String nombreCapitulo = (String) queryDocumentSnapshots.getDocuments().get(i).get("nombreCapitulo");
+                      String urlAudio = (String) queryDocumentSnapshots.getDocuments().get(i).get("urlAudio");
+                      String urlImagen = (String) queryDocumentSnapshots.getDocuments().get(i).get("urlImagen");
+                      Episodio episodio = new Episodio(nombreCapitulo,urlImagen,urlAudio);
+                      toret.add(episodio);
+                  }
+              }
+              if(toret.size()>0){
+                  masTardeFragment.respuestaListaPodcast(toret,"true",v);
+              }else{
+                  masTardeFragment.respuestaListaPodcast(toret,"false",v);
+              }
+          }
+      });
+  }
+
+  public static void eliminarPodcastMastarde(String urlPodcast, Context c){
+      String id = userAuth.getCurrentUser().getUid();
+      CollectionReference ref = instancia.collection("Episodios");
+
+      ref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+          @Override
+          public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+              for(int i = 0; i<queryDocumentSnapshots.getDocuments().size();i++){
+                  if(queryDocumentSnapshots.getDocuments().get(i).get("usuario").equals(id) && queryDocumentSnapshots.getDocuments().get(i).get("urlAudio").equals(urlPodcast) ){
+                      String id = queryDocumentSnapshots.getDocuments().get(i).getId();
+                      instancia.collection("Episodios").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                          @Override
+                          public void onSuccess(Void unused) {
+                              Toast.makeText(c,R.string.episodioEliminado,Toast.LENGTH_SHORT).show();
+                          }
+                      });
+                  }
+              }
+          }
+      });
+  }
+
+  public static void getPodcastBiblioteca(){
+      String id = userAuth.getCurrentUser().getUid();
+      DocumentReference ref = instancia.collection("Users").document(id);
+      ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+          @Override
+          public void onSuccess(DocumentSnapshot documentSnapshot) {
+              ArrayList<String> listaPodcast = (ArrayList<String>) documentSnapshot.get("bibliotecaPodcast");
+              //mandar todo
+          }
+      });
+  }
+
+  public static void eliminarPodcastBiblioteca(String idPodcast){
+      String id = userAuth.getCurrentUser().getUid();
+      DocumentReference ref = instancia.collection("Users").document(id);
+      ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+          @Override
+          public void onSuccess(DocumentSnapshot documentSnapshot) {
+              ArrayList<String> listaPodcast = (ArrayList<String>) documentSnapshot.get("bibliotecaPodcast");
+              listaPodcast.remove(idPodcast);
+              Map<String, Object> lista = new HashMap<>();
+              lista.put("bibliotecaPodcast",listaPodcast);
+              ref.update(lista).addOnSuccessListener(new OnSuccessListener<Void>() {
+                  @Override
+                  public void onSuccess(Void unused) {
+                      //avisar todo
+                  }
+              });
+          }
+      });
+  }
+
+
   public static void insertarHistorial(String url, View v){
       String id = userAuth.getCurrentUser().getUid();
       DocumentReference ref = instancia.collection("Users").document(id);
@@ -892,23 +1033,34 @@ public class FirebaseServices {
       ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
           @Override
           public void onSuccess(DocumentSnapshot documentSnapshot) {
-              @SuppressWarnings("unchecked")
-              ArrayList<String> historial = (ArrayList<String>) documentSnapshot.get("historial");
-              if(!historial.contains(url)){
-                  historial.add(url);
-              }
-              Map<String, Object> historialNuevo = new HashMap<>();
-              historialNuevo.put("historial",Arrays.asList(historial.toArray()));
-              ref.update(historialNuevo).addOnCompleteListener(new OnCompleteListener<Void>() {
-                  @Override
-                  public void onComplete(@NonNull Task<Void> task) {
-                      if(task.isSuccessful()){
-                          Log.d("historial","add realizado correctamente");
-                      }else{
-                          Toast.makeText(v.getContext(),R.string.errHistorial,Toast.LENGTH_SHORT).show();
-                      }
-                  }
-              });
+             String guardarHistorial = documentSnapshot.getString("guardarHistorial");
+             switch (guardarHistorial){
+                 case "true":
+                     ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                         @Override
+                         public void onSuccess(DocumentSnapshot documentSnapshot) {
+                             @SuppressWarnings("unchecked")
+                             ArrayList<String> historial = (ArrayList<String>) documentSnapshot.get("historial");
+                             if(!historial.contains(url)){
+                                 historial.add(url);
+                             }
+                             Map<String, Object> historialNuevo = new HashMap<>();
+                             historialNuevo.put("historial",Arrays.asList(historial.toArray()));
+                             ref.update(historialNuevo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                 @Override
+                                 public void onComplete(@NonNull Task<Void> task) {
+                                     if(task.isSuccessful()){
+                                         Log.d("historial","add realizado correctamente");
+                                     }else{
+                                         Toast.makeText(v.getContext(),R.string.errHistorial,Toast.LENGTH_SHORT).show();
+                                     }
+                                 }
+                             });
+                         }
+                     });
+                 default:
+                     break;
+             }
           }
       });
   }
@@ -958,5 +1110,4 @@ public class FirebaseServices {
           }
       });
   }
-
 }

@@ -1,8 +1,6 @@
 package com.tfg.mifeed.controlador.activities.Activities.GestionCuenta;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -144,15 +142,5 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
       case "yaExiste":
         Toast.makeText(v.getContext(),R.string.errEmailExistente,Toast.LENGTH_LONG).show();
     }
-  }
-
-  private void setSession(String email, String id) {
-    SharedPreferences sharedpreferences = getSharedPreferences("sesion", Context.MODE_PRIVATE);
-    SharedPreferences.Editor editor = sharedpreferences.edit();
-    editor.putString("email",email);
-    editor.putString("id",id);
-    Toast.makeText(RegistroActivity.this,email,Toast.LENGTH_LONG).show();
-    editor.commit();
-    editor.apply();
   }
 }

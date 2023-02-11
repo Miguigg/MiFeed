@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainbackground"
     tools:context=".controlador.activities.Activities.Prensa.NoticiaActivity">
 
     <ImageView
         android:id="@+id/btnAddTag"
-        android:layout_width="130dp"
-        android:layout_height="118dp"
-        android:layout_marginTop="6dp"
+        android:layout_width="94dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toStartOf="@+id/btnCompartir"
         app:layout_constraintStart_toEndOf="@+id/btnAtrasWebview"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,33 +19,47 @@
 
     <ImageView
         android:id="@+id/btnAtrasWebview"
-        android:layout_width="133dp"
-        android:layout_height="118dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="6dp"
+        android:layout_width="94dp"
+        android:layout_height="82dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_atras" />
 
     <ImageView
         android:id="@+id/btnCompartir"
-        android:layout_width="121dp"
-        android:layout_height="116dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="94dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_share" />
 
     <WebView
         android:id="@+id/webNoticia"
-        android:layout_width="409dp"
-        android:layout_height="593dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="619dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAddTag" />
+
+    <TextView
+        android:id="@+id/errWeb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/errNombreArticulo"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddTag"
-        app:layout_constraintVertical_bias="0.906" />
+        app:layout_constraintTop_toBottomOf="@+id/webNoticia" />
 </androidx.constraintlayout.widget.ConstraintLayout>

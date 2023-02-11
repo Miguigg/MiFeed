@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.GestioncuentaActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Podcast.PodcastMainActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.PrensaActivity;
 
 public class AppActivity extends Application {
@@ -38,6 +39,14 @@ public class AppActivity extends Application {
       @Override
       public void onClick(View v) {
         v.getContext().startActivity(new Intent(v.getContext(), GestioncuentaActivity.class));
+        //activity.finish();
+      }
+    });
+
+    toPodcast.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        v.getContext().startActivity(new Intent(v.getContext(), PodcastMainActivity.class));
         activity.finish();
       }
     });

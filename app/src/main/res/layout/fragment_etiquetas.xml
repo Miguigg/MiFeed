@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CC4949"
-    tools:context=".controlador.activities.Activities.Prensa.FragmentsPrensa.EtiquetasFragment" >
+    android:background="@color/mainbackground"
+    tools:context=".controlador.activities.Activities.Prensa.FragmentsPrensa.EtiquetasFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaEtiquetas"
@@ -36,6 +36,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:foregroundGravity="center_horizontal"
+        android:gravity="center_horizontal"
         android:text="@string/txtTusEtiquetas"
         android:textColor="#FFFFFF"
         android:textSize="24sp"

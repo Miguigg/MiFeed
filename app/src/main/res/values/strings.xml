@@ -42,6 +42,10 @@
     <string name="txtPrensa">Prensa</string>
     <string name="txtSeleccionCat">Selecciona una categoría</string>
     <string name="txtAjustes">Ajustes</string>
+    <string name="txtBusqueda">Buscar</string>
+    <string name="txtBiblioteca">Biblioteca</string>
+    <string name="txtMasTarde">Más tarde</string>
+    <string name="txtRecordatorios">Recordatorios</string>
     <string name="medios">Tus medios</string>
     <string name="temas">Tus temas</string>
     <string name="txtTusEtiquetas">Elige o crea una etiqueta</string>
@@ -49,6 +53,9 @@
     <string name="txtTituloArticulos">Los articulos en tu etiqueta</string>
     <string name="txtEliminarHistorial">Eliminar historial</string>
     <string name="txtShare">Compartido desde MiFeed</string>
+    <string name="txtAddPodcast">Podcast añadido</string>
+    <string name="txtAddBiblioteca">Añadir a la biblioteca</string>
+
     <string name="eliminacionEtiqueta">Etiqueta eliminada correctamente</string>
     <string name="eliminacionHistorial">Web eliminada con exito</string>
     <string name="errEliminacionHistorial">No se pudo eliminar la etiqueta</string>
@@ -57,16 +64,18 @@
     <string name="errSinHistorial">No se ha encontrado ningún historial</string>
     <string name="btnBorrarCuenta">Borrar cuenta</string>
     <string name="errSesion">Ha ocurido un error con tu sesión, vuelve a iniciarla</string>
+    <string name="errAddPodcast">Error al salvar el podcast</string>
     <string name="errArticulos">No se encontraron articulos en tu etiqueta</string>
     <string name="cuentaBorrada">Tu cuenta ha sido borrada correctamente</string>
     <string name="notificaciones">Notificaciones</string>
     <string name="BorradoPodcast">Borrado de podcast</string>
-    <string name="salvarNube">Salvar etiquetas en la nube</string>
+    <string name="salvarNube">Salvar historial en la nube</string>
     <string name="idiomaAplicacion">Idioma de la app</string>
     <string name="confirmaCont">Confirma la contraseña</string>
     <string name="modificacionCorreo">Debes volver a iniciar sesión</string>
     <string name="modificacionCuenta">Tus datos han sido modificados exitosamente</string>
     <string name="modificacionPass">Contraseña modificada con exito</string>
+    <string name="episodioEliminado">Capítulo eliminado de tu lista</string>
     <string name="errModifPass">La contraseña no se ha podido modificar</string>
     <string name="modificacionEmail">Se ha modificado el correo exitosamente</string>
     <string name="errModificacionEmail">Error al modificar el email</string>
@@ -75,6 +84,8 @@
     <string name="errSeleccionTemas">No has seleccionado ninguna opción</string>
     <string name="errEtiquetas">No se han encontrado etiquetas</string>
     <string name="errHistorial">Tu historial no ha podido actualizarse</string>
+    <string name="errNombreArticulo">Debes introducir un nombre al articulo</string>
+    <string name="errBusqueda">No se han encontrado resultados</string>
     <string name="errNombreUsuario">Debes introducir tu nombre</string>
     <string name="errNombreUsuarioNoValido">Solo puedes introducir hasta 15 caracteres, sin especiales</string>
     <string name="errContraseñaVacia">Debes introducir una contraseña para la cuenta</string>
@@ -90,6 +101,8 @@
     <string name="errConn">No tienes conexión, asi que no podrás logearte o registrarte</string>
     <string name="errNoticias">No se  nhan podido encontraroticias</string>
     <string name="errRecuperacion">Ha ocurrido un error al recuperar tu sesión</string>
+    <string name="errModificarDatos">No has introducido datos o no son correctos</string>
+    <string name="errPodcastYaExiste">El podcast ya está en tu lista</string>
     <string name="CorrectConn">Conexión establecida correctamente</string>
     <string name="confirmacionCorreo">Te hemos envíado un correo para que verifiques tu cuenta</string>
     <string name="alertCorreo">Tienes que verificar tu cuenta para poder iniciar sesión, revisa tu spam si no lo encuentras</string>

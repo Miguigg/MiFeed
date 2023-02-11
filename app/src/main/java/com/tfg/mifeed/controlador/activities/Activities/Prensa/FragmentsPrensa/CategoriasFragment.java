@@ -35,6 +35,7 @@ import retrofit2.Response;
 public class CategoriasFragment extends Fragment {
 
     private final String API_KEY = "c3afd5ea3f5548adbe7afc7e21c4c0bf";
+    public static ProgressBar cargaEleccion;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -42,6 +43,7 @@ public class CategoriasFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_categorias, container, false);
         FirebaseServices.getTemasUsuario(view,"categorias");
+        cargaEleccion = view.findViewById(R.id.cargaEleccion);
         return view;
     }
 
@@ -60,6 +62,7 @@ public class CategoriasFragment extends Fragment {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(@NonNull Call<RespuestaListaNoticias> call, @NonNull Response<RespuestaListaNoticias> response) {
+                cargaEleccion.setVisibility(View.GONE);
                 if (response.isSuccessful() && Objects.requireNonNull(response.body()).getNoticias().size()>0){
                     respuesta.clear();
                     respuesta.addAll(response.body().getNoticias());
@@ -125,6 +128,7 @@ public class CategoriasFragment extends Fragment {
                 btCategory.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        cargaEleccion.setVisibility(View.VISIBLE);
                         setAccion((String) v.getTag(),vContenedor);
                     }
                 });

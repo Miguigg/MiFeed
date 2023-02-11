@@ -43,7 +43,7 @@ public class SeleccionMediosActivity extends AppCompatActivity {
 
     private void insertarMedios() {
         if(dominiosSeleccionados.size()<1 || (mediosSeleccionados.size()<1)){
-            Toast.makeText(this, R.string.errSesion, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.errSeleccionTemas, Toast.LENGTH_SHORT).show();
         }else{
             FirebaseServices.setMediosUsuario(mediosSeleccionados,dominiosSeleccionados,this.findViewById(android.R.id.content));
             FirebaseServices.setFirstLoginFalse();

@@ -1,8 +1,10 @@
 package com.tfg.mifeed.controlador.activities.Activities.GestionCuenta;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -25,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
   private TextView errEmail,errPass;
   private Validaciones validaciones = new Validaciones();
   boolean emailIsSent;
-  FirebaseServices conexion;
+  FirebaseServices firebaseServices;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -46,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
     toReg = findViewById(R.id.toRegistro);
     toReset = findViewById(R.id.toReset);
     emailIsSent = false;
-    conexion = new FirebaseServices();
 
     loginApp.setOnClickListener(view -> {
       iniciarSesion();
@@ -62,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
           startActivity(new Intent(LoginActivity.this, RegistroActivity.class));
           finish();
         });
+     firebaseServices = new FirebaseServices();
   }
 
   private void iniciarSesion() {
@@ -105,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
 
       if(esValido){
         //llama a la funcion de login de FirebaseServices
+        this.setSession(email,pass);
         FirebaseServices.ejecutarLogin(emailIsSent,email,pass,this.findViewById(android.R.id.content));
         this.emailIsSent = true;
       }
@@ -161,8 +164,6 @@ public class LoginActivity extends AppCompatActivity {
     * */
     switch (exito){
       case "true":
-        //todo en funcion del valor de res (viene de firebase) redirige a pestañas configuracion cuenta o a pestaña favoritos
-        //todo favoritos muestra lista de noticias de los medios y un boton para editarlos abajo
         if(res.equals("true")){
           v.getContext().startActivity(new Intent(v.getContext(), SeleccionTemasActivity.class));
         }else{
@@ -180,5 +181,14 @@ public class LoginActivity extends AppCompatActivity {
     Intent intent = new Intent(LoginActivity.this, BienvenidaActivity.class);
     startActivity(intent);
     finish();
+  }
+
+  private void setSession(String email, String pass) {
+    SharedPreferences sharedpreferences = getSharedPreferences("sesion", Context.MODE_PRIVATE);
+    SharedPreferences.Editor editor = sharedpreferences.edit();
+    editor.putString("email",email);
+    editor.putString("pass",pass);
+    editor.commit();
+    editor.apply();
   }
 }

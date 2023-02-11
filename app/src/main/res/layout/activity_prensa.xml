@@ -8,12 +8,11 @@
 
     <FrameLayout
         android:id="@+id/framePrensa"
-        android:layout_width="410dp"
+        android:layout_width="match_parent"
         android:layout_height="655dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toTopOf="@+id/barraApp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bottomNavigationView"
         app:layout_constraintVertical_bias="0.161">
@@ -27,7 +26,7 @@
         android:layout_height="60dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:background="#5E1E1E"
+        android:background="@color/fondoBarraNavegacion"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:backgroundTint="#5E1E1E"
+        android:backgroundTint="@color/fondoBarraNavegacion"
         app:fabCradleMargin="8dp"
         app:fabCradleRoundedCornerRadius="50dp"
         app:fabCradleVerticalOffset="1dp"

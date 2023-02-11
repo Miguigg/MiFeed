@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CC4949"
+    android:background="@color/mainbackground"
     tools:context=".controlador.activities.Activities.Prensa.HistorialActivity">
 
     <TextView
@@ -12,6 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:foregroundGravity="center_horizontal"
+        android:gravity="center_horizontal"
         android:text="@string/Historial"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
@@ -22,7 +24,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaHistorial"
-        android:layout_width="407dp"
+        android:layout_width="match_parent"
         android:layout_height="582dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -12,6 +13,7 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,8 +28,9 @@ public class NoticiaActivity extends AppCompatActivity {
 
     public static ArrayList<String> listaNombres;
     public static String nombreWeb,nombreEtiqueta,url;
-
+    public static TextView errWeb;
     private ImageView btnAtrasWebview,btnAddTag,btnCompartir;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +40,7 @@ public class NoticiaActivity extends AppCompatActivity {
         btnCompartir = findViewById(R.id.btnCompartir);
         btnAtrasWebview = findViewById(R.id.btnAtrasWebview);
         url = getIntent().getExtras().getString("enlace");
+        errWeb = findViewById(R.id.errWeb);
         if(url.substring(0,5).equals("http:")){
             url = "https:"+url.substring(5);
         }
@@ -73,7 +77,6 @@ public class NoticiaActivity extends AppCompatActivity {
         View dialog_layout = inf.inflate(R.layout.layout_dialogo, null);
         EditText inputNombreWeb = dialog_layout.findViewById(R.id.txtNombreWeb);
         Spinner lista=  dialog_layout.findViewById(R.id.spinnerNombresEtiquetas);
-
         AdaptadorListaNombresEtiquetas adaptador = new AdaptadorListaNombresEtiquetas(listaNombres);
         lista.setAdapter(adaptador);
 
@@ -86,7 +89,14 @@ public class NoticiaActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         nombreWeb = inputNombreWeb.getText().toString();
                         nombreEtiqueta = lista.getSelectedItem().toString();
-                        FirebaseServices.insertarUrlEtiqueta(url,nombreWeb,nombreEtiqueta);
+                        if(!inputNombreWeb.getText().toString().isEmpty()){
+                            FirebaseServices.insertarUrlEtiqueta(url,nombreWeb,nombreEtiqueta);
+                            errWeb.setVisibility(View.GONE);
+
+                        }else{
+                            Log.d("a","a");
+                            errWeb.setVisibility(View.VISIBLE);
+                        }
                     }
                 });
         builder.setNegativeButton(

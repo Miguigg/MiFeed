@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/txtBusqueda"
+        android:icon="@drawable/ic_busqueda"
+        android:id="@+id/frag_busqueda"/>
+    <item android:title="@string/txtBiblioteca"
+        android:icon="@drawable/ic_libreria"
+        android:id="@+id/frag_biblio"/>
+    <item android:title="@string/txtMasTarde"
+        android:icon="@drawable/ic_reloj"
+        android:id="@+id/frag_masTarde" />
+    <item android:title="@string/txtRecordatorios"
+        android:icon="@drawable/ic_add_recordatorio"
+        android:id="@+id/frag_recordatorios"/>
+</menu>

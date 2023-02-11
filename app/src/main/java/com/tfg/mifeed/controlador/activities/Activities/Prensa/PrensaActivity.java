@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,9 @@ import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.C
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.EtiquetasFragment;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.FavoritosFragment;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.ImportantesFragment;
+import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.utilidades.CheckConexion;
+import com.tfg.mifeed.controlador.utilidades.Validaciones;
 
 
 public class PrensaActivity extends AppCompatActivity {
@@ -40,26 +44,34 @@ public class PrensaActivity extends AppCompatActivity {
         final AppActivity app = (AppActivity) this.getApplication();
         app.generarBarraInferior(this.findViewById(android.R.id.content),this);
         getSupportFragmentManager().beginTransaction().replace(R.id.framePrensa,favoritosFragment).commit();
+        FirebaseServices firebaseServices = new FirebaseServices();
         bottomNavigationMenuView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.frag_favotiros:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.framePrensa,favoritosFragment).commit();
-                        return true;
-                    case R.id.frag_categorias:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.framePrensa,categoriasFragment).commit();
-                        return true;
-                    case R.id.frag_importantes:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.framePrensa,importantesFragment).commit();
-                        return true;
-                    case R.id.frag_etiquetas:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.framePrensa,etiquetasFragment).commit();
-                        return true;
+                if(!CheckConexion.getEstadoActual(PrensaActivity.this)){
+                    Toast.makeText(PrensaActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
+                }else{
+                    switch (item.getItemId()){
+                        case R.id.frag_favotiros:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.framePrensa,favoritosFragment).commit();
+                            return true;
+                        case R.id.frag_categorias:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.framePrensa,categoriasFragment).commit();
+                            return true;
+                        case R.id.frag_importantes:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.framePrensa,importantesFragment).commit();
+                            return true;
+                        case R.id.frag_etiquetas:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.framePrensa,etiquetasFragment).commit();
+                            return true;
+                    }
                 }
                 return false;
             }
         });
+    }
+    public void onBackPressed() {
+        Validaciones.confirmarExit(PrensaActivity.this);
     }
 }
