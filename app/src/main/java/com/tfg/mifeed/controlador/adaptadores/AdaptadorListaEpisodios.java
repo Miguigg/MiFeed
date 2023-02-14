@@ -31,9 +31,12 @@ public class AdaptadorListaEpisodios
   Context context;
   MediaPlayer mediaPlayer;
 
+  boolean repoduciendo;
+
   public AdaptadorListaEpisodios(ArrayList<Episodio> listaEpisodios, Context context) {
     this.context = context;
     this.listaEpisodios = listaEpisodios;
+    this.repoduciendo = false;
   }
 
   @NonNull
@@ -56,26 +59,23 @@ public class AdaptadorListaEpisodios
         .override(400, 300)
         .into(imageView);
     ImageView play = holder.play;
-    ImageView pause = holder.pausa;
     ImageView masTarde = holder.masTarde;
     play.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-            play.setVisibility(View.GONE);
-            pause.setVisibility(View.VISIBLE);
-            reproducir(listaEpisodios.get(holder.getAdapterPosition()).getAudio());
+            if(repoduciendo == false){
+              repoduciendo = true;
+              play.setImageResource(R.drawable.ic_parar_episodio);
+              reproducir(listaEpisodios.get(holder.getAdapterPosition()).getAudio());
+            }else{
+              repoduciendo =false;
+              play.setImageResource(R.drawable.ic_rep_episodio);
+              parar();
+            }
           }
         });
-    pause.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            play.setVisibility(View.VISIBLE);
-            pause.setVisibility(View.GONE);
-            parar();
-          }
-        });
+
     masTarde.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -96,6 +96,7 @@ public class AdaptadorListaEpisodios
                 listaEpisodios.get(holder.getAdapterPosition()).getDescription_original());
             intent.putExtra(
                 "idPodcast", listaEpisodios.get(holder.getAdapterPosition()).getPodcast().getId());
+            intent.putExtra("titulo",listaEpisodios.get(holder.getAdapterPosition()).getPodcast().getTitle_original());
             context.startActivity(intent);
           }
         });

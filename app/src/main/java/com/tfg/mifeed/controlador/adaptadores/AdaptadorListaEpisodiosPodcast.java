@@ -27,11 +27,12 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
     ArrayList<Episodio> listaEpisodios;
     Context context;
     MediaPlayer mediaPlayer;
-
+    boolean reproduciendo;
 
     public AdaptadorListaEpisodiosPodcast(ArrayList<Episodio> listaEpisodios, Context context){
         this.context = context;
         this.listaEpisodios = listaEpisodios;
+        this.reproduciendo = false;
     }
 
     @NonNull
@@ -54,26 +55,23 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
                 .override(400, 300)
                 .into(imageView);
         ImageView play = holder.play;
-        ImageView pause = holder.pausa;
         ImageView masTarde = holder.masTarde;
         play.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        play.setVisibility(View.GONE);
-                        pause.setVisibility(View.VISIBLE);
-                        reproducir(listaEpisodios.get(holder.getAdapterPosition()).getAudio());
+                        if(reproduciendo == false){
+                            reproduciendo = true;
+                            play.setImageResource(R.drawable.ic_parar_episodio);
+                            reproducir(listaEpisodios.get(holder.getAdapterPosition()).getAudio());
+                        }else{
+                            reproduciendo = false;
+                            play.setImageResource(R.drawable.ic_rep_episodio);
+                            parar();
+                        }
                     }
                 });
-        pause.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        play.setVisibility(View.VISIBLE);
-                        pause.setVisibility(View.GONE);
-                        parar();
-                    }
-                });
+
     masTarde.setOnClickListener(
         new View.OnClickListener() {
           @Override

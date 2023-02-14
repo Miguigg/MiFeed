@@ -43,7 +43,7 @@ public class HistorialActivity extends AppCompatActivity {
     }
 
     private void eliminarTodoHistorial() {
-        FirebaseServices.eliminarTodoHistorial();
+        FirebaseServices.eliminarTodoHistorial(this.findViewById(android.R.id.content));
         FirebaseServices.getHistorial(this.findViewById(android.R.id.content));
     }
 

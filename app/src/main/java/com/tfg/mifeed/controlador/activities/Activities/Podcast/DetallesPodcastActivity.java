@@ -18,6 +18,7 @@ import com.tfg.mifeed.controlador.adaptadores.AdaptadorListaEpisodiosPodcast;
 import com.tfg.mifeed.controlador.conexioPodcastApi.ApiPodcastConn;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.modelo.Episodio;
+import com.tfg.mifeed.modelo.Podcast;
 import com.tfg.mifeed.modelo.RespuestaListaPodcast;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class DetallesPodcastActivity extends AppCompatActivity {
         String idPodcast = getIntent().getExtras().getString("idPodcast");
         String urlImagen = getIntent().getExtras().getString("urlImagen");
         String txtDescripcion = String.valueOf(fromHtml(getIntent().getExtras().getString("descripcion"),0));
+        String titulo = getIntent().getExtras().getString("titulo");
         descripcion = findViewById(R.id.descripcionPodcast);
         logoPodcast = findViewById(R.id.logoPodcast);
         addPodcast = findViewById(R.id.btnAddBiblioteca);
@@ -56,7 +58,8 @@ public class DetallesPodcastActivity extends AppCompatActivity {
         addPodcast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseServices.addPodcastBiblioteca(idPodcast,DetallesPodcastActivity.this);
+                Podcast podcast = new Podcast(idPodcast,urlImagen,titulo);
+                FirebaseServices.addPodcastBiblioteca(podcast,DetallesPodcastActivity.this);
             }
         });
     }

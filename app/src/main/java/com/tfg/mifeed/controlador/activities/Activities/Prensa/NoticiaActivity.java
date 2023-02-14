@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -67,6 +68,7 @@ public class NoticiaActivity extends AppCompatActivity {
                 mostrarDialogo(v,inf);
                 break;
             case "false":
+                Toast.makeText(v.getContext(), "No tienes etiquetas", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

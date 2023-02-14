@@ -41,7 +41,7 @@ public class MasTardeFragment extends Fragment {
         return v;
     }
 
-    private void setAdaptadorListaMasTarde(ArrayList<Episodio> lista){
+    private void setAdaptadorListaMasTarde(){
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         AdaptadorListaMasTarde adaptadorListaMasTarde1 = new AdaptadorListaMasTarde(listaEpisodios,v.getContext());
@@ -55,7 +55,7 @@ public class MasTardeFragment extends Fragment {
                 listaEpisodios = listaEpisodiosNueva;
                 carga.setVisibility(View.GONE);
                 err.setVisibility(View.GONE);
-                setAdaptadorListaMasTarde(listaEpisodiosNueva);
+                setAdaptadorListaMasTarde();
                 break;
             case "false":
                 carga.setVisibility(View.GONE);

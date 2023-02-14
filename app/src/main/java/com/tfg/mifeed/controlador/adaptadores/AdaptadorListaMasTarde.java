@@ -29,10 +29,12 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
     ArrayList<Episodio> listaEpisodios;
     Context context;
     MediaPlayer mediaPlayer;
+    boolean reproduciendo;
 
     public AdaptadorListaMasTarde(ArrayList<Episodio> listaEpisodios, Context context){
         this.context = context;
         this.listaEpisodios = listaEpisodios;
+        this.reproduciendo = false;
     }
 
     @NonNull
@@ -55,26 +57,23 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
                 .override(400, 300)
                 .into(imageView);
         ImageView play = holder.play;
-        ImageView pause = holder.pausa;
         ImageView eliminar =  holder.eliminar;
         play.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        play.setVisibility(View.GONE);
-                        pause.setVisibility(View.VISIBLE);
-                        reproducir(listaEpisodios.get(holder.getAdapterPosition()).getAudio());
+                        if(reproduciendo == false){
+                            reproduciendo = true;
+                            play.setImageResource(R.drawable.ic_parar_episodio);
+                            reproducir(listaEpisodios.get(holder.getAdapterPosition()).getAudio());
+                        }else{
+                            reproduciendo = false;
+                            play.setImageResource(R.drawable.ic_rep_episodio);
+                            parar();
+                        }
                     }
                 });
-        pause.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        play.setVisibility(View.VISIBLE);
-                        pause.setVisibility(View.GONE);
-                        parar();
-                    }
-                });
+
         imageView.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -85,9 +84,10 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
                                 "urlImagen", listaEpisodios.get(holder.getAdapterPosition()).getImage());
                         intent.putExtra(
                                 "descripcion",
-                                listaEpisodios.get(holder.getAdapterPosition()).getDescription_original());
+                                listaEpisodios.get(holder.getAdapterPosition()).getDescription());
                         intent.putExtra(
-                                "idPodcast", listaEpisodios.get(holder.getAdapterPosition()).getPodcast().getId());
+                                "idPodcast", listaEpisodios.get(holder.getAdapterPosition()).getId());
+                        intent.putExtra("titulo",listaEpisodios.get(holder.getAdapterPosition()).getTituloPodcast());
                         context.startActivity(intent);
                     }
                 });
@@ -139,7 +139,6 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imagenEpisodio = itemView.findViewById(R.id.imagenEpisodio2);
-            pausa = itemView.findViewById(R.id.parar2);
             play = itemView.findViewById(R.id.reproducir2);
             recordatorio = itemView.findViewById(R.id.recordatorio2);
             eliminar = itemView.findViewById(R.id.btnEliminar);

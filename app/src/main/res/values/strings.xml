@@ -55,6 +55,7 @@
     <string name="txtShare">Compartido desde MiFeed</string>
     <string name="txtAddPodcast">Podcast añadido</string>
     <string name="txtAddBiblioteca">Añadir a la biblioteca</string>
+    <string name="txtTituloBiblioteca">Tu bliblioteca de podcast</string>
 
     <string name="eliminacionEtiqueta">Etiqueta eliminada correctamente</string>
     <string name="eliminacionHistorial">Web eliminada con exito</string>
@@ -83,9 +84,10 @@
     <string name="errModifNombre">Error al modificar el nombre</string>
     <string name="errSeleccionTemas">No has seleccionado ninguna opción</string>
     <string name="errEtiquetas">No se han encontrado etiquetas</string>
-    <string name="errHistorial">Tu historial no ha podido actualizarse</string>
+    <string name="errHistorialerrHistorial">Tu historial no ha podido actualizarse</string>
     <string name="errNombreArticulo">Debes introducir un nombre al articulo</string>
     <string name="errBusqueda">No se han encontrado resultados</string>
+    <string name="errHistorial">No se ha podido modificar el historial</string>
     <string name="errNombreUsuario">Debes introducir tu nombre</string>
     <string name="errNombreUsuarioNoValido">Solo puedes introducir hasta 15 caracteres, sin especiales</string>
     <string name="errContraseñaVacia">Debes introducir una contraseña para la cuenta</string>
@@ -110,6 +112,8 @@
     <string name="entendido">Entendido</string>
     <string name="atras">Volver</string>
     <string name="Historial">Historial</string>
+    <string name="txtHistorial">Historial eliminado correctamente</string>
+    <string name="txtDeletePodcast">Podcast eliminado correctamente</string>
 
     <string name="descripcionLogin">Botón para iniciar sesión</string>
     <string name="descripcionRegistro">Botón para ejecutar el registro</string>

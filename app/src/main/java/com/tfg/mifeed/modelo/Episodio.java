@@ -7,6 +7,7 @@ public class Episodio {
   private String image;
   private Podcast podcast;
   private String title_original;
+  private String tituloPodcast;
   private String title_highlighted;
   private String description_original;
   private String description_highlighted;
@@ -22,6 +23,7 @@ public class Episodio {
       String title,
       String description,
       String title_original,
+      String tituloPodcast,
       String title_highlighted,
       String description_original,
       String description_highlighted) {
@@ -38,10 +40,17 @@ public class Episodio {
     this.description = description;
   }
 
-  public Episodio(String nombre,String urlImagen,String urlAudio){
+  public Episodio(String nombre,String urlImagen,String urlAudio, String idPodcast, String description, String tituloPodcast){
     this.title = nombre;
     this.image = urlImagen;
     this.audio = urlAudio;
+    this.id = idPodcast;
+    this.description = description;
+    this.tituloPodcast = tituloPodcast;
+  }
+
+  public String getTituloPodcast() {
+    return tituloPodcast;
   }
 
   public String getTitle() {

@@ -23,8 +23,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listaMastarde"
-        android:layout_width="369dp"
-        android:layout_height="687dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"

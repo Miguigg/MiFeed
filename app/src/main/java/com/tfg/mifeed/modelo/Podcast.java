@@ -37,6 +37,12 @@ public class Podcast {
     this.listen_score_global_rank = listen_score_global_rank;
   }
 
+  public Podcast(String id, String image, String titulo){
+    this.id = id;
+    this.image = image;
+    this.title_original = titulo;
+  }
+
   public String getId() {
     return id;
   }
