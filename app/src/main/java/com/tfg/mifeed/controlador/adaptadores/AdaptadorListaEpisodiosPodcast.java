@@ -25,14 +25,17 @@ import java.util.ArrayList;
 public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<AdaptadorListaEpisodiosPodcast.ViewHolder>{
 
     ArrayList<Episodio> listaEpisodios;
+    String idPodcast, tituloPodcast;
     Context context;
     MediaPlayer mediaPlayer;
     boolean reproduciendo;
 
-    public AdaptadorListaEpisodiosPodcast(ArrayList<Episodio> listaEpisodios, Context context){
+    public AdaptadorListaEpisodiosPodcast(ArrayList<Episodio> listaEpisodios, Context context, String idPodcast, String tituloPodcast){
         this.context = context;
         this.listaEpisodios = listaEpisodios;
         this.reproduciendo = false;
+        this.idPodcast = idPodcast;
+        this.tituloPodcast = tituloPodcast;
     }
 
     @NonNull
@@ -85,7 +88,7 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
     }
 
     private void addIdEpisodio(Episodio episodio, String titulo) {
-        FirebaseServices.addParaMasTarde(episodio, titulo ,context);
+        FirebaseServices.addParaMasTarde(episodio, titulo ,context,idPodcast,tituloPodcast);
     }
 
     private void reproducir(String url) {

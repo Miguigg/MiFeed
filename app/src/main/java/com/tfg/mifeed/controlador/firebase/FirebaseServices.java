@@ -36,6 +36,7 @@ import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.RegistroAc
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.ResetContrasenha;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionMediosActivity;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionTemasActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Podcast.FragmentsPodcast.BibliotecaFragment;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.FragmentsPodcast.MasTardeFragment;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.CategoriasFragment;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.EtiquetasFragment;
@@ -885,17 +886,17 @@ public class FirebaseServices {
             });
   }
 
-  public static void addParaMasTarde(Episodio episodio, String titulo, Context c) {
+  public static void addParaMasTarde(Episodio episodio, String titulo, Context c, String idPodcast, String tituloPodcast) {
     String idUsuario = userAuth.getCurrentUser().getUid();
     Map<String, Object> episodioMasTarde = new HashMap<>();
     episodioMasTarde.put("usuario", idUsuario);
     episodioMasTarde.put("nombreCapitulo", titulo);
     episodioMasTarde.put("urlImagen", episodio.getImage());
     episodioMasTarde.put("urlAudio", episodio.getAudio());
-    episodioMasTarde.put("idPodcast", episodio.getPodcast().getId());
-    episodioMasTarde.put("nombrePodcast",episodio.getPodcast().getTitle_original());
+    episodioMasTarde.put("idPodcast", idPodcast);
+    episodioMasTarde.put("nombrePodcast",tituloPodcast);
     episodioMasTarde.put(
-        "descripcion", String.valueOf(fromHtml(episodio.getDescription_original(), 0)));
+        "descripcion",tituloPodcast);
     CollectionReference ref = instancia.collection("Episodios");
     ArrayList<String> toret = new ArrayList<>();
 
@@ -1031,6 +1032,7 @@ public class FirebaseServices {
     podcastSubidos.put("imagen", podcast.getImage());
     podcastSubidos.put("titulo", podcast.getTitle_original());
     podcastSubidos.put("creador",id);
+    podcastSubidos.put("descripcion",podcast.getDescripcion());
     ArrayList<String> ids = new ArrayList<>();
     ref.get()
         .addOnSuccessListener(
@@ -1059,18 +1061,29 @@ public class FirebaseServices {
   }
 
   public static void getPodcastBiblioteca() {
-    String id = userAuth.getCurrentUser().getUid();
-    DocumentReference ref = instancia.collection("Users").document(id);
-    ref.get()
-        .addOnSuccessListener(
-            new OnSuccessListener<DocumentSnapshot>() {
-              @Override
-              public void onSuccess(DocumentSnapshot documentSnapshot) {
-                ArrayList<String> listaPodcast =
-                    (ArrayList<String>) documentSnapshot.get("bibliotecaPodcast");
-                // mandar todo
+      BibliotecaFragment bibliotecaFragment = new BibliotecaFragment();
+      String id = userAuth.getCurrentUser().getUid();
+      CollectionReference ref = instancia.collection("Podcast");
+      ArrayList<Podcast> toret = new ArrayList<>();
+      ref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+          @Override
+          public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+              for (int i = 0; i<queryDocumentSnapshots.size();i++){
+                  if(queryDocumentSnapshots.getDocuments().get(i).get("creador").equals(id)){
+                      String idPodcast = (String) queryDocumentSnapshots.getDocuments().get(i).get("idPodcast");
+                      String imagen = (String) queryDocumentSnapshots.getDocuments().get(i).get("imagen");
+                      String titulo = (String) queryDocumentSnapshots.getDocuments().get(i).get("titulo");
+                      Podcast podcast = new Podcast(idPodcast,imagen,titulo,titulo);
+                      toret.add(podcast);
+                  }
               }
-            });
+              if(toret.size()>0){
+                  bibliotecaFragment.respuestaBiblioteca("true",toret);
+              }else{
+                  bibliotecaFragment.respuestaBiblioteca("false",toret);
+              }
+          }
+      });
   }
 
   public static void eliminarPodcastBiblioteca(String idPodcast, Context c) {

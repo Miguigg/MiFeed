@@ -4,62 +4,56 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.mifeed.R;
+import com.tfg.mifeed.controlador.adaptadores.AdaptadorBibliotecaPodcast;
+import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.modelo.Podcast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BibliotecaFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class BibliotecaFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public BibliotecaFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BibliotecaFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static BibliotecaFragment newInstance(String param1, String param2) {
-        BibliotecaFragment fragment = new BibliotecaFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private static View v;
+    private static RecyclerView listaBiblioteca;
+    private static TextView err;
+    private static ProgressBar carga;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_biblioteca, container, false);
+        v = inflater.inflate(R.layout.fragment_biblioteca,container,false);
+        listaBiblioteca = v.findViewById(R.id.listaBiblioteca);
+        err = v.findViewById(R.id.errBiblioteca);
+        carga = v.findViewById(R.id.cargaBiblioteca);
+        FirebaseServices.getPodcastBiblioteca();
+        carga.setVisibility(View.VISIBLE);
+        return v;
+    }
+
+    public void respuestaBiblioteca(String res, ArrayList<Podcast> listaPodcast){
+        switch (res){
+            case "true":
+                LinearLayoutManager linearLayoutManager =
+                        new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                listaBiblioteca.setLayoutManager(linearLayoutManager);
+                AdaptadorBibliotecaPodcast adaptadorBibliotecaPodcast = new AdaptadorBibliotecaPodcast(listaPodcast,v.getContext());
+                listaBiblioteca.setAdapter(adaptadorBibliotecaPodcast);
+                err.setVisibility(View.GONE);
+                carga.setVisibility(View.GONE);
+                break;
+            case "false":
+                err.setVisibility(View.VISIBLE);
+                carga.setVisibility(View.GONE);
+                break;
+        }
     }
 }

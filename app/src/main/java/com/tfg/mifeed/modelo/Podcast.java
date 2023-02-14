@@ -13,6 +13,7 @@ public class Podcast {
   private String publisher_original;
   private String publisher_highlighted;
   private String listen_score_global_rank;
+  private String descripcion;
 
   public Podcast(
       String id,
@@ -37,10 +38,15 @@ public class Podcast {
     this.listen_score_global_rank = listen_score_global_rank;
   }
 
-  public Podcast(String id, String image, String titulo){
+  public Podcast(String id, String image, String titulo, String descipcion){
     this.id = id;
     this.image = image;
     this.title_original = titulo;
+    this.descripcion = descipcion;
+  }
+
+  public String getDescripcion() {
+    return descripcion;
   }
 
   public String getId() {

@@ -3,6 +3,7 @@ package com.tfg.mifeed.controlador.activities.Activities.Podcast;
 import static android.text.Html.fromHtml;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -42,6 +43,11 @@ public class DetallesPodcastActivity extends AppCompatActivity {
         String urlImagen = getIntent().getExtras().getString("urlImagen");
         String txtDescripcion = String.valueOf(fromHtml(getIntent().getExtras().getString("descripcion"),0));
         String titulo = getIntent().getExtras().getString("titulo");
+        if(titulo.isEmpty()){
+            Log.d("titulo","vacio");
+        }else{
+            Log.d("titulo",titulo);
+        }
         descripcion = findViewById(R.id.descripcionPodcast);
         logoPodcast = findViewById(R.id.logoPodcast);
         addPodcast = findViewById(R.id.btnAddBiblioteca);
@@ -54,23 +60,23 @@ public class DetallesPodcastActivity extends AppCompatActivity {
                 .override(400, 300)
                 .into(logoPodcast);
         descripcion.setText(txtDescripcion);
-        getPodcast(idPodcast);
+        getPodcast(idPodcast, titulo);
         addPodcast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Podcast podcast = new Podcast(idPodcast,urlImagen,titulo);
+                Podcast podcast = new Podcast(idPodcast,urlImagen,titulo,txtDescripcion);
                 FirebaseServices.addPodcastBiblioteca(podcast,DetallesPodcastActivity.this);
             }
         });
     }
 
-    private void getPodcast(String id){
+    private void getPodcast(String id, String titulo){
         ApiPodcastConn.getApiConnInterfacePodcast().getEpisodiosConid(id,"recent_first").enqueue(new Callback<RespuestaListaPodcast>() {
             @Override
             public void onResponse(Call<RespuestaListaPodcast> call, Response<RespuestaListaPodcast> response) {
                 ArrayList<Episodio> listaCapitulos =new ArrayList<>();
                 listaCapitulos.addAll(response.body().getEpisodes());
-                AdaptadorListaEpisodiosPodcast adaptadorListaEpisodiosPodcast = new AdaptadorListaEpisodiosPodcast(listaCapitulos,DetallesPodcastActivity.this);
+                AdaptadorListaEpisodiosPodcast adaptadorListaEpisodiosPodcast = new AdaptadorListaEpisodiosPodcast(listaCapitulos,DetallesPodcastActivity.this,id,titulo);
                 LinearLayoutManager linearLayoutManager =
                         new LinearLayoutManager(DetallesPodcastActivity.this, LinearLayoutManager.VERTICAL, false);
                 listaEpisodios.setAdapter(adaptadorListaEpisodiosPodcast);

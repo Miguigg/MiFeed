@@ -103,7 +103,7 @@ public class AdaptadorListaEpisodios
   }
 
   private void addIdEpisodio(Episodio episodio, String titulo) {
-    FirebaseServices.addParaMasTarde(episodio, titulo ,context);
+    FirebaseServices.addParaMasTarde(episodio, titulo ,context, episodio.getPodcast().getId(),episodio.getPodcast().getTitle_original());
   }
 
   private void reproducir(String url) {
