@@ -102,7 +102,7 @@
     <string name="errEdicionCuenta">Ha ocurrido un error al modificar tus datos</string>
     <string name="errRegistro">Registro fallido</string>
     <string name="errConn">No tienes conexión, asi que no podrás logearte o registrarte</string>
-    <string name="errNoticias">No se  nhan podido encontraroticias</string>
+    <string name="errNoticias">No se  han podido encontrar noticias</string>
     <string name="errRecuperacion">Ha ocurrido un error al recuperar tu sesión</string>
     <string name="errModificarDatos">No has introducido datos o no son correctos</string>
     <string name="errPodcastYaExiste">El podcast ya está en tu lista</string>
