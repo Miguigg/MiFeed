@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.EtiquetasFragment;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Etiqueta;
 
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public class AdaptadorListaEtiquetas extends RecyclerView.Adapter<AdaptadorLista
         titulo.setText(listaEtiquetas.get(position).getTituloEtiqueta());
         ConstraintLayout elemetoListaEtiquetas = holder.elemetoListaEtiquetas;
         ImageView eliminarEtiqueta = holder.btnEliminarEtiqueta;
+
         elemetoListaEtiquetas.setOnClickListener(v -> {
             etiquetasFragment.abrirEtiqueta(listaEtiquetas.get(position),view);
         });

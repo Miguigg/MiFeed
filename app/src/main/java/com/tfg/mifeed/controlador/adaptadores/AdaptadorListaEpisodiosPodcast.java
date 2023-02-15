@@ -10,19 +10,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
+import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.LoginActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Episodio;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<AdaptadorListaEpisodiosPodcast.ViewHolder>{
+public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<AdaptadorListaEpisodiosPodcast.ViewHolder> {
 
     ArrayList<Episodio> listaEpisodios;
     String idPodcast, tituloPodcast;
@@ -30,7 +33,7 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
     MediaPlayer mediaPlayer;
     boolean reproduciendo;
 
-    public AdaptadorListaEpisodiosPodcast(ArrayList<Episodio> listaEpisodios, Context context, String idPodcast, String tituloPodcast){
+    public AdaptadorListaEpisodiosPodcast(ArrayList<Episodio> listaEpisodios, Context context, String idPodcast, String tituloPodcast) {
         this.context = context;
         this.listaEpisodios = listaEpisodios;
         this.reproduciendo = false;
@@ -43,7 +46,7 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
     public AdaptadorListaEpisodiosPodcast.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.elemento_lista_episodios,parent,false);
+        View view = inflater.inflate(R.layout.elemento_lista_episodios, parent, false);
         AdaptadorListaEpisodiosPodcast.ViewHolder viewHolder = new AdaptadorListaEpisodiosPodcast.ViewHolder(view);
         return viewHolder;
     }
@@ -59,36 +62,44 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
                 .into(imageView);
         ImageView play = holder.play;
         ImageView masTarde = holder.masTarde;
-        play.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(reproduciendo == false){
-                            reproduciendo = true;
-                            play.setImageResource(R.drawable.ic_parar_episodio);
-                            reproducir(listaEpisodios.get(holder.getAdapterPosition()).getAudio());
-                        }else{
-                            reproduciendo = false;
-                            play.setImageResource(R.drawable.ic_rep_episodio);
-                            parar();
+            play.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (!CheckConexion.getEstadoActual(context)) {
+                                Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
+                            } else {
+                                if (!reproduciendo) {
+                                    reproduciendo = true;
+                                    play.setImageResource(R.drawable.ic_parar_episodio);
+                                    reproducir(listaEpisodios.get(holder.getAdapterPosition()).getAudio());
+                                } else {
+                                    reproduciendo = false;
+                                    play.setImageResource(R.drawable.ic_rep_episodio);
+                                    parar();
+                                }
+                            }
                         }
-                    }
-                });
+                    });
 
-    masTarde.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-            addIdEpisodio(
-                listaEpisodios.get(holder.getAdapterPosition()),
-                String.valueOf(
-                    fromHtml(listaEpisodios.get(holder.getAdapterPosition()).getTitle(), 0)));
-          }
-        });
+            masTarde.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (!CheckConexion.getEstadoActual(context)) {
+                                Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
+                            } else {
+                                addIdEpisodio(
+                                        listaEpisodios.get(holder.getAdapterPosition()),
+                                        String.valueOf(
+                                                fromHtml(listaEpisodios.get(holder.getAdapterPosition()).getTitle(), 0)));
+                            }
+                        }
+                    });
     }
 
     private void addIdEpisodio(Episodio episodio, String titulo) {
-        FirebaseServices.addParaMasTarde(episodio, titulo ,context,idPodcast,tituloPodcast);
+        FirebaseServices.addParaMasTarde(episodio, titulo, context, idPodcast, tituloPodcast);
     }
 
     private void reproducir(String url) {
@@ -109,9 +120,9 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
         }
     }
 
-    Thread reproducir = new Thread(new Runnable(){
+    Thread reproducir = new Thread(new Runnable() {
         @Override
-        public void run(){
+        public void run() {
             mediaPlayer.start();
         }
     });

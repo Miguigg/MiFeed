@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.DetallesPodcastActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Episodio;
 
 import java.io.IOException;
@@ -58,18 +60,23 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
                 .into(imageView);
         ImageView play = holder.play;
         ImageView eliminar =  holder.eliminar;
+
         play.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(reproduciendo == false){
-                            reproduciendo = true;
-                            play.setImageResource(R.drawable.ic_parar_episodio);
-                            reproducir(listaEpisodios.get(holder.getAdapterPosition()).getAudio());
-                        }else{
-                            reproduciendo = false;
-                            play.setImageResource(R.drawable.ic_rep_episodio);
-                            parar();
+                        if (!CheckConexion.getEstadoActual(context)) {
+                            Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
+                        } else {
+                            if(reproduciendo == false){
+                                reproduciendo = true;
+                                play.setImageResource(R.drawable.ic_parar_episodio);
+                                reproducir(listaEpisodios.get(holder.getAdapterPosition()).getAudio());
+                            }else{
+                                reproduciendo = false;
+                                play.setImageResource(R.drawable.ic_rep_episodio);
+                                parar();
+                            }
                         }
                     }
                 });
@@ -78,26 +85,34 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, DetallesPodcastActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.putExtra(
-                                "urlImagen", listaEpisodios.get(holder.getAdapterPosition()).getImage());
-                        intent.putExtra(
-                                "descripcion",
-                                listaEpisodios.get(holder.getAdapterPosition()).getDescription());
-                        intent.putExtra(
-                                "idPodcast", listaEpisodios.get(holder.getAdapterPosition()).getId());
-                        intent.putExtra("titulo",listaEpisodios.get(holder.getAdapterPosition()).getTituloPodcast());
-                        context.startActivity(intent);
+                        if (!CheckConexion.getEstadoActual(context)) {
+                            Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
+                        } else {
+                            Intent intent = new Intent(context, DetallesPodcastActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.putExtra(
+                                    "urlImagen", listaEpisodios.get(holder.getAdapterPosition()).getImage());
+                            intent.putExtra(
+                                    "descripcion",
+                                    listaEpisodios.get(holder.getAdapterPosition()).getDescription());
+                            intent.putExtra(
+                                    "idPodcast", listaEpisodios.get(holder.getAdapterPosition()).getId());
+                            intent.putExtra("titulo",listaEpisodios.get(holder.getAdapterPosition()).getTituloPodcast());
+                            context.startActivity(intent);
+                        }
                     }
                 });
         eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseServices.eliminarPodcastMastarde(listaEpisodios.get(holder.getAdapterPosition()).getAudio(),context);
-                listaEpisodios.remove(holder.getAdapterPosition());
-                notifyItemRemoved(holder.getAdapterPosition());
-                notifyItemRangeChanged(holder.getAdapterPosition(),listaEpisodios.size());
+                if (!CheckConexion.getEstadoActual(context)) {
+                    Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
+                } else {
+                    FirebaseServices.eliminarPodcastMastarde(listaEpisodios.get(holder.getAdapterPosition()).getAudio(),context);
+                    listaEpisodios.remove(holder.getAdapterPosition());
+                    notifyItemRemoved(holder.getAdapterPosition());
+                    notifyItemRangeChanged(holder.getAdapterPosition(),listaEpisodios.size());
+                }
             }
         });
     }

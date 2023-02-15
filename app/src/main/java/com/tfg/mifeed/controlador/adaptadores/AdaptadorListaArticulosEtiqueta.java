@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.NoticiaActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 
 import java.util.ArrayList;
 
@@ -54,10 +56,18 @@ public class AdaptadorListaArticulosEtiqueta extends RecyclerView.Adapter<Adapta
         titulo.setText(nombresWebs.get(position));
         url.setText(urls.get(position));
         eliminar.setOnClickListener(v1 -> {
-            eliminarWeb(position);
+            if (!CheckConexion.getEstadoActual(context)) {
+                Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
+            } else {
+                eliminarWeb(position);
+            }
         });
         articulo.setOnClickListener(v1 -> {
-            abrirUrl(urls.get(position));
+            if (!CheckConexion.getEstadoActual(context)) {
+                Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
+            } else {
+                abrirUrl(urls.get(position));
+            }
         });
     }
     private void eliminarWeb(int posicion) {

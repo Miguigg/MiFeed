@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.DetallesPodcastActivity;
+import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Podcast;
 
 import java.util.ArrayList;
@@ -52,17 +54,31 @@ public class AdaptadorBibliotecaPodcast extends RecyclerView.Adapter<AdaptadorBi
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(c, DetallesPodcastActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(
-                        "urlImagen", listaPodcast.get(holder.getAdapterPosition()).getImage());
-                intent.putExtra(
-                        "descripcion",
-                        listaPodcast.get(holder.getAdapterPosition()).getTitle_original());
-                intent.putExtra(
-                        "idPodcast", listaPodcast.get(holder.getAdapterPosition()).getId());
-                intent.putExtra("titulo",listaPodcast.get(holder.getAdapterPosition()).getTitle_original());
-                c.startActivity(intent);
+                if (!CheckConexion.getEstadoActual(c)) {
+                    Toast.makeText(c, R.string.errConn, Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent(c, DetallesPodcastActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(
+                            "urlImagen", listaPodcast.get(holder.getAdapterPosition()).getImage());
+                    intent.putExtra(
+                            "descripcion",
+                            listaPodcast.get(holder.getAdapterPosition()).getTitle_original());
+                    intent.putExtra(
+                            "idPodcast", listaPodcast.get(holder.getAdapterPosition()).getId());
+                    intent.putExtra("titulo",listaPodcast.get(holder.getAdapterPosition()).getTitle_original());
+                    c.startActivity(intent);
+                }
+            }
+        });
+        eliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!CheckConexion.getEstadoActual(c)) {
+                    Toast.makeText(c, R.string.errConn, Toast.LENGTH_LONG).show();
+                } else {
+                    //todo eliminacion de la biblio
+                }
             }
         });
     }

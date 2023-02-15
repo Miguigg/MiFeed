@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.DetallesPodcastActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Episodio;
 
 import java.io.IOException;
@@ -60,18 +62,23 @@ public class AdaptadorListaEpisodios
         .into(imageView);
     ImageView play = holder.play;
     ImageView masTarde = holder.masTarde;
+
     play.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-            if(repoduciendo == false){
-              repoduciendo = true;
-              play.setImageResource(R.drawable.ic_parar_episodio);
-              reproducir(listaEpisodios.get(holder.getAdapterPosition()).getAudio());
-            }else{
-              repoduciendo =false;
-              play.setImageResource(R.drawable.ic_rep_episodio);
-              parar();
+            if (!CheckConexion.getEstadoActual(context)) {
+              Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
+            } else {
+              if (repoduciendo == false) {
+                repoduciendo = true;
+                play.setImageResource(R.drawable.ic_parar_episodio);
+                reproducir(listaEpisodios.get(holder.getAdapterPosition()).getAudio());
+              } else {
+                repoduciendo = false;
+                play.setImageResource(R.drawable.ic_rep_episodio);
+                parar();
+              }
             }
           }
         });
@@ -80,30 +87,50 @@ public class AdaptadorListaEpisodios
         new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-            addIdEpisodio(listaEpisodios.get(holder.getAdapterPosition()), String.valueOf(fromHtml(listaEpisodios.get(holder.getAdapterPosition()).getTitle_original(), 0)));
+            if (!CheckConexion.getEstadoActual(context)) {
+              Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
+            } else {
+              addIdEpisodio(
+                  listaEpisodios.get(holder.getAdapterPosition()),
+                  String.valueOf(
+                      fromHtml(
+                          listaEpisodios.get(holder.getAdapterPosition()).getTitle_original(), 0)));
+            }
           }
         });
     imageView.setOnClickListener(
         new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-            Intent intent = new Intent(context, DetallesPodcastActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra(
-                "urlImagen", listaEpisodios.get(holder.getAdapterPosition()).getImage());
-            intent.putExtra(
-                "descripcion",
-                listaEpisodios.get(holder.getAdapterPosition()).getDescription_original());
-            intent.putExtra(
-                "idPodcast", listaEpisodios.get(holder.getAdapterPosition()).getPodcast().getId());
-            intent.putExtra("titulo",listaEpisodios.get(holder.getAdapterPosition()).getPodcast().getTitle_original());
-            context.startActivity(intent);
+            if (!CheckConexion.getEstadoActual(context)) {
+              Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
+            } else {
+              Intent intent = new Intent(context, DetallesPodcastActivity.class);
+              intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+              intent.putExtra(
+                  "urlImagen", listaEpisodios.get(holder.getAdapterPosition()).getImage());
+              intent.putExtra(
+                  "descripcion",
+                  listaEpisodios.get(holder.getAdapterPosition()).getDescription_original());
+              intent.putExtra(
+                  "idPodcast",
+                  listaEpisodios.get(holder.getAdapterPosition()).getPodcast().getId());
+              intent.putExtra(
+                  "titulo",
+                  listaEpisodios.get(holder.getAdapterPosition()).getPodcast().getTitle_original());
+              context.startActivity(intent);
+            }
           }
         });
   }
 
   private void addIdEpisodio(Episodio episodio, String titulo) {
-    FirebaseServices.addParaMasTarde(episodio, titulo ,context, episodio.getPodcast().getId(),episodio.getPodcast().getTitle_original());
+    FirebaseServices.addParaMasTarde(
+        episodio,
+        titulo,
+        context,
+        episodio.getPodcast().getId(),
+        episodio.getPodcast().getTitle_original());
   }
 
   private void reproducir(String url) {
