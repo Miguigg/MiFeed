@@ -32,7 +32,7 @@ public class GestioncuentaActivity extends AppCompatActivity {
    * Aporta lógica a la vista de edición de cuentas de usuario, esta se conecta a Firebase para
    * realizar los cambios después de las validaciones
    * */
-  private ConstraintLayout btnDelete, btnEditMedios, btnModificaDatos, btnLogout,btnAtras, btnHistorial;
+  private ConstraintLayout btnDelete, btnModificaDatos, btnLogout,btnAtras, btnHistorial;
   @SuppressLint("UseSwitchCompatOrMaterialCode")
   private Switch notificaciones, guardadoNube;
   private View actualView;
@@ -52,7 +52,6 @@ public class GestioncuentaActivity extends AppCompatActivity {
     pass2 = findViewById(R.id.modifPass);
     correo = findViewById(R.id.modifCorreo);
     btnDelete = findViewById(R.id.btnBorrarCuenta);
-    btnEditMedios = findViewById(R.id.btnEditPrensa);
     notificaciones = findViewById(R.id.switchNotificaciones);
     guardadoNube = findViewById(R.id.switchGuardadoNube);
     errUsuario = findViewById(R.id.errEditUsuario);
@@ -88,17 +87,6 @@ public class GestioncuentaActivity extends AppCompatActivity {
             comprobarDatos();
           }
         });
-    btnEditMedios.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        if(!CheckConexion.getEstadoActual(GestioncuentaActivity.this)){
-          Toast.makeText(GestioncuentaActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
-        }else{
-          startActivity(new Intent(getApplicationContext(), SeleccionTemasActivity.class));
-          finish();
-        }
-      }
-    });
 
     btnHistorial.setOnClickListener(new View.OnClickListener() {
       @Override
