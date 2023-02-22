@@ -133,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
         b.setPositiveButton(R.string.volverMandar, new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-            FirebaseServices.mandarEmailVerificacion();
+            FirebaseServices.mandarEmailVerificacion(v);
             errorContra.setVisibility(View.GONE);
           }
         });

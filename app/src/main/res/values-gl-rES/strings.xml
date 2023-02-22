@@ -23,6 +23,7 @@
     <string name="errContraseñaNoCoincide">As contrasinais non coinciden</string>
     <string name="errContraseñaDebil">A tua contrasinal é demasiado débil</string>
     <string name="errEmailNoValido">O email non é válido</string>
+    <string name="errEnvioEmail">Non se puido enviar o email, a túa conta non será válida</string>
     <string name="errEmailExistente">O email xa está asignado a outra conta</string>
     <string name="errEmailVacio">Debes introducir un email</string>
     <string name="errLogin">O email ou a contrasinal introducidos non son válidos</string>
