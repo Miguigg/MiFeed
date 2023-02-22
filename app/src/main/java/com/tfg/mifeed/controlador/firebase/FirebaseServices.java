@@ -185,7 +185,7 @@ public class FirebaseServices {
                 if (task.isSuccessful()) {
                     Log.d("envioCorrecto", "Email enviado");
                 } else {
-                    Toast.makeText(v.getContext(), R.string.errEnvioEmail, Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), R.string.errEmailNoValido, Toast.LENGTH_LONG).show();
                 }
             }
         });

@@ -309,7 +309,9 @@ public class GestioncuentaActivity extends AppCompatActivity {
       case "false":
         Toast.makeText(v.getContext(), R.string.errSesion, Toast.LENGTH_LONG).show();
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), BienvenidaActivity.class));
+        finishAndRemoveTask();
+        v.getContext().startActivity(new Intent(v.getContext(), BienvenidaActivity.class));
+
         break;
     }
   }
