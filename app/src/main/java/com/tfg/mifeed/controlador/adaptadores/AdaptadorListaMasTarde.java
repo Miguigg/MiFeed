@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
+import com.tfg.mifeed.controlador.activities.Activities.Podcast.CreacionRecordatorioActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.DetallesPodcastActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
@@ -60,6 +61,7 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
                 .into(imageView);
         ImageView play = holder.play;
         ImageView eliminar =  holder.eliminar;
+        ImageView recordatorio = holder.recordatorio;
 
         play.setOnClickListener(
                 new View.OnClickListener() {
@@ -102,6 +104,17 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
                         }
                     }
                 });
+        recordatorio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, CreacionRecordatorioActivity.class);
+                intent.putExtra("nombreEpisodio",listaEpisodios.get(holder.getAdapterPosition()).getTitle());
+                intent.putExtra("urlAudio",listaEpisodios.get(holder.getAdapterPosition()).getAudio());
+                intent.putExtra("urlImagen",listaEpisodios.get(holder.getAdapterPosition()).getImage());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
         eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

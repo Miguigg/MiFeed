@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.DetallesPodcastActivity;
+import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Podcast;
 
@@ -77,7 +78,10 @@ public class AdaptadorBibliotecaPodcast extends RecyclerView.Adapter<AdaptadorBi
                 if (!CheckConexion.getEstadoActual(c)) {
                     Toast.makeText(c, R.string.errConn, Toast.LENGTH_LONG).show();
                 } else {
-                    //todo eliminacion de la biblio
+                    FirebaseServices.eliminarPodcastBiblioteca(listaPodcast.get(holder.getAdapterPosition()).getId(),c);
+                    listaPodcast.remove(holder.getAdapterPosition());
+                    notifyItemRemoved(holder.getAdapterPosition());
+                    notifyItemRangeChanged(holder.getAdapterPosition(),listaPodcast.size());
                 }
             }
         });

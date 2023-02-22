@@ -49,6 +49,12 @@ public class Episodio {
     this.tituloPodcast = tituloPodcast;
   }
 
+  public Episodio(String nombre,String urlImagen,String urlAudio){
+    this.title = nombre;
+    this.image = urlImagen;
+    this.audio = urlAudio;
+  }
+
   public String getTituloPodcast() {
     return tituloPodcast;
   }

@@ -71,8 +71,7 @@ public class BienvenidaActivity extends AppCompatActivity {
     finish();
   }
 
-  //todo mirar las sharedpreferences al iniciar actividad y llamar con los datos de esta a recuperarlogin de firebase
-  //todo guardar las preferences cuando se accede a la pestaña "categorias" despues del primer login
+
   private void checkSharedPreferences() {
     SharedPreferences preferences = getSharedPreferences("sesion", Context.MODE_PRIVATE);
     String pass = preferences.getString("pass","");

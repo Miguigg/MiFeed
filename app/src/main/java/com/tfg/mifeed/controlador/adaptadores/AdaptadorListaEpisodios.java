@@ -2,10 +2,12 @@ package com.tfg.mifeed.controlador.adaptadores;
 
 import static android.text.Html.fromHtml;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +20,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
+import com.tfg.mifeed.controlador.activities.Activities.Podcast.CreacionRecordatorioActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.DetallesPodcastActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Podcast.FragmentsPodcast.BusquedaFragment;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Episodio;
 
+import org.checkerframework.checker.units.qual.C;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class AdaptadorListaEpisodios
     extends RecyclerView.Adapter<AdaptadorListaEpisodios.ViewHolder> {
@@ -62,6 +69,7 @@ public class AdaptadorListaEpisodios
         .into(imageView);
     ImageView play = holder.play;
     ImageView masTarde = holder.masTarde;
+    ImageView recordatorio = holder.recordatorio;
 
     play.setOnClickListener(
         new View.OnClickListener() {
@@ -122,6 +130,17 @@ public class AdaptadorListaEpisodios
             }
           }
         });
+    recordatorio.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent intent = new Intent(context, CreacionRecordatorioActivity.class);
+        intent.putExtra("nombreEpisodio",listaEpisodios.get(holder.getAdapterPosition()).getTitle_original());
+        intent.putExtra("urlAudio",listaEpisodios.get(holder.getAdapterPosition()).getAudio());
+        intent.putExtra("urlImagen",listaEpisodios.get(holder.getAdapterPosition()).getImage());
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+      }
+    });
   }
 
   private void addIdEpisodio(Episodio episodio, String titulo) {

@@ -17,6 +17,9 @@
         android:windowSoftInputMode="adjustPan"
         tools:targetApi="31">
         <activity
+            android:name=".controlador.activities.Activities.Podcast.CreacionRecordatorioActivity"
+            android:exported="false" />
+        <activity
             android:name=".controlador.activities.Activities.Podcast.DetallesPodcastActivity"
             android:exported="false" />
         <activity
@@ -83,6 +86,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <receiver android:name=".controlador.Alarmas.AlarmReceiver"/>
     </application>
 
 </manifest>
