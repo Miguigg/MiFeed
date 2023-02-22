@@ -12,6 +12,9 @@ import com.tfg.mifeed.R;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 public class Validaciones {
@@ -94,5 +97,16 @@ public class Validaciones {
     } catch (NoSuchAlgorithmException e) {
       throw new RuntimeException(e);
     }
+  }
+  static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+  public static Date getDateFromString(String fechaString){
+
+    try {
+      Date fechaFormateada = format.parse(fechaString);
+      return fechaFormateada ;
+    } catch (ParseException e){
+      return null ;
+    }
+
   }
 }

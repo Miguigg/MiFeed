@@ -36,6 +36,7 @@ import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.RegistroAc
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.ResetContrasenha;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionMediosActivity;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionTemasActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Podcast.CreacionRecordatorioActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.FragmentsPodcast.BibliotecaFragment;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.FragmentsPodcast.MasTardeFragment;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.CategoriasFragment;
@@ -44,6 +45,7 @@ import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.F
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.ImportantesFragment;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.HistorialActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.NoticiaActivity;
+import com.tfg.mifeed.controlador.utilidades.Validaciones;
 import com.tfg.mifeed.modelo.Episodio;
 import com.tfg.mifeed.modelo.Etiqueta;
 import com.tfg.mifeed.modelo.Podcast;
@@ -71,6 +73,13 @@ public class FirebaseServices {
       instancia = FirebaseFirestore.getInstance();
       userAuth = FirebaseAuth.getInstance();
     }
+  }
+
+  public static boolean checkLogin(){
+      if(userAuth == null){
+          return false;
+      }
+      return true;
   }
 
   public static void ejecutarLogin(boolean emailSent, String email, String pass, View v) {
@@ -1217,5 +1226,84 @@ public class FirebaseServices {
                 }
               }
             });
+  }
+  public static void guardarRecordatorio(Episodio episodio, String fecha, View v,int numero){
+      String id = userAuth.getCurrentUser().getUid();
+      Map<String, Object> nuevosRecordatorio = new HashMap<>();
+      nuevosRecordatorio.put("recordatorio", Validaciones.getDateFromString(fecha));
+      nuevosRecordatorio.put("titulo",episodio.getTitle());
+      nuevosRecordatorio.put("creador",id);
+      nuevosRecordatorio.put("recordatorioNumero",numero);
+      nuevosRecordatorio.put("urlAudio",episodio.getAudio());
+      nuevosRecordatorio.put("urlImagen",episodio.getImage());
+
+      instancia.collection("Recordatorios").document().set(nuevosRecordatorio).addOnCompleteListener(new OnCompleteListener<Void>() {
+          @Override
+          public void onComplete(@NonNull Task<Void> task) {
+              if(task.isSuccessful()){
+                  Toast.makeText(v.getContext(),R.string.recordatorioAñadido,Toast.LENGTH_LONG).show();
+              }else{
+                  Toast.makeText(v.getContext(),R.string.errConn,Toast.LENGTH_LONG).show();
+              }
+          }
+      });
+  }
+
+  public static void getNumeroRecordatorio(long timestamp, View v){
+      CreacionRecordatorioActivity creacionRecordatorioActivity = new CreacionRecordatorioActivity();
+      String id = userAuth.getCurrentUser().getUid();
+
+      CollectionReference ref = instancia.collection("Recordatorios");
+      ref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+          @Override
+          public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+              ArrayList<Integer> listaIds = new ArrayList<>();
+              for(int i = 0; i< queryDocumentSnapshots.size(); i++){
+                  if(queryDocumentSnapshots.getDocuments().get(i).get("creador").equals(id)){
+                      listaIds.add(Math.toIntExact((Long) queryDocumentSnapshots.getDocuments().get(i).get("recordatorioNumero")));
+                  }
+              }
+              if(listaIds.size()>0){
+                  Log.d("tamaño", String.valueOf(listaIds.size()));
+                  int max = 0;
+                  for(int i = 0; i<listaIds.size();i++){
+                      if(max < listaIds.get(i)){
+                          max = listaIds.get(i);
+                      }
+                  }
+                  creacionRecordatorioActivity.setAlarma(max,timestamp, v);
+              }else{
+                  creacionRecordatorioActivity.setAlarma(0,timestamp, v);
+              }
+          }
+      });
+  }
+
+  public static void setRecordatorio(Episodio episodio, String fecha, View v){
+      String id = userAuth.getCurrentUser().getUid();
+      CollectionReference ref = instancia.collection("Recordatorios");
+      ref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+          @Override
+          public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+              ArrayList<Integer> listaIds = new ArrayList<>();
+              for(int i = 0; i< queryDocumentSnapshots.size(); i++){
+                  if(queryDocumentSnapshots.getDocuments().get(i).get("creador").equals(id)){
+                      listaIds.add(Math.toIntExact((Long) queryDocumentSnapshots.getDocuments().get(i).get("recordatorioNumero")));
+                  }
+              }
+              if(listaIds.size()>0){
+                  int max = listaIds.get(0);
+                  for(int i = 1; i<listaIds.size();i++){
+                      if(max < listaIds.get(i)){
+                          max = listaIds.get(i);
+                      }
+                  }
+                  max = max+1;
+                  guardarRecordatorio(episodio, fecha,v,max);
+              }else{
+                  guardarRecordatorio(episodio, fecha,v,1);
+              }
+          }
+      });
   }
 }

@@ -3,6 +3,7 @@ package com.tfg.mifeed.controlador.adaptadores;
 import static android.text.Html.fromHtml;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.LoginActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Podcast.CreacionRecordatorioActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Episodio;
@@ -61,6 +63,7 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
                 .override(400, 300)
                 .into(imageView);
         ImageView play = holder.play;
+        ImageView recordatorio = holder.recordatorio;
         ImageView masTarde = holder.masTarde;
             play.setOnClickListener(
                     new View.OnClickListener() {
@@ -96,6 +99,20 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
                             }
                         }
                     });
+    recordatorio.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            Intent intent = new Intent(context, CreacionRecordatorioActivity.class);
+            intent.putExtra(
+                "nombreEpisodio", listaEpisodios.get(holder.getAdapterPosition()).getTitle());
+            intent.putExtra("urlAudio", listaEpisodios.get(holder.getAdapterPosition()).getAudio());
+            intent.putExtra(
+                "urlImagen", listaEpisodios.get(holder.getAdapterPosition()).getImage());
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+          }
+        });
     }
 
     private void addIdEpisodio(Episodio episodio, String titulo) {

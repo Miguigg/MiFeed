@@ -74,6 +74,10 @@
     <string name="salvarNube">Salvar historial en la nube</string>
     <string name="idiomaAplicacion">Idioma de la app</string>
     <string name="confirmaCont">Confirma la contraseña</string>
+    <string name="recordatorioAñadido">Recordatorio añadido correctamente</string>
+    <string name="recordatorioTitulo">MiFeed te recuerda, tienes podcast pendientes </string>
+    <string name="recordatorioCuerpo">Tienes episodios pendientes, pulsa aquí para ver cuales son</string>
+    <string name="recordatorioEstablecido">Recordatorio añadido correctamente</string>
     <string name="modificacionCorreo">Debes volver a iniciar sesión</string>
     <string name="modificacionCuenta">Tus datos han sido modificados exitosamente</string>
     <string name="modificacionPass">Contraseña modificada con exito</string>
