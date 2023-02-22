@@ -4,23 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CC4949"
+    android:background="@color/mainbackground"
     tools:context="com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity">
 
     <ImageView
         android:id="@+id/superior"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="305dp"
+        android:layout_height="221dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/bienvenida"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/top_wave2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ola_violeta_inferior"
         tools:ignore="ImageContrastCheck" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="30dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +40,7 @@
             android:shadowRadius="23"
             android:text="@string/app_name"
             android:textColor="#FFFFFF"
-            android:textSize="60sp"
+            android:textSize="55sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,18 +70,19 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     <TextView
         android:id="@+id/bienvenida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="112dp"
         android:text="@string/bienvenida"
         android:textColor="#FFFFFF"
         android:textSize="60sp"
         app:layout_constraintBottom_toTopOf="@+id/titulo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/superior" />
-
+        app:layout_constraintHorizontal_bias="0.409"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toLogin"
@@ -150,11 +153,13 @@
 
     <ImageView
         android:id="@+id/inferior"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/top_wave_invertida"
+        android:layout_width="321dp"
+        android:layout_height="191dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="112dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toRegistro"
+        app:srcCompat="@drawable/ola_violeta"
         tools:ignore="ImageContrastCheck" />
 
 

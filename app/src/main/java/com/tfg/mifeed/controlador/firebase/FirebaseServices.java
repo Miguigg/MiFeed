@@ -1,9 +1,13 @@
 package com.tfg.mifeed.controlador.firebase;
 
+import static android.text.Html.fromHtml;
 import static com.tfg.mifeed.controlador.utilidades.Validaciones.hashearMD5;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,19 +22,38 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
-import com.tfg.mifeed.controlador.activities.Activities.GestioncuentaActivity;
-import com.tfg.mifeed.controlador.activities.Activities.LoginActivity;
-import com.tfg.mifeed.controlador.activities.Activities.RegistroActivity;
-import com.tfg.mifeed.controlador.activities.Activities.ResetContrasenha;
+import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.GestioncuentaActivity;
+import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.LoginActivity;
+import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.RegistroActivity;
+import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.ResetContrasenha;
+import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionMediosActivity;
+import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionTemasActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Podcast.FragmentsPodcast.BibliotecaFragment;
+import com.tfg.mifeed.controlador.activities.Activities.Podcast.FragmentsPodcast.MasTardeFragment;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.CategoriasFragment;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.EtiquetasFragment;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.FavoritosFragment;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.ImportantesFragment;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.HistorialActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.NoticiaActivity;
+import com.tfg.mifeed.modelo.Episodio;
+import com.tfg.mifeed.modelo.Etiqueta;
+import com.tfg.mifeed.modelo.Podcast;
 import com.tfg.mifeed.modelo.Usuario;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class FirebaseServices {
 

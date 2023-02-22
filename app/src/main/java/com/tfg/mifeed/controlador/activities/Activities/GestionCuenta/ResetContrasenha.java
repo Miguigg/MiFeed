@@ -1,4 +1,4 @@
-package com.tfg.mifeed.controlador.activities.Activities;
+package com.tfg.mifeed.controlador.activities.Activities.GestionCuenta;
 
 import android.content.Intent;
 import android.os.Bundle;

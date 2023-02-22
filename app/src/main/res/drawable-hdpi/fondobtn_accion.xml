@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <shape android:tint="#A50303" android:shape="rectangle">
+        <shape android:tint="#8A6767" android:shape="rectangle">
             <corners android:radius="100dp" />
             <stroke
-                android:color="#A50303" />
+                android:color="#8A6767" />
         </shape>
     </item>
 </layer-list>

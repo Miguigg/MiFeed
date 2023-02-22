@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CC4949"
-    tools:context=".controlador.activities.Activities.ResetContrasenha">
+    android:background="@color/mainbackground"
+    tools:context=".controlador.activities.Activities.GestionCuenta.ResetContrasenha">
 
     <ImageView
         android:id="@+id/imageView10"
@@ -59,10 +59,10 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btnReseteo"
-            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp">
 
             <ImageView
                 android:id="@+id/imageView9"

@@ -1,10 +1,12 @@
-package com.tfg.mifeed.controlador.activities.Activities;
+package com.tfg.mifeed.controlador.activities.Activities.GestionCuenta;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -17,6 +19,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
+import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.HistorialActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.PrensaActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
@@ -27,30 +32,32 @@ public class GestioncuentaActivity extends AppCompatActivity {
    * Aporta lógica a la vista de edición de cuentas de usuario, esta se conecta a Firebase para
    * realizar los cambios después de las validaciones
    * */
-  private ConstraintLayout btnDelete, btnEditPodcast, btnEditMedios, btnModificaDatos, btnLogout;
+  private ConstraintLayout btnDelete, btnModificaDatos, btnLogout,btnAtras, btnHistorial;
   @SuppressLint("UseSwitchCompatOrMaterialCode")
   private Switch notificaciones, guardadoNube;
   private View actualView;
   private EditText nombre, pass, pass2, correo;
-  private TextView err;
+  private TextView errUsuario,errEmail,errPass;
 
-
+  @SuppressLint("MissingInflatedId")
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_gestioncuenta);
 
     btnLogout = findViewById(R.id.btnlogout);
+    btnAtras = findViewById(R.id.btnAtras);
     nombre = findViewById(R.id.modifNombre);
     pass = findViewById(R.id.modifPass2);
     pass2 = findViewById(R.id.modifPass);
     correo = findViewById(R.id.modifCorreo);
     btnDelete = findViewById(R.id.btnBorrarCuenta);
-    btnEditPodcast = findViewById(R.id.btnEditPodcast);
-    btnEditMedios = findViewById(R.id.btnEditPrensa);
     notificaciones = findViewById(R.id.switchNotificaciones);
     guardadoNube = findViewById(R.id.switchGuardadoNube);
-    err = findViewById(R.id.errores);
+    errUsuario = findViewById(R.id.errEditUsuario);
+    errEmail = findViewById(R.id.errEditEmail);
+    errPass = findViewById(R.id.errEditPass);
+    btnHistorial = findViewById(R.id.btnHistorial);
 
     btnModificaDatos = findViewById(R.id.btnModificarDatos);
     actualView = this.findViewById(android.R.id.content);
@@ -80,6 +87,24 @@ public class GestioncuentaActivity extends AppCompatActivity {
             comprobarDatos();
           }
         });
+
+    btnHistorial.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if(!CheckConexion.getEstadoActual(GestioncuentaActivity.this)){
+          Toast.makeText(GestioncuentaActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
+        }else{
+          startActivity(new Intent(getApplicationContext(), HistorialActivity.class));
+        }
+      }
+    });
+    btnAtras.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        startActivity(new Intent(getApplicationContext(), PrensaActivity.class));
+        finish();
+      }
+    });
   }
 
   private void comprobarDatos() {
@@ -91,38 +116,45 @@ public class GestioncuentaActivity extends AppCompatActivity {
     boolean notificacionesActivas = notificaciones.isChecked();
     boolean guardadoNubeActivo = guardadoNube.isChecked();
 
+
     boolean isValid = true;
     if(!correo.getText().toString().isEmpty()){
-      if (Validaciones.validacionEmail(valorCorreo).equals("noValido")) {
+      if (Validaciones.validacionEmail(valorCorreo).equals("falso")) {
         isValid = false;
-        err.setText(R.string.errEmailNoValido);
-        err.setVisibility(View.VISIBLE);
+        errEmail.setText(R.string.errEmailNoValido);
+        errEmail.setVisibility(View.VISIBLE);
+      }else{
+        errEmail.setVisibility(View.GONE);
       }
     }
 
 
     if (!pass.getText().toString().isEmpty()) {
+      Log.d("datos",pass.getText().toString());
       if (Validaciones.validacionContraseña(valorContrasenha1, valorContrasenha2).equals("noSegura")) {
         isValid = false;
-        err.setText(R.string.errContraseñaDebil);
-        err.setVisibility(View.VISIBLE);
+        errPass.setText(R.string.errContraseñaDebil);
+        errPass.setVisibility(View.VISIBLE);
       } else if (Validaciones.validacionContraseña(valorContrasenha1, valorContrasenha2).equals("distintas")) {
         isValid = false;
-        err.setText(R.string.errContraseñaNoCoincide);
-        err.setVisibility(View.VISIBLE);
+        errPass.setText(R.string.errContraseñaNoCoincide);
+        errPass.setVisibility(View.VISIBLE);
       }
     }else{
+      errPass.setVisibility(View.GONE);
       valorContrasenha1 = "";
     }
 
     if (Validaciones.validacionUser(valorNombre).equals("vacio")) {
       isValid = false;
-      err.setText(R.string.errNombreUsuario);
-      err.setVisibility(View.VISIBLE);
-    } else if (Validaciones.validacionUser(valorNombre).equals("falso")) {
+      errUsuario.setText(R.string.errNombreUsuario);
+      errUsuario.setVisibility(View.VISIBLE);
+    } else if (Validaciones.validacionUser(valorNombre).equals("noValido")) {
       isValid = false;
-      err.setText(R.string.errNombreUsuarioNoValido);
-      err.setVisibility(View.VISIBLE);
+      errUsuario.setText(R.string.errNombreUsuarioNoValido);
+      errUsuario.setVisibility(View.VISIBLE);
+    }else{
+      errUsuario.setVisibility(View.GONE);
     }
 
     if (isValid) {
@@ -134,8 +166,6 @@ public class GestioncuentaActivity extends AppCompatActivity {
                   notificacionesActivas,
                   guardadoNubeActivo);
       confirmarContrasenhaEdicion(nuevosDatos);
-    }else{
-      err.setVisibility(View.GONE);
     }
   }
 
@@ -223,7 +253,11 @@ public class GestioncuentaActivity extends AppCompatActivity {
      * Aporta funcionalidad al boton de cerrar sesión de la aplicación.
      * */
     FirebaseAuth.getInstance().signOut();
+    SharedPreferences preferences = getSharedPreferences("sesion", 0);
+    preferences.edit().remove("email").apply();
+    preferences.edit().remove("pass").apply();
     startActivity(new Intent(getApplicationContext(), BienvenidaActivity.class));
+
   }
 
   public void respuestaDatosUsuario(View v) {
@@ -237,7 +271,7 @@ public class GestioncuentaActivity extends AppCompatActivity {
   public void respuestaDatosUsuario(String nombre, String email,String notificaciones,String guardarEtiquetas ,View v) {
     /*En caso de que la respuesta sea correcta, se envian los datos y esta funcion se encarga de mostrarlos*/
     EditText editTextNombre, editTextEmail;
-    Switch switchNotificaciones,switchNube;
+    @SuppressLint("UseSwitchCompatOrMaterialCode") Switch switchNotificaciones,switchNube;
     editTextNombre = v.findViewById(R.id.modifNombre);
     editTextEmail = v.findViewById(R.id.modifCorreo);
     switchNotificaciones = v.findViewById(R.id.switchNotificaciones);

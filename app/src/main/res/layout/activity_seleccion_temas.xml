@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainbackground"
+    tools:context=".controlador.activities.Activities.GestionCuenta.SeleccionTemasActivity">
+
+    <ImageView
+        android:id="@+id/imagNegocios"
+        android:layout_width="74dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@string/txtNegocios"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagDeporte"
+        app:srcCompat="@drawable/ic_negocios"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/imagCiencia"
+        android:layout_width="81dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@string/txtCiencia"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagOcio"
+        app:srcCompat="@drawable/ic_ciencia"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/imagOcio"
+        android:layout_width="79dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@string/txtOcio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagNegocios"
+        app:srcCompat="@drawable/ic_ocio"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/imagSalud"
+        android:layout_width="79dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/txtMedicina"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagCiencia"
+        app:srcCompat="@drawable/ic_salud" />
+
+    <ImageView
+        android:id="@+id/imagTecnologia"
+        android:layout_width="83dp"
+        android:layout_height="86dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginBottom="35dp"
+        android:contentDescription="@string/txtTecnologia"
+        app:layout_constraintBottom_toTopOf="@+id/btnAceptar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagSalud"
+        app:layout_constraintVertical_bias="0.153"
+        app:srcCompat="@drawable/ic_tecnologia" />
+
+    <ImageView
+        android:id="@+id/imagDeporte"
+        android:layout_width="77dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="60dp"
+        android:contentDescription="@string/txtDeporte"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_deporte"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/txtDeporte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="@string/txtDeporte"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.219"
+        app:layout_constraintStart_toEndOf="@+id/imagDeporte"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/switchDeporte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.234"
+        app:layout_constraintStart_toEndOf="@+id/imagDeporte"
+        app:layout_constraintTop_toBottomOf="@+id/txtDeporte"
+        tools:ignore="UseSwitchCompatOrMaterialXml,DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/txtNegocios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/txtNegocios"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.185"
+        app:layout_constraintStart_toEndOf="@+id/imagNegocios"
+        app:layout_constraintTop_toBottomOf="@+id/switchDeporte" />
+
+    <Switch
+        android:id="@+id/switchNegocios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.244"
+        app:layout_constraintStart_toEndOf="@+id/imagNegocios"
+        app:layout_constraintTop_toBottomOf="@+id/txtNegocios" />
+
+    <TextView
+        android:id="@+id/txtOcio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/txtOcio"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.216"
+        app:layout_constraintStart_toEndOf="@+id/imagOcio"
+        app:layout_constraintTop_toBottomOf="@+id/switchNegocios" />
+
+    <Switch
+        android:id="@+id/switchOcio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.227"
+        app:layout_constraintStart_toEndOf="@+id/imagOcio"
+        app:layout_constraintTop_toBottomOf="@+id/txtOcio" />
+
+    <TextView
+        android:id="@+id/txtCiencia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/txtCiencia"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.191"
+        app:layout_constraintStart_toEndOf="@+id/imagCiencia"
+        app:layout_constraintTop_toBottomOf="@+id/switchOcio" />
+
+    <Switch
+        android:id="@+id/switchCiencia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.22"
+        app:layout_constraintStart_toEndOf="@+id/imagCiencia"
+        app:layout_constraintTop_toBottomOf="@+id/txtCiencia" />
+
+    <TextView
+        android:id="@+id/txtSalud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/txtMedicina"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.172"
+        app:layout_constraintStart_toEndOf="@+id/imagSalud"
+        app:layout_constraintTop_toBottomOf="@+id/switchCiencia" />
+
+    <Switch
+        android:id="@+id/switchSalud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.212"
+        app:layout_constraintStart_toEndOf="@+id/imagSalud"
+        app:layout_constraintTop_toBottomOf="@+id/txtSalud" />
+
+    <TextView
+        android:id="@+id/txtTecnologia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/txtTecnologia"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.181"
+        app:layout_constraintStart_toEndOf="@+id/imagTecnologia"
+        app:layout_constraintTop_toBottomOf="@+id/switchSalud" />
+
+    <Switch
+        android:id="@+id/switchTecnologia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.198"
+        app:layout_constraintStart_toEndOf="@+id/imagTecnologia"
+        app:layout_constraintTop_toBottomOf="@+id/txtTecnologia" />
+
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:foregroundGravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text="@string/txtTemas"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imagDeporte"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnAceptar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:contentDescription="@string/txtDeporte"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/btn_aceptar" />
+
+        <TextView
+            android:id="@+id/txtAceptar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txtAceptar"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+            app:layout_constraintEnd_toEndOf="@+id/imageView6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView6" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

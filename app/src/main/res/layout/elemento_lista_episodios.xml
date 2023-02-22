@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout5"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@color/fondoComponentes">
+
+    <ImageView
+        android:id="@+id/imagenEpisodio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tituloEpisodio"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tituloEpisodio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.58"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/reproducir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toEndOf="@+id/recordatorio"
+        app:layout_constraintTop_toBottomOf="@+id/tituloEpisodio"
+        app:srcCompat="@drawable/ic_rep_episodio" />
+
+    <ImageView
+        android:id="@+id/parar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/masTarde"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/recordatorio"
+        app:layout_constraintTop_toBottomOf="@+id/tituloEpisodio"
+        app:srcCompat="@drawable/ic_parar_episodio" />
+
+    <ImageView
+        android:id="@+id/recordatorio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toEndOf="@+id/imagenEpisodio"
+        app:layout_constraintTop_toBottomOf="@+id/tituloEpisodio"
+        app:srcCompat="@drawable/ic_add_recordatorio" />
+
+    <ImageView
+        android:id="@+id/masTarde"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.377"
+        app:layout_constraintStart_toEndOf="@+id/reproducir"
+        app:layout_constraintTop_toBottomOf="@+id/tituloEpisodio"
+        app:srcCompat="@drawable/ic_add_mas_tarde" />
+</androidx.constraintlayout.widget.ConstraintLayout>
