@@ -23,11 +23,11 @@ import com.tfg.mifeed.controlador.utilidades.Validaciones;
 
 
 public class PrensaActivity extends AppCompatActivity {
-    BottomNavigationView bottomNavigationMenuView;
-    FavoritosFragment favoritosFragment;
-    CategoriasFragment categoriasFragment;
-    EtiquetasFragment etiquetasFragment;
-    ImportantesFragment importantesFragment;
+    private BottomNavigationView bottomNavigationMenuView;
+    private FavoritosFragment favoritosFragment;
+    private CategoriasFragment categoriasFragment;
+    private EtiquetasFragment etiquetasFragment;
+    private ImportantesFragment importantesFragment;
 
     private static View v;
 
