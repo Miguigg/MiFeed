@@ -81,7 +81,7 @@ public class FirebaseServices {
       return true;
   }
 
-  public static void ejecutarLogin(boolean emailSent, String email, String pass, View v) {
+  /*public static void ejecutarLogin(boolean emailSent, String email, String pass, View v) {
     userAuth
         .signInWithEmailAndPassword(email, pass)
         .addOnCompleteListener(
@@ -105,7 +105,7 @@ public class FirebaseServices {
                 }
               }
             });
-  }
+  }*/
 
     public static void ejecutarLogin(boolean emailSent, String email, String pass, View v) {
         userAuth
