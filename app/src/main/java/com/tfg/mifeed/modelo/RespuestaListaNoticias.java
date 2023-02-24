@@ -12,27 +12,10 @@ public class RespuestaListaNoticias {
         this.totalResults = totalResults;
         this.articles = noticias;
     }
-    public String getStatus() {
-        return status;
-    }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getTotalResults() {
-        return totalResults;
-    }
-
-    public void setTotalResults(String totalResults) {
-        this.totalResults = totalResults;
-    }
 
     public ArrayList<Noticia> getNoticias() {
         return articles;
     }
 
-    public void setNoticias(ArrayList<Noticia> noticias) {
-        this.articles = noticias;
-    }
 }

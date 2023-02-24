@@ -17,43 +17,9 @@ public class RespuestaListaEpisodios {
         this.results = results;
     }
 
-    public int getCount() {
-        return count;
-    }
 
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    public int getNext_offset() {
-        return next_offset;
-    }
-
-    public void setNext_offset(int next_offset) {
-        this.next_offset = next_offset;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public double getTook() {
-        return took;
-    }
-
-    public void setTook(double took) {
-        this.took = took;
-    }
 
     public ArrayList<Episodio> getResults() {
         return results;
-    }
-
-    public void setResults(ArrayList<Episodio> results) {
-        this.results = results;
     }
 }

@@ -63,16 +63,8 @@ public class Episodio {
     return title;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
   public String getDescription() {
     return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
   }
 
   public String getId() {
@@ -83,28 +75,12 @@ public class Episodio {
     this.id = id;
   }
 
-  public String getLink() {
-    return link;
-  }
-
-  public void setLink(String link) {
-    this.link = link;
-  }
-
   public String getAudio() {
     return audio;
   }
 
-  public void setAudio(String audio) {
-    this.audio = audio;
-  }
-
   public String getImage() {
     return image;
-  }
-
-  public void setImage(String image) {
-    this.image = image;
   }
 
   public Podcast getPodcast() {
@@ -119,31 +95,7 @@ public class Episodio {
     return title_original;
   }
 
-  public void setTitle_original(String title_original) {
-    this.title_original = title_original;
-  }
-
-  public String getTitle_highlighted() {
-    return title_highlighted;
-  }
-
-  public void setTitle_highlighted(String title_highlighted) {
-    this.title_highlighted = title_highlighted;
-  }
-
   public String getDescription_original() {
     return description_original;
-  }
-
-  public void setDescription_original(String description_original) {
-    this.description_original = description_original;
-  }
-
-  public String getDescription_highlighted() {
-    return description_highlighted;
-  }
-
-  public void setDescription_highlighted(String description_highlighted) {
-    this.description_highlighted = description_highlighted;
   }
 }

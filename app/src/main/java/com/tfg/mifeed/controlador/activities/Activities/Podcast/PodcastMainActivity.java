@@ -21,11 +21,11 @@ import com.tfg.mifeed.controlador.utilidades.Validaciones;
 
 public class PodcastMainActivity extends AppCompatActivity {
 
-    BottomNavigationView bottomNavigationMenuView;
-    BusquedaFragment busquedaFragment;
-    BibliotecaFragment bibliotecaFragment;
-    MasTardeFragment masTardeFragment;
-    RecordatoriosFragment recordatoriosFragment;
+    private BottomNavigationView bottomNavigationMenuView;
+    private BusquedaFragment busquedaFragment;
+    private BibliotecaFragment bibliotecaFragment;
+    private MasTardeFragment masTardeFragment;
+    private RecordatoriosFragment recordatoriosFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

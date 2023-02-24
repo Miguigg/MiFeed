@@ -7,8 +7,6 @@ public class Usuario {
   private boolean notificaciones;
   private boolean etiquetasNube;
 
-  public Usuario() {}
-
   public Usuario(String nombre, String email, String contraseña) {
     this.nombre = nombre;
     this.email = email;

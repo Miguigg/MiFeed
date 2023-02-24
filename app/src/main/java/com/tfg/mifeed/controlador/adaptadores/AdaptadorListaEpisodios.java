@@ -36,11 +36,11 @@ import java.util.Calendar;
 public class AdaptadorListaEpisodios
     extends RecyclerView.Adapter<AdaptadorListaEpisodios.ViewHolder> {
 
-  ArrayList<Episodio> listaEpisodios;
-  Context context;
-  MediaPlayer mediaPlayer;
+  private ArrayList<Episodio> listaEpisodios;
+  private Context context;
+  private MediaPlayer mediaPlayer;
 
-  boolean repoduciendo;
+  private boolean repoduciendo;
 
   public AdaptadorListaEpisodios(ArrayList<Episodio> listaEpisodios, Context context) {
     this.context = context;
@@ -183,13 +183,12 @@ public class AdaptadorListaEpisodios
   }
 
   public static class ViewHolder extends RecyclerView.ViewHolder {
-    ImageView imagenEpisodio, pausa, play, recordatorio, masTarde;
-    TextView titulo;
+    private ImageView imagenEpisodio, play, recordatorio, masTarde;
+    private TextView titulo;
 
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
       imagenEpisodio = itemView.findViewById(R.id.imagenEpisodio);
-      pausa = itemView.findViewById(R.id.parar);
       play = itemView.findViewById(R.id.reproducir);
       recordatorio = itemView.findViewById(R.id.recordatorio);
       masTarde = itemView.findViewById(R.id.masTarde);
