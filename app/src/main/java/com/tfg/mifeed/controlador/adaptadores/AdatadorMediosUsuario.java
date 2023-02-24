@@ -14,7 +14,7 @@ import com.tfg.mifeed.R;
 
 import java.util.ArrayList;
 
-public class AdatadorMediosUsuario extends RecyclerView.Adapter<AdatadorMediosUsuario.ViewHolder> {
+public class AdatadorMediosUsuario extends RecyclerView.Adapter<AdatadorMediosUsuario.ViewHolderMediosUsuario> {
     private final ArrayList<String> lista;
 
     public AdatadorMediosUsuario(ArrayList<String> lista){
@@ -23,15 +23,15 @@ public class AdatadorMediosUsuario extends RecyclerView.Adapter<AdatadorMediosUs
 
     @NonNull
     @Override
-    public AdatadorMediosUsuario.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderMediosUsuario onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View vista = inflater.inflate(R.layout.elemento_lista_medios_usuario,parent,false);
-        return new ViewHolder(vista);
+        return new ViewHolderMediosUsuario(vista);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderMediosUsuario holder, int position) {
         ImageView imageView = holder.imageView;
         TextView nombre = holder.nombre;
         switch (lista.get(position)){
@@ -71,11 +71,11 @@ public class AdatadorMediosUsuario extends RecyclerView.Adapter<AdatadorMediosUs
         return lista.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolderMediosUsuario extends RecyclerView.ViewHolder{
         public ImageView imageView;
         public TextView nombre;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolderMediosUsuario(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imgMedioUsuario);
             nombre = itemView.findViewById(R.id.nombreMedioUsuario);

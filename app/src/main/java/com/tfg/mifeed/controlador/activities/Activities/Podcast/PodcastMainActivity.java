@@ -40,6 +40,10 @@ public class PodcastMainActivity extends AppCompatActivity {
         final AppActivity app = (AppActivity) this.getApplication();
         app.generarBarraInferior(this.findViewById(android.R.id.content),this);
         getSupportFragmentManager().beginTransaction().replace(R.id.framePodcast,busquedaFragment).commit();
+        String data = getIntent().getExtras().getString("alarma");
+        if(data!= null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.framePodcast,recordatoriosFragment).commit();
+        }
 
         bottomNavigationMenuView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @SuppressLint("NonConstantResourceId")

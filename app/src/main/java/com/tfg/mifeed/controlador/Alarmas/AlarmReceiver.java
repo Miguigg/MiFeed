@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.FragmentsPodcast.RecordatoriosFragment;
+import com.tfg.mifeed.controlador.activities.Activities.Podcast.PodcastMainActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 
 import java.security.Provider;
@@ -30,9 +31,12 @@ public class AlarmReceiver extends BroadcastReceiver{
     public void onReceive(Context context, Intent intent) {
         Intent i;
         if(FirebaseServices.checkLogin()){
-            i = new Intent(context, RecordatoriosFragment.class);
+            i = new Intent(context, PodcastMainActivity.class);
+            i.putExtra("alarma","redirigeAlarmas");
+            context.startActivity(i);
         }else{
             i = new Intent(context, BienvenidaActivity.class);
+            context.startActivity(i);
         }
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,0,i,PendingIntent.FLAG_IMMUTABLE);

@@ -17,7 +17,7 @@ import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionM
 
 import java.util.ArrayList;
 
-public class AdaptadorListaMedios extends RecyclerView.Adapter<AdaptadorListaMedios.ViewHolder> {
+public class AdaptadorListaMedios extends RecyclerView.Adapter<AdaptadorListaMedios.ViewHolderListaMedios> {
     private ArrayList<String> medios;
     private ArrayList<String> dominios;
 
@@ -28,17 +28,17 @@ public class AdaptadorListaMedios extends RecyclerView.Adapter<AdaptadorListaMed
 
     @NonNull
     @Override
-    public AdaptadorListaMedios.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderListaMedios onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View vista = inflater.inflate(R.layout.elemento_lista_medios,parent,false);
-        ViewHolder viewHolder = new ViewHolder(vista);
-        return viewHolder;
+        ViewHolderListaMedios viewHolderListaMedios = new ViewHolderListaMedios(vista);
+        return viewHolderListaMedios;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderListaMedios holder, int position) {
         SeleccionMediosActivity seleccionMediosActivity = new SeleccionMediosActivity();
         ImageView imageView = holder.imageView;
         TextView nombre = holder.nombre;
@@ -62,12 +62,12 @@ public class AdaptadorListaMedios extends RecyclerView.Adapter<AdaptadorListaMed
         return medios.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolderListaMedios extends RecyclerView.ViewHolder{
         public ImageView imageView;
         public TextView nombre,dominio;
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         public Switch swMedio;
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolderListaMedios(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imgMedio);
             nombre = itemView.findViewById(R.id.nombreMedio);

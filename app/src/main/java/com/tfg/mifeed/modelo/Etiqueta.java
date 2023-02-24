@@ -25,12 +25,4 @@ public class Etiqueta {
         return titulos;
     }
 
-    /*@Override
-    public String toString() {
-        return "Etiqueta{" +
-                "tituloEtiqueta='" + tituloEtiqueta + '\'' +
-                ", urls=" + urls +
-                ", titulos=" + titulos +
-                '}';
-    }*/
 }

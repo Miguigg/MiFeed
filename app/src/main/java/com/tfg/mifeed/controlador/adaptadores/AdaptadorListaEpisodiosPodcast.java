@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
-import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.LoginActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.CreacionRecordatorioActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
@@ -27,7 +26,7 @@ import com.tfg.mifeed.modelo.Episodio;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<AdaptadorListaEpisodiosPodcast.ViewHolder> {
+public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<AdaptadorListaEpisodiosPodcast.ViewHolderListaEpisodios> {
 
     ArrayList<Episodio> listaEpisodios;
     String idPodcast, tituloPodcast;
@@ -45,16 +44,16 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
 
     @NonNull
     @Override
-    public AdaptadorListaEpisodiosPodcast.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderListaEpisodios onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.elemento_lista_episodios, parent, false);
-        AdaptadorListaEpisodiosPodcast.ViewHolder viewHolder = new AdaptadorListaEpisodiosPodcast.ViewHolder(view);
-        return viewHolder;
+        ViewHolderListaEpisodios viewHolderListaEpisodios = new ViewHolderListaEpisodios(view);
+        return viewHolderListaEpisodios;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdaptadorListaEpisodiosPodcast.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderListaEpisodios holder, int position) {
         TextView titulo = holder.titulo;
         titulo.setText(fromHtml(listaEpisodios.get(position).getTitle(), 0));
         ImageView imageView = holder.imagenEpisodio;
@@ -158,11 +157,11 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
         return listaEpisodios.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolderListaEpisodios extends RecyclerView.ViewHolder {
         ImageView imagenEpisodio, pausa, play, recordatorio, masTarde;
         TextView titulo;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolderListaEpisodios(@NonNull View itemView) {
             super(itemView);
             imagenEpisodio = itemView.findViewById(R.id.imagenEpisodio);
             pausa = itemView.findViewById(R.id.parar);

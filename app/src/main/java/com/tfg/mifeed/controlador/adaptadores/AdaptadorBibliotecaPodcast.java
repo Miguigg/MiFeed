@@ -21,7 +21,7 @@ import com.tfg.mifeed.modelo.Podcast;
 
 import java.util.ArrayList;
 
-public class AdaptadorBibliotecaPodcast extends RecyclerView.Adapter<AdaptadorBibliotecaPodcast.ViewHolder>{
+public class AdaptadorBibliotecaPodcast extends RecyclerView.Adapter<AdaptadorBibliotecaPodcast.ViewHolderBiblioteca>{
 
     ArrayList<Podcast> listaPodcast;
     Context c;
@@ -34,16 +34,16 @@ public class AdaptadorBibliotecaPodcast extends RecyclerView.Adapter<AdaptadorBi
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderBiblioteca onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.elemento_lista_biblioteca, parent, false);
-        AdaptadorBibliotecaPodcast.ViewHolder viewHolder = new ViewHolder(view);
+        ViewHolderBiblioteca viewHolder = new ViewHolderBiblioteca(view);
         return  viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderBiblioteca holder, int position) {
         ImageView logo = holder.imagenBiblioteca;
         ImageView eliminar = holder.btneliminar;
         TextView titulo = holder.titulo;
@@ -92,11 +92,11 @@ public class AdaptadorBibliotecaPodcast extends RecyclerView.Adapter<AdaptadorBi
         return listaPodcast.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolderBiblioteca extends RecyclerView.ViewHolder {
         ImageView imagenBiblioteca, btneliminar;
         TextView titulo;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolderBiblioteca(@NonNull View itemView) {
             super(itemView);
             imagenBiblioteca = itemView.findViewById(R.id.imagenBiblioteca);
             titulo = itemView.findViewById(R.id.tituloPodcast);

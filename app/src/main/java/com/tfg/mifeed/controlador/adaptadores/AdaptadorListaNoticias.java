@@ -20,7 +20,7 @@ import com.tfg.mifeed.modelo.Noticia;
 
 import java.util.ArrayList;
 
-public class AdaptadorListaNoticias extends RecyclerView.Adapter<AdaptadorListaNoticias.ViewHolder> {
+public class AdaptadorListaNoticias extends RecyclerView.Adapter<AdaptadorListaNoticias.ViewHolderListaNoticias> {
 
     private Context context;
     private ArrayList<Noticia> listaNoticias;
@@ -34,16 +34,16 @@ public class AdaptadorListaNoticias extends RecyclerView.Adapter<AdaptadorListaN
 
     @NonNull
     @Override
-    public AdaptadorListaNoticias.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderListaNoticias onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View vista = inflater.inflate(R.layout.elemento_lista_noticias,parent,false);
-        AdaptadorListaNoticias.ViewHolder viewHolder = new AdaptadorListaNoticias.ViewHolder(vista);
-        return viewHolder;
+        ViewHolderListaNoticias viewHolderListaNoticias = new ViewHolderListaNoticias(vista);
+        return viewHolderListaNoticias;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int pos) {
+    public void onBindViewHolder(@NonNull ViewHolderListaNoticias holder, int pos) {
         String[] titulos = adaptarTexto(listaNoticias.get(pos).getTitle());
         switch (titulos.length) {
             case 0:
@@ -89,11 +89,11 @@ public class AdaptadorListaNoticias extends RecyclerView.Adapter<AdaptadorListaN
         return listaNoticias.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolderListaNoticias extends RecyclerView.ViewHolder{
         TextView titulo, contenido, autor;
         ImageView foto;
         LinearLayout toNoticia;
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolderListaNoticias(@NonNull View itemView) {
             super(itemView);
             titulo = itemView.findViewById(R.id.titulo);
             contenido = itemView.findViewById(R.id.content);

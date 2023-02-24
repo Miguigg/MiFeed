@@ -19,7 +19,7 @@ import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 
 import java.util.ArrayList;
 
-public class AdaptadorHistorial extends RecyclerView.Adapter<AdaptadorHistorial.ViewHolder> {
+public class AdaptadorHistorial extends RecyclerView.Adapter<AdaptadorHistorial.ViewHolderHistorial> {
 
   private ArrayList<String> listaUrls;
   private Context context;
@@ -31,16 +31,16 @@ public class AdaptadorHistorial extends RecyclerView.Adapter<AdaptadorHistorial.
 
   @NonNull
   @Override
-  public AdaptadorHistorial.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+  public ViewHolderHistorial onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     Context context = parent.getContext();
     LayoutInflater inflater = LayoutInflater.from(context);
     View vista = inflater.inflate(R.layout.elemento_lista_historial, parent, false);
-    AdaptadorHistorial.ViewHolder viewHolder = new AdaptadorHistorial.ViewHolder(vista);
-    return viewHolder;
+    ViewHolderHistorial viewHolderHistorial = new ViewHolderHistorial(vista);
+    return viewHolderHistorial;
   }
 
   @Override
-  public void onBindViewHolder(@NonNull AdaptadorHistorial.ViewHolder holder, int position) {
+  public void onBindViewHolder(@NonNull ViewHolderHistorial holder, int position) {
     TextView url = holder.url;
     ImageView btnEliminar = holder.eliminar;
     url.setText(listaUrls.get(position));
@@ -83,12 +83,12 @@ public class AdaptadorHistorial extends RecyclerView.Adapter<AdaptadorHistorial.
     return listaUrls.size();
   }
 
-  public static class ViewHolder extends RecyclerView.ViewHolder {
+  public static class ViewHolderHistorial extends RecyclerView.ViewHolder {
 
     TextView url;
     ImageView eliminar;
 
-    public ViewHolder(@NonNull View itemView) {
+    public ViewHolderHistorial(@NonNull View itemView) {
       super(itemView);
 
       url = itemView.findViewById(R.id.url);

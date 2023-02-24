@@ -1,15 +1,18 @@
 package com.tfg.mifeed.modelo;
 
 public class Noticia {
-    private String author,title,description,url,urlToImage,publishedAt;
+    private final String author;
+    private final String title;
+    private final String description;
+    private final String url;
+    private final String urlToImage;
 
-    public Noticia (String author, String title,String description, String url, String urlToImage, String publishedAt){
+    public Noticia (String author, String title,String description, String url, String urlToImage){
         this.author = author;
         this.title = title;
         this.description = description;
         this.url = url;
         this.urlToImage = urlToImage;
-        this.publishedAt = publishedAt;
     }
 
     public String getAuthor() {

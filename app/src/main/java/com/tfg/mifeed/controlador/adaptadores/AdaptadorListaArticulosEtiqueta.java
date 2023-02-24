@@ -20,7 +20,7 @@ import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 
 import java.util.ArrayList;
 
-public class AdaptadorListaArticulosEtiqueta extends RecyclerView.Adapter<AdaptadorListaArticulosEtiqueta.ViewHolder>{
+public class AdaptadorListaArticulosEtiqueta extends RecyclerView.Adapter<AdaptadorListaArticulosEtiqueta.ViewHolderEtiqueta>{
 
     private ArrayList<String> urls;
     private ArrayList<String> nombresWebs;
@@ -39,16 +39,16 @@ public class AdaptadorListaArticulosEtiqueta extends RecyclerView.Adapter<Adapta
 
     @NonNull
     @Override
-    public AdaptadorListaArticulosEtiqueta.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderEtiqueta onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View vista = inflater.inflate(R.layout.elemento_lista_articulos,parent,false);
-        AdaptadorListaArticulosEtiqueta.ViewHolder viewHolder = new AdaptadorListaArticulosEtiqueta.ViewHolder(vista);
-        return viewHolder;
+        ViewHolderEtiqueta viewHolderEtiqueta = new ViewHolderEtiqueta(vista);
+        return viewHolderEtiqueta;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdaptadorListaArticulosEtiqueta.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderEtiqueta holder, int position) {
         TextView titulo = holder.tituloArticulo;
         TextView url = holder.urlArticulo;
         ImageView eliminar = holder.btnEliminar;
@@ -90,13 +90,13 @@ public class AdaptadorListaArticulosEtiqueta extends RecyclerView.Adapter<Adapta
         return urls.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolderEtiqueta extends RecyclerView.ViewHolder{
 
         TextView tituloArticulo,urlArticulo;
         ImageView btnEliminar;
         LinearLayout articulo;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolderEtiqueta(@NonNull View itemView) {
             super(itemView);
             tituloArticulo = itemView.findViewById(R.id.tituloArticulo);
             urlArticulo = itemView.findViewById(R.id.urlArticulo);

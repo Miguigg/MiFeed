@@ -2,40 +2,30 @@ package com.tfg.mifeed.modelo;
 
 public class Episodio {
   private String id;
-  private String link;
   private String audio;
   private String image;
   private Podcast podcast;
   private String title_original;
   private String tituloPodcast;
-  private String title_highlighted;
   private String description_original;
-  private String description_highlighted;
   private String title;
   private String description;
 
   public Episodio(
       String id,
-      String link,
       String audio,
       String image,
       Podcast podcast,
       String title,
       String description,
       String title_original,
-      String tituloPodcast,
-      String title_highlighted,
-      String description_original,
-      String description_highlighted) {
+      String description_original) {
     this.id = id;
-    this.link = link;
     this.audio = audio;
     this.image = image;
     this.podcast = podcast;
     this.title_original = title_original;
-    this.title_highlighted = title_highlighted;
     this.description_original = description_original;
-    this.description_highlighted = description_highlighted;
     this.title = title;
     this.description = description;
   }

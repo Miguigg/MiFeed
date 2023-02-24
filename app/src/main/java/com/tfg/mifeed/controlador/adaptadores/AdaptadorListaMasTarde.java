@@ -27,7 +27,7 @@ import com.tfg.mifeed.modelo.Episodio;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaMasTarde.ViewHolder>{
+public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaMasTarde.ViewHolderListaMasTarde>{
 
     ArrayList<Episodio> listaEpisodios;
     Context context;
@@ -42,16 +42,16 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
 
     @NonNull
     @Override
-    public AdaptadorListaMasTarde.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolderListaMasTarde onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.elemento_lista_mas_tade, parent, false);
-        AdaptadorListaMasTarde.ViewHolder viewHolder = new AdaptadorListaMasTarde.ViewHolder(view);
-        return viewHolder;
+        ViewHolderListaMasTarde viewHolderListaMasTarde = new ViewHolderListaMasTarde(view);
+        return viewHolderListaMasTarde;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdaptadorListaMasTarde.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderListaMasTarde holder, int position) {
         TextView titulo = holder.titulo;
         titulo.setText(fromHtml(listaEpisodios.get(position).getTitle(), 0));
         ImageView imageView = holder.imagenEpisodio;
@@ -160,11 +160,11 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
         return listaEpisodios.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolderListaMasTarde extends RecyclerView.ViewHolder {
         ImageView imagenEpisodio, pausa, play, recordatorio, eliminar;
         TextView titulo;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolderListaMasTarde(@NonNull View itemView) {
             super(itemView);
             imagenEpisodio = itemView.findViewById(R.id.imagenEpisodio2);
             play = itemView.findViewById(R.id.reproducir2);
