@@ -1,4 +1,4 @@
-package com.tfg.mifeed.controlador.adaptadores;
+package com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPrensa;
 
 import android.view.LayoutInflater;
 import android.view.View;

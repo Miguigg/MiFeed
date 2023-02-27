@@ -78,6 +78,7 @@
     <string name="recordatorioTitulo">MiFeed te recuerda, tienes podcast pendientes </string>
     <string name="recordatorioCuerpo">Tienes episodios pendientes, pulsa aquí para ver cuales son</string>
     <string name="recordatorioEstablecido">Recordatorio añadido correctamente</string>
+    <string name="añadido">Recordatorio para el: %1$s a las %2$s</string>
     <string name="modificacionCorreo">Debes volver a iniciar sesión</string>
     <string name="modificacionCuenta">Tus datos han sido modificados exitosamente</string>
     <string name="modificacionPass">Contraseña modificada con exito</string>
@@ -111,6 +112,7 @@
     <string name="errRecuperacion">Ha ocurrido un error al recuperar tu sesión</string>
     <string name="errModificarDatos">No has introducido datos o no son correctos</string>
     <string name="errPodcastYaExiste">El podcast ya está en tu lista</string>
+    <string name="errRecordatorios">No tienes recordatorios en lista</string>
     <string name="CorrectConn">Conexión establecida correctamente</string>
     <string name="confirmacionCorreo">Te hemos envíado un correo para que verifiques tu cuenta</string>
     <string name="alertCorreo">Tienes que verificar tu cuenta para poder iniciar sesión, revisa tu spam si no lo encuentras</string>
@@ -120,6 +122,7 @@
     <string name="Historial">Historial</string>
     <string name="txtHistorial">Historial eliminado correctamente</string>
     <string name="txtDeletePodcast">Podcast eliminado correctamente</string>
+    <string name="errRecordatoriosActivos">No tienes activados los recodatorios en ajustes, puedes cambiarlo en las opciones de usuario</string>
 
     <string name="descripcionLogin">Botón para iniciar sesión</string>
     <string name="descripcionRegistro">Botón para ejecutar el registro</string>

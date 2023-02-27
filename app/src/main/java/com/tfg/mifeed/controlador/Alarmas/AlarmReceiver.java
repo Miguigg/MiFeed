@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -32,13 +33,15 @@ public class AlarmReceiver extends BroadcastReceiver{
         Intent i;
         if(FirebaseServices.checkLogin()){
             i = new Intent(context, PodcastMainActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             i.putExtra("alarma","redirigeAlarmas");
+            Toast.makeText(context, String.valueOf(System.currentTimeMillis()), Toast.LENGTH_SHORT).show();
             context.startActivity(i);
         }else{
             i = new Intent(context, BienvenidaActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             context.startActivity(i);
         }
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,0,i,PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "recordatorioPodcast")

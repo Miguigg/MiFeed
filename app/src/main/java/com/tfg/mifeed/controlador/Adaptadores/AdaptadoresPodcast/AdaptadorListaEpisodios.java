@@ -1,4 +1,4 @@
-package com.tfg.mifeed.controlador.adaptadores;
+package com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPodcast;
 
 import static android.text.Html.fromHtml;
 
@@ -72,7 +72,7 @@ public class AdaptadorListaEpisodios
             if (!CheckConexion.getEstadoActual(context)) {
               Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
             } else {
-              if (repoduciendo == false) {
+              if (!repoduciendo) {
                 repoduciendo = true;
                 play.setImageResource(R.drawable.ic_parar_episodio);
                 reproducir(listaEpisodios.get(holder.getAdapterPosition()).getAudio());
@@ -131,6 +131,7 @@ public class AdaptadorListaEpisodios
         intent.putExtra("nombreEpisodio",listaEpisodios.get(holder.getAdapterPosition()).getTitle_original());
         intent.putExtra("urlAudio",listaEpisodios.get(holder.getAdapterPosition()).getAudio());
         intent.putExtra("urlImagen",listaEpisodios.get(holder.getAdapterPosition()).getImage());
+        intent.putExtra("idPodcast",listaEpisodios.get(holder.getAdapterPosition()).getPodcast().getId());
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
       }

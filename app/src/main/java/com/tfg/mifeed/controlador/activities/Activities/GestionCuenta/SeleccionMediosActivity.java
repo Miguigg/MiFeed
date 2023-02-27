@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.PrensaActivity;
-import com.tfg.mifeed.controlador.adaptadores.AdaptadorListaMedios;
+import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPrensa.AdaptadorListaMedios;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 

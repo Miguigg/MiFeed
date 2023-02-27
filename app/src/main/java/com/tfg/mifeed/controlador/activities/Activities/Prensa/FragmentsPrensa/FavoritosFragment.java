@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionTemasActivity;
-import com.tfg.mifeed.controlador.adaptadores.AdatadorMediosUsuario;
+import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPrensa.AdatadorMediosUsuario;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 

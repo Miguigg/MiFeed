@@ -87,32 +87,6 @@ public class FirebaseServices {
     return true;
   }
 
-  /*public static void ejecutarLogin(boolean emailSent, String email, String pass, View v) {
-    userAuth
-        .signInWithEmailAndPassword(email, pass)
-        .addOnCompleteListener(
-            new OnCompleteListener<AuthResult>() {
-              @Override
-              public void onComplete(@NonNull Task<AuthResult> task) {
-                LoginActivity login = new LoginActivity();
-                if (task.isSuccessful()) {
-                  if (FirebaseAuth.getInstance().getCurrentUser().isEmailVerified()) {
-                    login.respuestaLogin("emailVerificado", v);
-                  } else {
-                    if (!emailSent) {
-                      FirebaseServices.mandarEmailVerificacion();
-                      login.respuestaLogin("emailNoEnviado", v);
-                    } else {
-                      login.respuestaLogin("emailYaEnviado", v);
-                    }
-                  }
-                } else {
-                  login.respuestaLogin("loginFallido", v);
-                }
-              }
-            });
-  }*/
-
   public static void ejecutarLogin(boolean emailSent, String email, String pass, View v) {
     userAuth
         .signInWithEmailAndPassword(email, pass)
@@ -1296,7 +1270,8 @@ public class FirebaseServices {
             });
   }
 
-  public static void guardarRecordatorio(Episodio episodio, String fecha, View v, int numero) {
+  public static void guardarRecordatorio(
+      Episodio episodio, String fecha, View v, int numero, String idPodcast) {
     String id = userAuth.getCurrentUser().getUid();
     Map<String, Object> nuevosRecordatorio = new HashMap<>();
     nuevosRecordatorio.put("recordatorio", Validaciones.getDateFromString(fecha));
@@ -1305,6 +1280,7 @@ public class FirebaseServices {
     nuevosRecordatorio.put("recordatorioNumero", numero);
     nuevosRecordatorio.put("urlAudio", episodio.getAudio());
     nuevosRecordatorio.put("urlImagen", episodio.getImage());
+    nuevosRecordatorio.put("idPodcast", idPodcast);
 
     instancia
         .collection("Recordatorios")
@@ -1362,43 +1338,64 @@ public class FirebaseServices {
             });
   }
 
-  public static void setRecordatorio(Episodio episodio, String fecha, View v) {
+  public static void setRecordatorio(Episodio episodio, String fecha, View v, String idPodcast) {
     String id = userAuth.getCurrentUser().getUid();
     CollectionReference ref = instancia.collection("Recordatorios");
+    ArrayList<String> listaAudios= new ArrayList<>();
     ref.get()
         .addOnSuccessListener(
             new OnSuccessListener<QuerySnapshot>() {
               @Override
               public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                ArrayList<Integer> listaIds = new ArrayList<>();
                 for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
-                  if (queryDocumentSnapshots.getDocuments().get(i).get("creador").equals(id)) {
-                    listaIds.add(
-                        Math.toIntExact(
-                            (Long)
-                                queryDocumentSnapshots
+                  listaAudios.add(
+                      (String) queryDocumentSnapshots.getDocuments().get(i).get("urlAudio"));
+                }
+                if (!listaAudios.contains(episodio.getAudio())) {
+                  ref.get()
+                      .addOnSuccessListener(
+                          new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                              ArrayList<Integer> listaIds = new ArrayList<>();
+                              for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
+                                if (queryDocumentSnapshots
                                     .getDocuments()
                                     .get(i)
-                                    .get("recordatorioNumero")));
-                  }
-                }
-                if (listaIds.size() > 0) {
-                  int max = listaIds.get(0);
-                  for (int i = 1; i < listaIds.size(); i++) {
-                    if (max < listaIds.get(i)) {
-                      max = listaIds.get(i);
-                    }
-                  }
-                  max = max + 1;
-                  guardarRecordatorio(episodio, fecha, v, max);
+                                    .get("creador")
+                                    .equals(id)) {
+                                  listaIds.add(
+                                      Math.toIntExact(
+                                          (Long)
+                                              queryDocumentSnapshots
+                                                  .getDocuments()
+                                                  .get(i)
+                                                  .get("recordatorioNumero")));
+                                }
+                              }
+                              if (listaIds.size() > 0) {
+                                int max = listaIds.get(0);
+                                for (int i = 1; i < listaIds.size(); i++) {
+                                  if (max < listaIds.get(i)) {
+                                    max = listaIds.get(i);
+                                  }
+                                }
+                                max = max + 1;
+                                guardarRecordatorio(episodio, fecha, v, max, idPodcast);
+                              } else {
+                                guardarRecordatorio(episodio, fecha, v, 1, idPodcast);
+                              }
+                            }
+                          });
                 } else {
-                  guardarRecordatorio(episodio, fecha, v, 1);
+                  Toast.makeText(v.getContext(), R.string.errPodcastYaExiste, Toast.LENGTH_SHORT)
+                      .show();
                 }
               }
             });
   }
 
-  public static void getRecordatorios() {
+  public static void getRecordatorios(View v) {
     RecordatoriosFragment recordatoriosFragment = new RecordatoriosFragment();
     String id = userAuth.getCurrentUser().getUid();
     CollectionReference ref = instancia.collection("Recordatorios");
@@ -1416,6 +1413,8 @@ public class FirebaseServices {
                         (String) queryDocumentSnapshots.getDocuments().get(i).get("urlAudio");
                     String urlImagen =
                         (String) queryDocumentSnapshots.getDocuments().get(i).get("urlImagen");
+                    String idPodcast =
+                        (String) queryDocumentSnapshots.getDocuments().get(i).get("idPodcast");
                     int idRecordatorio =
                         Math.toIntExact(
                             (Long)
@@ -1423,20 +1422,60 @@ public class FirebaseServices {
                                     .getDocuments()
                                     .get(i)
                                     .get("recordatorioNumero"));
-                    Timestamp timestamp = (Timestamp) queryDocumentSnapshots.getDocuments().get(i).get("recordatorio");
+                    Timestamp timestamp =
+                        (Timestamp)
+                            queryDocumentSnapshots.getDocuments().get(i).get("recordatorio");
                     Date fecha = timestamp.toDate();
 
                     Recordatorio recordatorio =
-                        new Recordatorio(fecha, idRecordatorio, titulo, urlAudio, urlImagen);
+                        new Recordatorio(
+                            fecha, idRecordatorio, titulo, urlAudio, urlImagen, idPodcast);
                     toret.add(recordatorio);
                   }
                 }
                 if (toret.size() > 0) {
-                  recordatoriosFragment.respuestaListaRecordatorios(toret, "true");
+                  recordatoriosFragment.respuestaListaRecordatorios(toret, "true", v);
                 } else {
-                  recordatoriosFragment.respuestaListaRecordatorios(toret, "false");
+                  recordatoriosFragment.respuestaListaRecordatorios(toret, "false", v);
                 }
               }
             });
+  }
+
+  public static void eliminarRecordatorio(String idPodcast, Context c) {
+      String id = userAuth.getCurrentUser().getUid();
+      CollectionReference ref = instancia.collection("Recordatorios");
+      ref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+          @Override
+          public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+              for(int i = 0; i<queryDocumentSnapshots.size(); i++){
+                  if(queryDocumentSnapshots.getDocuments().get(i).get("idPodcast").equals(idPodcast)){
+                      String idDocumento = queryDocumentSnapshots.getDocuments().get(i).getId();
+                      instancia.collection("Recordatorios").document(idDocumento).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                          @Override
+                          public void onSuccess(Void unused) {
+                              Toast.makeText(c,R.string.txtDeletePodcast,Toast.LENGTH_LONG).show();
+                          }
+                      });
+                  }
+              }
+          }
+      });
+  }
+
+  public static void checkRecordatorios(View v){
+      CreacionRecordatorioActivity creacionRecordatorioActivity = new CreacionRecordatorioActivity();
+      String id = userAuth.getCurrentUser().getUid();
+      DocumentReference ref = instancia.collection("Users").document(id);
+      ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+          @Override
+          public void onSuccess(DocumentSnapshot documentSnapshot) {
+              if (documentSnapshot.get("notificaciones").equals("true")){
+                  creacionRecordatorioActivity.respuestaRecordatorios("true");
+              }else{
+                  creacionRecordatorioActivity.respuestaRecordatorios("false");
+              }
+          }
+      });
   }
 }

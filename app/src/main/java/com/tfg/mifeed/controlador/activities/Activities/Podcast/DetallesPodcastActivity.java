@@ -16,8 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
-import com.tfg.mifeed.controlador.activities.Activities.Prensa.PrensaActivity;
-import com.tfg.mifeed.controlador.adaptadores.AdaptadorListaEpisodiosPodcast;
+import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPodcast.AdaptadorListaEpisodiosPodcast;
 import com.tfg.mifeed.controlador.conexioPodcastApi.ApiPodcastConn;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;

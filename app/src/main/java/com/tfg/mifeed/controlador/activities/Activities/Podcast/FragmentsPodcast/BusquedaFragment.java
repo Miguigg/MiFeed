@@ -1,40 +1,30 @@
 package com.tfg.mifeed.controlador.activities.Activities.Podcast.FragmentsPodcast;
 
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.mifeed.R;
-import com.tfg.mifeed.controlador.adaptadores.AdaptadorListaEpisodios;
+import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPodcast.AdaptadorListaEpisodios;
 import com.tfg.mifeed.controlador.conexioPodcastApi.ApiPodcastConn;
-import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Episodio;
 import com.tfg.mifeed.modelo.RespuestaListaEpisodios;
 
-import org.checkerframework.checker.units.qual.C;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;

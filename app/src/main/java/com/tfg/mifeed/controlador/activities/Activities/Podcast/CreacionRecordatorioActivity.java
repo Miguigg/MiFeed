@@ -3,6 +3,7 @@ package com.tfg.mifeed.controlador.activities.Activities.Podcast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.NotificationChannel;
@@ -17,6 +18,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -24,6 +26,8 @@ import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.Alarmas.AlarmReceiver;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.modelo.Episodio;
+
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
@@ -33,8 +37,11 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
     public static String urlAudio;
     public static String urlImagen;
     public static Episodio episodio;
-
+    public static String idPodcast;
+    public static TextView errPermisos;
     public static AlarmManager alarmManager;
+    public static NotificationManager notificationManager;
+    public static View v;
     public static PendingIntent pendingIntent;
     public static int añoSeleccionado,
             mesSeleccionado,
@@ -54,8 +61,28 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
         tituloEpisodio = (String) getIntent().getExtras().get("nombreEpisodio");
         urlAudio = (String) getIntent().getExtras().get("urlAudio");
         urlImagen = (String) getIntent().getExtras().get("urlImagen");
+        idPodcast = (String) getIntent().getExtras().get("idPodcast");
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        notificationManager = getSystemService(NotificationManager.class);
+        v = this.findViewById(android.R.id.content);
+        errPermisos = findViewById(R.id.errPermisos);
         episodio = new Episodio(tituloEpisodio,urlImagen,urlAudio);
-        crearRecordatorio();
+        checkRecordatoriosActivos();
+    }
+
+    private void checkRecordatoriosActivos() {
+        FirebaseServices.checkRecordatorios(v);
+    }
+
+    public void respuestaRecordatorios(String res){
+        switch (res){
+            case "true":
+                errPermisos.setVisibility(View.GONE);
+                crearRecordatorio();
+                break;
+            case "false":
+                errPermisos.setVisibility(View.VISIBLE);
+        }
     }
 
     public void crearRecordatorio() {
@@ -64,7 +91,7 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
         mesActual = calendar.get(Calendar.MONTH);
         diaActual= calendar.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog datePickerDialog =
-                new DatePickerDialog(CreacionRecordatorioActivity.this, CreacionRecordatorioActivity.this, añoActual, mesActual, diaActual);
+                new DatePickerDialog(v.getContext(), CreacionRecordatorioActivity.this, añoActual, mesActual, diaActual);
         datePickerDialog.show();
     }
 
@@ -76,7 +103,7 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
         Calendar c = Calendar.getInstance();
         horaActual = c.get(Calendar.HOUR);
         minutoActual = c.get(Calendar.MINUTE);
-        TimePickerDialog timePickerDialog = new TimePickerDialog(CreacionRecordatorioActivity.this, CreacionRecordatorioActivity.this, horaActual, minutoActual, DateFormat.is24HourFormat(CreacionRecordatorioActivity.this));
+        TimePickerDialog timePickerDialog = new TimePickerDialog(v.getContext(), CreacionRecordatorioActivity.this, horaActual, minutoActual, DateFormat.is24HourFormat(v.getContext()));
         timePickerDialog.show();
     }
 
@@ -84,18 +111,16 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
     public void onTimeSet(TimePicker timePicker, int hora, int minuto) {
         horaSeleccionada = hora;
         minutoSeleccionado = minuto;
-        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR,añoSeleccionado);
         calendar.set(Calendar.MONTH,mesSeleccionado);
         calendar.set(Calendar.DAY_OF_MONTH,diaSeleccionado);
         calendar.set(Calendar.HOUR_OF_DAY,horaSeleccionada);
         calendar.set(Calendar.MINUTE,minutoSeleccionado);
-        crearCanal(calendar.getTimeInMillis());
         String input = String.valueOf(añoSeleccionado) + "-" +String.valueOf(mesSeleccionado)+ "-" + String.valueOf(diaSeleccionado) + "T" + String.valueOf(horaSeleccionada) + ":" +String.valueOf(minutoSeleccionado)+":00"+"Z";
-        FirebaseServices.setRecordatorio(episodio,input,this.findViewById(android.R.id.content));
-
-        finish();
+        crearCanal(calendar.getTimeInMillis());
+        FirebaseServices.setRecordatorio(episodio,input,v, idPodcast);
+        ((Activity) v.getContext()).finish();
     }
 
     public void crearCanal(long timestamp){
@@ -105,9 +130,8 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
             int importancia = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel("recordatorioPodcast",nombreCanal,importancia);
             channel.setDescription(descripcion);
-            NotificationManager notificationManager =getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
-            FirebaseServices.getNumeroRecordatorio(timestamp,this.findViewById(android.R.id.content));
+            FirebaseServices.getNumeroRecordatorio(timestamp,v);
         }
     }
 
@@ -115,6 +139,5 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
         Intent intent = new Intent(v.getContext(), AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(v.getContext(),id+1 , intent,PendingIntent.FLAG_IMMUTABLE);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,timestamp,AlarmManager.INTERVAL_DAY,pendingIntent);
-        Toast.makeText(v.getContext(), R.string.recordatorioEstablecido,Toast.LENGTH_LONG).show();
     }
 }

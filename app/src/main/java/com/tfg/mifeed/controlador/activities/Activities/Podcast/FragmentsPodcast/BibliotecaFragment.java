@@ -13,13 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.mifeed.R;
-import com.tfg.mifeed.controlador.adaptadores.AdaptadorBibliotecaPodcast;
+import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPodcast.AdaptadorBibliotecaPodcast;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Podcast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class BibliotecaFragment extends Fragment {
 

@@ -39,7 +39,7 @@ public class AppActivity extends Application {
       @Override
       public void onClick(View v) {
         v.getContext().startActivity(new Intent(v.getContext(), GestioncuentaActivity.class));
-        //activity.finish();
+        activity.finish();
       }
     });
 

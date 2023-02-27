@@ -1,4 +1,4 @@
-package com.tfg.mifeed.controlador.adaptadores;
+package com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPodcast;
 
 import android.content.Context;
 import android.content.Intent;

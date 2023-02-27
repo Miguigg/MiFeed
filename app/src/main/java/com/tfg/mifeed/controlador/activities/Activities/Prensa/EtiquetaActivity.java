@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.mifeed.R;
-import com.tfg.mifeed.controlador.adaptadores.AdaptadorListaArticulosEtiqueta;
+import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPrensa.AdaptadorListaArticulosEtiqueta;
 
 import java.util.ArrayList;
 

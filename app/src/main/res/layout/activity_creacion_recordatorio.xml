@@ -4,6 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainbackground"
     tools:context=".controlador.activities.Activities.Podcast.CreacionRecordatorioActivity">
 
+    <TextView
+        android:id="@+id/errPermisos"
+        android:layout_width="385dp"
+        android:layout_height="120dp"
+        android:background="@drawable/fondobtn_accion"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/errRecordatoriosActivos"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

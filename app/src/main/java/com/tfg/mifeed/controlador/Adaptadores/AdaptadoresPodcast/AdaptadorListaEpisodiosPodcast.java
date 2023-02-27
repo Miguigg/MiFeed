@@ -1,4 +1,4 @@
-package com.tfg.mifeed.controlador.adaptadores;
+package com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPodcast;
 
 import static android.text.Html.fromHtml;
 
@@ -108,6 +108,7 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
             intent.putExtra("urlAudio", listaEpisodios.get(holder.getAdapterPosition()).getAudio());
             intent.putExtra(
                 "urlImagen", listaEpisodios.get(holder.getAdapterPosition()).getImage());
+            intent.putExtra("idPodcast", idPodcast);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
           }

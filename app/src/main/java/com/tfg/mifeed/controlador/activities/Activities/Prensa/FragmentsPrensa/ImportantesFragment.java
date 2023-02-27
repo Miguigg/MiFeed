@@ -2,7 +2,6 @@ package com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.mifeed.R;
-import com.tfg.mifeed.controlador.adaptadores.AdaptadorListaNoticias;
+import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPrensa.AdaptadorListaNoticias;
 import com.tfg.mifeed.controlador.conexionNewsApi.ApiConn;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;

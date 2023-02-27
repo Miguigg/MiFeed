@@ -38,8 +38,6 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     registro.setOnClickListener(this);
     toInicioSesion.setOnClickListener(this);
     conexion = new FirebaseServices();
-    //final AppActivity app = (AppActivity) this.getApplication();
-    //Toast.makeText(RegistroActivity.this,String.valueOf(app.generarBarraInferior()),Toast.LENGTH_LONG).show();
   }
 
   @Override

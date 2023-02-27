@@ -19,7 +19,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tfg.mifeed.R;
-import com.tfg.mifeed.controlador.adaptadores.AdaptadorListaNombresEtiquetas;
+import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPrensa.AdaptadorListaNombresEtiquetas;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 

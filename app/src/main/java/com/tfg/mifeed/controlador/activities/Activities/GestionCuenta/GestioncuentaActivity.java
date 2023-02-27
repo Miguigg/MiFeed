@@ -325,4 +325,8 @@ public class GestioncuentaActivity extends AppCompatActivity {
         Toast.makeText(v.getContext(), R.string.errContraseña, Toast.LENGTH_LONG).show();
     }
   }
+  public void onBackPressed() {
+    startActivity(new Intent(getApplicationContext(), PrensaActivity.class));
+    finish();
+  }
 }

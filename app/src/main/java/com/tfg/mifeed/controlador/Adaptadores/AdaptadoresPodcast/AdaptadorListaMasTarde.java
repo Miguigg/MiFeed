@@ -1,4 +1,4 @@
-package com.tfg.mifeed.controlador.adaptadores;
+package com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPodcast;
 
 import static android.text.Html.fromHtml;
 
@@ -107,12 +107,17 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
         recordatorio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, CreacionRecordatorioActivity.class);
-                intent.putExtra("nombreEpisodio",listaEpisodios.get(holder.getAdapterPosition()).getTitle());
-                intent.putExtra("urlAudio",listaEpisodios.get(holder.getAdapterPosition()).getAudio());
-                intent.putExtra("urlImagen",listaEpisodios.get(holder.getAdapterPosition()).getImage());
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
+                if (!CheckConexion.getEstadoActual(context)) {
+                    Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent(context, CreacionRecordatorioActivity.class);
+                    intent.putExtra("nombreEpisodio",listaEpisodios.get(holder.getAdapterPosition()).getTitle());
+                    intent.putExtra("urlAudio",listaEpisodios.get(holder.getAdapterPosition()).getAudio());
+                    intent.putExtra("urlImagen",listaEpisodios.get(holder.getAdapterPosition()).getImage());
+                    intent.putExtra("idPodcast", listaEpisodios.get(holder.getAdapterPosition()).getId());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
             }
         });
         eliminar.setOnClickListener(new View.OnClickListener() {
