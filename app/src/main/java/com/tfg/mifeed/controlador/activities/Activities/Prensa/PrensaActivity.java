@@ -42,7 +42,7 @@ public class PrensaActivity extends AppCompatActivity {
         importantesFragment = new ImportantesFragment();
         v = this.findViewById(android.R.id.content);
         final AppActivity app = (AppActivity) this.getApplication();
-        app.generarBarraInferior(this.findViewById(android.R.id.content),this);
+        app.generarBarraInferior(v,this);
         getSupportFragmentManager().beginTransaction().replace(R.id.framePrensa,favoritosFragment).commit();
         FirebaseServices firebaseServices = new FirebaseServices();
         bottomNavigationMenuView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {

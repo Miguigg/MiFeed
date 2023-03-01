@@ -81,11 +81,11 @@ public class LoginActivity extends AppCompatActivity {
 
       boolean esValido = true;
 
-      if(validaciones.validacionEmail(email) == "vacio"){
+      if(Validaciones.validacionEmail(email).equals("vacio")){
         errEmail.setText(R.string.errEmailVacio);
         esValido = false;
         errEmail.setVisibility(View.VISIBLE);
-      }else if(validaciones.validacionEmail(email) == "falso"){
+      }else if(Validaciones.validacionEmail(email).equals("falso")){
         errEmail.setText(R.string.errEmailNoValido);
         esValido = false;
         errEmail.setVisibility(View.VISIBLE);
@@ -93,11 +93,11 @@ public class LoginActivity extends AppCompatActivity {
         errEmail.setVisibility(View.GONE);
       }
 
-      if(validaciones.validacionContraseña(pass) == "vacia"){
+      if(Validaciones.validacionContraseña(pass).equals("vacia")){
         errPass.setText(R.string.errContraseñaVacia);
         esValido = false;
         errPass.setVisibility(View.VISIBLE);
-      }else if(validaciones.validacionContraseña(pass) == "noSegura"){
+      }else if(Validaciones.validacionContraseña(pass).equals("noSegura")){
         errPass.setText(R.string.errContraseñaVacia);
         esValido = false;
         errPass.setVisibility(View.VISIBLE);

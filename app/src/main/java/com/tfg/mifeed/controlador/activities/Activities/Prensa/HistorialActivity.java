@@ -24,18 +24,20 @@ public class HistorialActivity extends AppCompatActivity {
     public static TextView err;
     public static AdaptadorHistorial adaptadorHistorial;
     public static ArrayList<String> historialUsuario;
+    public static View v;
     private ConstraintLayout btnEliminarHistorial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial);
-        FirebaseServices.getHistorial(this.findViewById(android.R.id.content));
+        v = this.findViewById(android.R.id.content);
         listaHistorial = findViewById(R.id.listaHistorial);
         carga = findViewById(R.id.cargaHistorial);
         err = findViewById(R.id.errHistorial);
+        FirebaseServices.getHistorial();
         LinearLayoutManager linearLayoutManager =
-                new LinearLayoutManager(this.findViewById(android.R.id.content).getContext(), LinearLayoutManager.VERTICAL, false);
+                new LinearLayoutManager(v.getContext(), LinearLayoutManager.VERTICAL, false);
         listaHistorial.setLayoutManager(linearLayoutManager);
         historialUsuario = new ArrayList<>();
         btnEliminarHistorial = findViewById(R.id.btnEliminarHistorial);
@@ -49,11 +51,11 @@ public class HistorialActivity extends AppCompatActivity {
     }
 
     private void eliminarTodoHistorial() {
-        FirebaseServices.eliminarTodoHistorial(this.findViewById(android.R.id.content));
-        FirebaseServices.getHistorial(this.findViewById(android.R.id.content));
+        FirebaseServices.eliminarTodoHistorial(v);
+        FirebaseServices.getHistorial();
     }
 
-    public void respuestaHistorial(ArrayList<String> historial, View v){
+    public void respuestaHistorial(ArrayList<String> historial){
         adaptadorHistorial = new AdaptadorHistorial(historial,v.getContext());
         listaHistorial.setAdapter(adaptadorHistorial);
         carga.setVisibility(View.GONE);

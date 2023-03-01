@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class NoticiaActivity extends AppCompatActivity {
     private WebView noticia;
-
+    private static View v;
     public static ArrayList<String> listaNombres;
     public static String nombreWeb,nombreEtiqueta,url;
     public static TextView errWeb;
@@ -43,6 +43,7 @@ public class NoticiaActivity extends AppCompatActivity {
         btnAtrasWebview = findViewById(R.id.btnAtrasWebview);
         url = getIntent().getExtras().getString("enlace");
         errWeb = findViewById(R.id.errWeb);
+        v = this.findViewById(android.R.id.content);
         if(url.substring(0,5).equals("http:")){
             url = "https:"+url.substring(5);
         }
@@ -56,21 +57,21 @@ public class NoticiaActivity extends AppCompatActivity {
             });
 
             btnAddTag.setOnClickListener(v -> {
-                FirebaseServices.getNombresEtiquetas(this.findViewById(android.R.id.content),getLayoutInflater());
+                FirebaseServices.getNombresEtiquetas(getLayoutInflater());
             });
 
             btnCompartir.setOnClickListener(v->{
                 compartirNoticia();
             });
-            FirebaseServices.insertarHistorial(url,this.findViewById(android.R.id.content));
+            FirebaseServices.insertarHistorial(url,v);
         }
     }
 
-    public void respuestaNombresEtiquetas(String res, ArrayList<String> nombres, View v, LayoutInflater inf){
+    public void respuestaNombresEtiquetas(String res, ArrayList<String> nombres, LayoutInflater inf){
         switch (res){
             case "true":
                 listaNombres = nombres;
-                mostrarDialogo(v,inf);
+                mostrarDialogo(inf);
                 break;
             case "false":
                 Toast.makeText(v.getContext(), "No tienes etiquetas", Toast.LENGTH_SHORT).show();
@@ -78,7 +79,7 @@ public class NoticiaActivity extends AppCompatActivity {
         }
     }
 
-    private void mostrarDialogo(View v,LayoutInflater inf){
+    private void mostrarDialogo(LayoutInflater inf){
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setTitle(R.string.txtTituloEtiqueta);
         View dialog_layout = inf.inflate(R.layout.layout_dialogo, null);
@@ -101,7 +102,6 @@ public class NoticiaActivity extends AppCompatActivity {
                             errWeb.setVisibility(View.GONE);
 
                         }else{
-                            Log.d("a","a");
                             errWeb.setVisibility(View.VISIBLE);
                         }
                     }

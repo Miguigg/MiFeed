@@ -210,7 +210,7 @@ public class FirebaseServices {
             });
   }
 
-  public static void resetEmail(String email, View v) {
+  public static void resetEmail(String email) {
     ResetContrasenha rst = new ResetContrasenha();
     userAuth
         .sendPasswordResetEmail(email)
@@ -219,9 +219,9 @@ public class FirebaseServices {
               @Override
               public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                  rst.validacionOK(task.isSuccessful(), v);
+                  rst.validacionOK(task.isSuccessful());
                 } else {
-                  rst.validacionOK(task.isSuccessful(), v);
+                  rst.validacionOK(task.isSuccessful());
                 }
               }
             });
@@ -729,7 +729,7 @@ public class FirebaseServices {
             });
   }
 
-  public static void getNombresEtiquetas(View v, LayoutInflater inf) {
+  public static void getNombresEtiquetas(LayoutInflater inf) {
     NoticiaActivity noticiaActivity = new NoticiaActivity();
     CollectionReference ref = instancia.collection("Etiquetas");
     ArrayList<String> nombreEtiquetas = new ArrayList<>();
@@ -748,9 +748,9 @@ public class FirebaseServices {
                   }
                 }
                 if (nombreEtiquetas.size() > 0) {
-                  noticiaActivity.respuestaNombresEtiquetas("true", nombreEtiquetas, v, inf);
+                  noticiaActivity.respuestaNombresEtiquetas("true", nombreEtiquetas, inf);
                 } else {
-                  noticiaActivity.respuestaNombresEtiquetas("false", nombreEtiquetas, v, inf);
+                  noticiaActivity.respuestaNombresEtiquetas("false", nombreEtiquetas, inf);
                 }
               }
             });
@@ -899,7 +899,7 @@ public class FirebaseServices {
             });
   }
 
-  public static void getHistorial(View v) {
+  public static void getHistorial() {
     HistorialActivity historialActivity = new HistorialActivity();
     String id = userAuth.getCurrentUser().getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
@@ -910,7 +910,7 @@ public class FirebaseServices {
               public void onSuccess(DocumentSnapshot documentSnapshot) {
                 @SuppressWarnings("unchecked")
                 ArrayList<String> historial = (ArrayList<String>) documentSnapshot.get("historial");
-                historialActivity.respuestaHistorial(historial, v);
+                historialActivity.respuestaHistorial(historial);
               }
             });
   }

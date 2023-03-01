@@ -18,6 +18,7 @@ public class EtiquetaActivity extends AppCompatActivity {
     private RecyclerView listaEtiquetas;
     private ProgressBar carga;
     private TextView err,txtTituloArticulos;
+    private View v;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +27,7 @@ public class EtiquetaActivity extends AppCompatActivity {
         carga = findViewById(R.id.cargaArticulos);
         listaEtiquetas = findViewById(R.id.listaArticulos);
         txtTituloArticulos = findViewById(R.id.txtTituloArticulos);
-
+        v = this.findViewById(android.R.id.content);
         ArrayList<String> urls = (ArrayList<String>) getIntent().getStringArrayListExtra("urls");
         ArrayList<String> titulosPagina = (ArrayList<String>) getIntent().getStringArrayListExtra("titulosPagina");
         String tituloEtiqueta = getIntent().getExtras().getString("Nombre");
@@ -37,8 +38,8 @@ public class EtiquetaActivity extends AppCompatActivity {
             carga.setVisibility(View.GONE);
         }else{
             LinearLayoutManager linearLayoutManager =
-                    new LinearLayoutManager(this.findViewById(android.R.id.content).getContext(), LinearLayoutManager.VERTICAL, false);
-            AdaptadorListaArticulosEtiqueta adaptadorListaArticulosEtiqueta = new AdaptadorListaArticulosEtiqueta(urls,titulosPagina,tituloEtiqueta,this.findViewById(android.R.id.content),getApplicationContext());
+                    new LinearLayoutManager(v.getContext(), LinearLayoutManager.VERTICAL, false);
+            AdaptadorListaArticulosEtiqueta adaptadorListaArticulosEtiqueta = new AdaptadorListaArticulosEtiqueta(urls,titulosPagina,tituloEtiqueta,v,getApplicationContext());
 
             listaEtiquetas.setLayoutManager(linearLayoutManager);
             listaEtiquetas.setAdapter(adaptadorListaArticulosEtiqueta);

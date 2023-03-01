@@ -66,7 +66,7 @@ public class CategoriasFragment extends Fragment {
         TextView err = contenedor.findViewById(R.id.errConexion);
         ProgressBar carga = contenedor.findViewById(R.id.cargaCategorias);
         carga.setVisibility(View.VISIBLE);
-        ApiConn.getApiConnInterface().getNoticiasPorTema(100,tema,API_KEY).enqueue(new Callback<RespuestaListaNoticias>() {
+        ApiConn.getApiConnInterface().getNoticiasPorTema("us",100,tema,API_KEY).enqueue(new Callback<RespuestaListaNoticias>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(@NonNull Call<RespuestaListaNoticias> call, @NonNull Response<RespuestaListaNoticias> response) {

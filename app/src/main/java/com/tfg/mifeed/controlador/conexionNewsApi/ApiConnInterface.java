@@ -8,9 +8,10 @@ import retrofit2.http.Query;
 
 public interface ApiConnInterface {
     String BASE_URL = "https://newsapi.org/v2/";
-
-    @GET("top-headlines?language=es&sortBy=publishedAt")
+    //top-headlines?language=es&sortBy=publishedAt
+    @GET("top-headlines?sortBy=publishedAt")
     Call<RespuestaListaNoticias> getNoticiasPorTema(
+            @Query(value = "country", encoded = true) String country,
             @Query("pageSize") int pageSize,
             @Query(value = "category",encoded = true) String category ,
             @Query("apiKey") String apiKey

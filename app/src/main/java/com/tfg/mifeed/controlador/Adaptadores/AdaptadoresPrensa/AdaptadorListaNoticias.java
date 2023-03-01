@@ -45,6 +45,7 @@ public class AdaptadorListaNoticias extends RecyclerView.Adapter<AdaptadorListaN
     @Override
     public void onBindViewHolder(@NonNull ViewHolderListaNoticias holder, int pos) {
         String[] titulos = adaptarTexto(listaNoticias.get(pos).getTitle());
+        Log.d("Vacio", listaNoticias.get(pos).getTitle());
         switch (titulos.length) {
             case 0:
                 Log.d("Vacio", "No hay datos");

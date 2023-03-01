@@ -19,6 +19,7 @@ public class ResetContrasenha extends AppCompatActivity {
     private Validaciones validaciones = new Validaciones();
     private EditText correo;
     private ConstraintLayout btnReseteo;
+    private  static  View v;
     FirebaseServices conexion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,7 @@ public class ResetContrasenha extends AppCompatActivity {
         setContentView(R.layout.activity_reset_contrasenha);
         correo = findViewById(R.id.correoRenovacion);
         btnReseteo = findViewById(R.id.btnReseteo);
+        v = this.findViewById(android.R.id.content);
         btnReseteo.setOnClickListener(v -> {
             reseteo();
         });
@@ -55,12 +57,12 @@ public class ResetContrasenha extends AppCompatActivity {
                 errReset.setVisibility(View.GONE);
             }
             if(isvalid){
-                FirebaseServices.resetEmail(email,this.findViewById(android.R.id.content));
+                FirebaseServices.resetEmail(email);
             }
         }
     }
 
-    public void validacionOK(boolean correcto, View v){
+    public void validacionOK(boolean correcto){
         TextView errReset = v.findViewById(R.id.errReset);
         if(correcto){
             Toast.makeText(v.getContext(), R.string.confirmacioCambio,
