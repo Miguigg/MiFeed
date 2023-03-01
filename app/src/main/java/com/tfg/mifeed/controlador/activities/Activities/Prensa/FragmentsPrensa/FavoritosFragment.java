@@ -29,6 +29,7 @@ public class FavoritosFragment extends Fragment {
     public static RecyclerView recyclerViewMedios;
     public static RecyclerView recyclerViewTemas;
 
+    public static View v;
     public static ProgressBar cargaFavoritos;
 
     private ConstraintLayout btnModificar;
@@ -37,7 +38,7 @@ public class FavoritosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_favoritos, container, false);
-        FirebaseServices.getMediosUsuario(view);
+        FirebaseServices.getMediosUsuario();
         LinearLayoutManager linearLayoutManager1 =
                 new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         LinearLayoutManager linearLayoutManager2 =
@@ -47,6 +48,7 @@ public class FavoritosFragment extends Fragment {
         cargaFavoritos = view.findViewById(R.id.cargaFavoritos);
         recyclerViewMedios.setLayoutManager(linearLayoutManager1);
         recyclerViewTemas.setLayoutManager(linearLayoutManager2);
+        v = inflater.inflate(R.layout.fragment_favoritos, container, false);
         btnModificar = view.findViewById(R.id.btnModificar);
 
         btnModificar.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +79,7 @@ public class FavoritosFragment extends Fragment {
         recyclerViewTemas.setAdapter(adatadorTemasUsuario);
 
     }
-    public void respuestaListaMedios(ArrayList<String> res, String codigo, View v){
+    public void respuestaListaMedios(ArrayList<String> res, String codigo){
         switch (codigo){
             case "true":
                 listaMedios = res;

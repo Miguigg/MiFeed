@@ -135,7 +135,6 @@ public class FirebaseServices {
             new OnFailureListener() {
               @Override
               public void onFailure(@NonNull Exception e) {
-                Log.d("e", String.valueOf(e));
                 login.accionLogin(v, "err", "false");
               }
             });
@@ -227,7 +226,7 @@ public class FirebaseServices {
             });
   }
 
-  public static void setTemasUsuario(ArrayList<String> temas, View v) {
+  public static void setTemasUsuario(ArrayList<String> temas) {
     SeleccionTemasActivity seleccionTemasActivity = new SeleccionTemasActivity();
     String id = userAuth.getCurrentUser().getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
@@ -239,17 +238,16 @@ public class FirebaseServices {
               @Override
               public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                  seleccionTemasActivity.respuestaSetTemas("true", v);
+                  seleccionTemasActivity.respuestaSetTemas("true");
                 } else {
-                  Toast.makeText(v.getContext(), R.string.errSesion, Toast.LENGTH_SHORT).show();
-                  seleccionTemasActivity.respuestaSetTemas("false", v);
+                  seleccionTemasActivity.respuestaSetTemas("false");
                 }
               }
             });
   }
 
   public static void setMediosUsuario(
-      ArrayList<String> medios, ArrayList<String> dominios, View v) {
+      ArrayList<String> medios, ArrayList<String> dominios) {
     String id = userAuth.getCurrentUser().getUid();
     SeleccionMediosActivity seleccionMediosActivity = new SeleccionMediosActivity();
     DocumentReference ref = instancia.collection("Users").document(id);
@@ -269,18 +267,14 @@ public class FirebaseServices {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                               if (task.isSuccessful()) {
-                                seleccionMediosActivity.respuestaInsercion("true", v);
+                                seleccionMediosActivity.respuestaInsercion("true");
                               } else {
-                                seleccionMediosActivity.respuestaInsercion("false", v);
-                                Toast.makeText(
-                                        v.getContext(), R.string.errSesion, Toast.LENGTH_SHORT)
-                                    .show();
+                                seleccionMediosActivity.respuestaInsercion("false");
                               }
                             }
                           });
                 } else {
-                  seleccionMediosActivity.respuestaInsercion("false", v);
-                  Toast.makeText(v.getContext(), R.string.errSesion, Toast.LENGTH_SHORT).show();
+                  seleccionMediosActivity.respuestaInsercion("false");
                 }
               }
             });
@@ -294,7 +288,7 @@ public class FirebaseServices {
     ref.update(valor).isSuccessful();
   }
 
-  public static void getMedios(View v) {
+  public static void getMedios() {
     SeleccionMediosActivity seleccionMediosActivity = new SeleccionMediosActivity();
     ArrayList<String> medios = new ArrayList<>();
     ArrayList<String> dominios = new ArrayList<>();
@@ -310,10 +304,9 @@ public class FirebaseServices {
                     medios.add(documentSnapshot.getString("Nombre"));
                     dominios.add(documentSnapshot.getString("url"));
                   }
-                  seleccionMediosActivity.setMedios(medios, dominios, v);
+                  seleccionMediosActivity.setMedios(medios, dominios, "true");
                 } else {
-                  Toast.makeText(v.getContext(), R.string.errConn, Toast.LENGTH_LONG).show();
-                  Log.e("errMedios", String.valueOf(task.getException()));
+                    seleccionMediosActivity.setMedios(medios, dominios, "false");
                 }
               }
             });
@@ -344,7 +337,6 @@ public class FirebaseServices {
             new OnFailureListener() {
               @Override
               public void onFailure(@NonNull Exception e) {
-                Log.d("e", String.valueOf(e));
                 ges.respuestaDatosUsuario(v);
               }
             });
@@ -366,7 +358,6 @@ public class FirebaseServices {
                 if (task.isSuccessful()) {
                   Toast.makeText(v.getContext(), R.string.modificacionCuenta, Toast.LENGTH_SHORT)
                       .show();
-                  Log.d("Contraseña", "contraseña modificada");
                 } else {
                   Toast.makeText(v.getContext(), R.string.errModificarDatos, Toast.LENGTH_SHORT)
                       .show();
@@ -469,7 +460,7 @@ public class FirebaseServices {
     }
   }
 
-  public static void getMediosUsuario(View v) {
+  public static void getMediosUsuario() {
     FavoritosFragment favoritosFragment = new FavoritosFragment();
     String id = Objects.requireNonNull(userAuth.getCurrentUser()).getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
@@ -481,10 +472,10 @@ public class FirebaseServices {
                 if (documentSnapshot.exists()) {
                   ArrayList<String> listaMedios =
                       (ArrayList<String>) documentSnapshot.get("medios");
-                  favoritosFragment.respuestaListaMedios(listaMedios, "true", v);
+                  favoritosFragment.respuestaListaMedios(listaMedios, "true");
                 } else {
                   ArrayList<String> listaMedios = new ArrayList<>();
-                  favoritosFragment.respuestaListaMedios(listaMedios, "false", v);
+                  favoritosFragment.respuestaListaMedios(listaMedios, "false");
                 }
               }
             });

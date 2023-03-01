@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class SeleccionTemasActivity extends AppCompatActivity {
   private Switch deportes, negocios, ocio, ciencia, salud, tecnologia;
   private ConstraintLayout btnAceptar;
+  public static View v;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class SeleccionTemasActivity extends AppCompatActivity {
     salud = findViewById(R.id.switchSalud);
     tecnologia = findViewById(R.id.switchTecnologia);
     btnAceptar = findViewById(R.id.btnAceptar);
+    v = this.findViewById(android.R.id.content);
     btnAceptar.setOnClickListener(v -> {
       if(!CheckConexion.getEstadoActual(SeleccionTemasActivity.this)){
         Toast.makeText(SeleccionTemasActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
@@ -75,11 +77,11 @@ public class SeleccionTemasActivity extends AppCompatActivity {
       if(isTecnologia){
         toret.add("technology");
       }
-      FirebaseServices.setTemasUsuario(toret,this.findViewById(android.R.id.content));
+      FirebaseServices.setTemasUsuario(toret);
     }
   }
 
-  public void respuestaSetTemas(String res, View v){
+  public void respuestaSetTemas(String res){
     switch (res){
       case "true":
         v.getContext().startActivity(new Intent(v.getContext(), SeleccionMediosActivity.class));
