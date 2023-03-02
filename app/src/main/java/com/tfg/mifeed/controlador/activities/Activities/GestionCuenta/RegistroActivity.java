@@ -1,6 +1,7 @@
 package com.tfg.mifeed.controlador.activities.Activities.GestionCuenta;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
@@ -20,6 +22,7 @@ import com.tfg.mifeed.modelo.Usuario;
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
   private Validaciones validaciones = new Validaciones();
   private FirebaseServices conexion;
+  public static View v;
   private EditText nombre, email, contrasenha1, contrasenha2;
   private ConstraintLayout registro, toInicioSesion;
 
@@ -37,6 +40,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     toInicioSesion = findViewById(R.id.accionInicio);
     registro.setOnClickListener(this);
     toInicioSesion.setOnClickListener(this);
+    v = this.findViewById(android.R.id.content);
     conexion = new FirebaseServices();
   }
 
@@ -126,18 +130,21 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     FirebaseServices.ejecutarRegistro(usuario,this.findViewById(android.R.id.content));
   }
 
-  public void respuestaRegistro(String res,View v){
+  public void respuestaRegistro(String res){
     switch (res){
       case "valido":
-        Intent intent = new Intent(v.getContext(), BienvenidaActivity.class);
-        v.getContext().startActivity(intent);
+        FirebaseAuth.getInstance().signOut();
+        v.getContext().startActivity(new Intent(v.getContext(), BienvenidaActivity.class));
         Toast.makeText(v.getContext(),R.string.RegCorrecto,Toast.LENGTH_LONG).show();
-        finish();
         break;
       case "NoValido":
+        FirebaseAuth.getInstance().signOut();
+        v.getContext().startActivity(new Intent(v.getContext(), BienvenidaActivity.class));
         Toast.makeText(v.getContext(),R.string.errRegistro,Toast.LENGTH_LONG).show();
         break;
       case "yaExiste":
+        FirebaseAuth.getInstance().signOut();
+        v.getContext().startActivity(new Intent(v.getContext(), BienvenidaActivity.class));
         Toast.makeText(v.getContext(),R.string.errEmailExistente,Toast.LENGTH_LONG).show();
     }
   }

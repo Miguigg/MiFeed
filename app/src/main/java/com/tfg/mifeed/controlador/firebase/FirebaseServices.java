@@ -172,9 +172,10 @@ public class FirebaseServices {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                               if (task.isSuccessful()) {
-                                registroActivity.respuestaRegistro("valido", v);
+                                registroActivity.respuestaRegistro("valido");
+
                               } else {
-                                registroActivity.respuestaRegistro("NoValido", v);
+                                registroActivity.respuestaRegistro("NoValido");
                               }
                             }
                           });
@@ -182,7 +183,7 @@ public class FirebaseServices {
                   try {
                     throw task.getException();
                   } catch (FirebaseAuthUserCollisionException e) {
-                    registroActivity.respuestaRegistro("yaExiste", v);
+                    registroActivity.respuestaRegistro("yaExiste");
                   } catch (Exception e) {
                     Log.e("TAG", e.getMessage());
                   }
@@ -492,14 +493,14 @@ public class FirebaseServices {
                 if (documentSnapshot.exists()) {
                   ArrayList<String> listaTemas = (ArrayList<String>) documentSnapshot.get("temas");
                   if (activity.equals("favoritos")) {
-                    FirebaseServices.respuestaFavoritos(v, listaTemas, "true");
+                    FirebaseServices.respuestaFavoritos(listaTemas, "true");
                   } else {
                     FirebaseServices.respuestaCategorias(v, listaTemas, "true");
                   }
                 } else {
                   if (activity.equals("favoritos")) {
                     ArrayList<String> listaTemas = new ArrayList<>();
-                    FirebaseServices.respuestaFavoritos(v, listaTemas, "false");
+                    FirebaseServices.respuestaFavoritos(listaTemas, "false");
                   } else {
                     ArrayList<String> listaTemas = new ArrayList<>();
                     FirebaseServices.respuestaCategorias(v, listaTemas, "false");
@@ -509,9 +510,9 @@ public class FirebaseServices {
             });
   }
 
-  public static void respuestaFavoritos(View v, ArrayList<String> listaTemas, String codigo) {
+  public static void respuestaFavoritos(ArrayList<String> listaTemas, String codigo) {
     FavoritosFragment favoritosFragment = new FavoritosFragment();
-    favoritosFragment.respuestaListaTemas(listaTemas, codigo, v);
+    favoritosFragment.respuestaListaTemas(listaTemas, codigo);
   }
 
   public static void respuestaCategorias(View v, ArrayList<String> listaTemas, String codigo) {
@@ -540,7 +541,7 @@ public class FirebaseServices {
             });
   }
 
-  public static void comprobarPass(Usuario usuario, View v, String PassAnterior) {
+  public static void comprobarPass(Usuario usuario, String PassAnterior) {
     /*valorNombre,valorPass... son los nuevos datos que el usuario quiere estableces, PassAnterior es la contraseña
      * que se tenia antes*/
     GestioncuentaActivity gest = new GestioncuentaActivity();
@@ -556,9 +557,9 @@ public class FirebaseServices {
                   String passAnteriorHasheada = hashearMD5(PassAnterior);
 
                   if (pass.equals(passAnteriorHasheada)) {
-                    gest.respuestaTestPass(usuario, PassAnterior, v, "true");
+                    gest.respuestaTestPass(usuario, PassAnterior,  "true");
                   } else {
-                    gest.respuestaTestPass(usuario, PassAnterior, v, "false");
+                    gest.respuestaTestPass(usuario, PassAnterior, "false");
                   }
                 }
               }
@@ -567,13 +568,12 @@ public class FirebaseServices {
             new OnFailureListener() {
               @Override
               public void onFailure(@NonNull Exception e) {
-                Log.d("e", String.valueOf(e));
-                gest.respuestaTestPass(usuario, PassAnterior, v, "false");
+                gest.respuestaTestPass(usuario, PassAnterior, "false");
               }
             });
   }
 
-  public static void comprobarPass(View v, String valorIntroducido) {
+  public static void comprobarPass(String valorIntroducido) {
     /*Funcion que comprueba la contraseña antes de ejecutar el borrado del usuario*/
     GestioncuentaActivity gest = new GestioncuentaActivity();
     String id = userAuth.getCurrentUser().getUid();
@@ -587,9 +587,9 @@ public class FirebaseServices {
                   String pass = documentSnapshot.getString("contraseña");
                   String valorIntroducidoHasheado = hashearMD5(valorIntroducido);
                   if (pass.equals(valorIntroducidoHasheado)) {
-                    borrarSesionUsuario(v);
+                    borrarSesionUsuario();
                   } else {
-                    gest.respuestaBorrado(v, "false");
+                    gest.respuestaBorrado("false");
                   }
                 }
               }
@@ -605,7 +605,7 @@ public class FirebaseServices {
 
   /*Borrado esta implementado en dos funciones, la primera se encarga de eliminar el documento
    * asociado a un usuario. La segunda se encarga de borrar la autenticacion de firebase*/
-  public static void borrarSesionUsuario(View v) {
+  public static void borrarSesionUsuario() {
     FirebaseUser usuario = userAuth.getCurrentUser();
     String id = usuario.getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
@@ -618,9 +618,9 @@ public class FirebaseServices {
               public void onComplete(@NonNull Task<Void> task) {
                 GestioncuentaActivity gest = new GestioncuentaActivity();
                 if (task.isSuccessful()) {
-                  gest.respuestaBorrado(v, "true");
+                  gest.respuestaBorrado("true");
                 } else {
-                  gest.respuestaBorrado(v, "false");
+                  gest.respuestaBorrado("false");
                 }
               }
             });

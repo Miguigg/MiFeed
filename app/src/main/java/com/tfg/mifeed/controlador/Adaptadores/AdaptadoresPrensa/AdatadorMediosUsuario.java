@@ -1,6 +1,8 @@
 package com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPrensa;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +12,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
+import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 
 import java.util.ArrayList;
 

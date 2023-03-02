@@ -32,6 +32,7 @@ public class ImportantesFragment extends Fragment {
     private final String API_KEY = "c3afd5ea3f5548adbe7afc7e21c4c0bf";
     private static ProgressBar carga;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

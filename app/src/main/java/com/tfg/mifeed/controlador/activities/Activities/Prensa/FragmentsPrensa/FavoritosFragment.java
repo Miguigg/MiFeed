@@ -93,7 +93,7 @@ public class FavoritosFragment extends Fragment {
         FirebaseServices.getTemasUsuario(v,"favoritos");
     }
 
-    public void  respuestaListaTemas(ArrayList<String> res, String codigo, View v){
+    public void  respuestaListaTemas(ArrayList<String> res, String codigo){
         switch (codigo){
             case "true":
                 listaTemas = res;

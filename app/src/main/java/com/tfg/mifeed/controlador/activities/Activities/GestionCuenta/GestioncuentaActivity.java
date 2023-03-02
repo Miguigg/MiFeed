@@ -35,7 +35,7 @@ public class GestioncuentaActivity extends AppCompatActivity {
   private ConstraintLayout btnDelete, btnModificaDatos, btnLogout,btnAtras, btnHistorial;
   @SuppressLint("UseSwitchCompatOrMaterialCode")
   private Switch notificaciones, guardadoNube;
-  private View actualView;
+  public static View v;
   private EditText nombre, pass, pass2, correo;
   private TextView errUsuario,errEmail,errPass;
 
@@ -60,11 +60,11 @@ public class GestioncuentaActivity extends AppCompatActivity {
     btnHistorial = findViewById(R.id.btnHistorial);
 
     btnModificaDatos = findViewById(R.id.btnModificarDatos);
-    actualView = this.findViewById(android.R.id.content);
+    v = this.findViewById(android.R.id.content);
 
 
     // Solicida al serivicio de conexion con Firebase los datos del usuario actual para mostrarlo
-    FirebaseServices.getInfoUsuario(actualView);
+    FirebaseServices.getInfoUsuario(v);
 
     btnLogout.setOnClickListener(
         v -> {
@@ -202,7 +202,7 @@ public class GestioncuentaActivity extends AppCompatActivity {
             new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialog, int which) {
-                FirebaseServices.comprobarPass(usuario, actualView, input.getText().toString());
+                FirebaseServices.comprobarPass(usuario, input.getText().toString());
               }
             });
 
@@ -233,7 +233,7 @@ public class GestioncuentaActivity extends AppCompatActivity {
         new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-            FirebaseServices.comprobarPass(actualView, input.getText().toString());
+            FirebaseServices.comprobarPass(input.getText().toString());
           }
         });
 
@@ -291,7 +291,7 @@ public class GestioncuentaActivity extends AppCompatActivity {
     editTextNombre.setText(nombre);
   }
 
-  public void respuestaBorrado(View v, String res) {
+  public void respuestaBorrado(String res) {
     /*
      * recibe como parametro la vista actual para poder mostrar el comentario temporal "toast" y el
      * string generado en FirebaseServices en función de la respuesta del servidor
@@ -300,6 +300,7 @@ public class GestioncuentaActivity extends AppCompatActivity {
     switch (res) {
         // Si ha ido bien, redirige a la pestaña de bienvenida y finaliza esta
       case "true":
+        FirebaseAuth.getInstance().signOut();
         Toast.makeText(v.getContext(), R.string.cuentaBorrada, Toast.LENGTH_LONG).show();
         v.getContext().startActivity(new Intent(v.getContext(), BienvenidaActivity.class));
         finish();
@@ -316,7 +317,7 @@ public class GestioncuentaActivity extends AppCompatActivity {
     }
   }
 
-  public void respuestaTestPass(Usuario usuario,String passAnterior,View v, String res) {
+  public void respuestaTestPass(Usuario usuario,String passAnterior,String res) {
     switch (res) {
       case "true":
         FirebaseServices.editarUsuario(usuario, passAnterior ,v);
