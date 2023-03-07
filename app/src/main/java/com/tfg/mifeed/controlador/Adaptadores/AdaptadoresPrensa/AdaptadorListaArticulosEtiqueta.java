@@ -71,7 +71,7 @@ public class AdaptadorListaArticulosEtiqueta extends RecyclerView.Adapter<Adapta
         });
     }
     private void eliminarWeb(int posicion) {
-        FirebaseServices.eliminarUrlLista(urls.get(posicion),nombresWebs.get(posicion),nombreEtiqueta);
+        FirebaseServices.eliminarUrlLista(urls.get(posicion),nombreEtiqueta);
         urls.remove(posicion);
         nombresWebs.remove(posicion);
         notifyItemRemoved(posicion);

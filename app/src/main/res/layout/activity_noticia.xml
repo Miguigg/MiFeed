@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainbackground"
+    android:background="@color/fondoWeb"
     tools:context=".controlador.activities.Activities.Prensa.NoticiaActivity">
 
     <ImageView
         android:id="@+id/btnAddTag"
-        android:layout_width="94dp"
-        android:layout_height="82dp"
+        android:layout_width="68dp"
+        android:layout_height="58dp"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toStartOf="@+id/btnCompartir"
         app:layout_constraintStart_toEndOf="@+id/btnAtrasWebview"
@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/btnAtrasWebview"
-        android:layout_width="94dp"
-        android:layout_height="82dp"
+        android:layout_width="68dp"
+        android:layout_height="58dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,8 +29,8 @@
 
     <ImageView
         android:id="@+id/btnCompartir"
-        android:layout_width="94dp"
-        android:layout_height="82dp"
+        android:layout_width="68dp"
+        android:layout_height="58dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,9 +39,10 @@
 
     <WebView
         android:id="@+id/webNoticia"
-        android:layout_width="match_parent"
-        android:layout_height="619dp"
+        android:layout_width="408dp"
+        android:layout_height="674dp"
         android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +52,9 @@
         android:id="@+id/errWeb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="1dp"
+        android:background="@drawable/btn_atras"
+        android:gravity="center_vertical"
         android:text="@string/errNombreArticulo"
         android:textColor="#000000"
         android:textSize="20sp"
@@ -59,7 +62,6 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/webNoticia" />
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

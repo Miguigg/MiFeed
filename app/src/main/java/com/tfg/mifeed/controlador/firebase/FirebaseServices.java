@@ -50,13 +50,13 @@ import com.tfg.mifeed.controlador.activities.Activities.Prensa.NoticiaActivity;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
 import com.tfg.mifeed.modelo.Episodio;
 import com.tfg.mifeed.modelo.Etiqueta;
+import com.tfg.mifeed.modelo.MediosModel;
 import com.tfg.mifeed.modelo.Podcast;
 import com.tfg.mifeed.modelo.Recordatorio;
 import com.tfg.mifeed.modelo.Usuario;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -247,8 +247,10 @@ public class FirebaseServices {
             });
   }
 
-  public static void setMediosUsuario(
-      ArrayList<String> medios, ArrayList<String> dominios) {
+  public static void setMediosUsuario(ArrayList<String> medios, ArrayList<String> dominios) {
+      for(int i=0; i<medios.size(); i++ ){
+          Log.d("medio", medios.get(i));
+      }
     String id = userAuth.getCurrentUser().getUid();
     SeleccionMediosActivity seleccionMediosActivity = new SeleccionMediosActivity();
     DocumentReference ref = instancia.collection("Users").document(id);
@@ -293,6 +295,7 @@ public class FirebaseServices {
     SeleccionMediosActivity seleccionMediosActivity = new SeleccionMediosActivity();
     ArrayList<String> medios = new ArrayList<>();
     ArrayList<String> dominios = new ArrayList<>();
+    ArrayList<MediosModel> datosMedios = new ArrayList<>();
     FirebaseFirestore.getInstance()
         .collection("Medios")
         .get()
@@ -304,10 +307,12 @@ public class FirebaseServices {
                   for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                     medios.add(documentSnapshot.getString("Nombre"));
                     dominios.add(documentSnapshot.getString("url"));
+                    MediosModel mediosModel = new MediosModel(documentSnapshot.getString("Nombre"),documentSnapshot.getString("url"), false);
+                    datosMedios.add(mediosModel);
                   }
-                  seleccionMediosActivity.setMedios(medios, dominios, "true");
+                  seleccionMediosActivity.setMedios(datosMedios, "true");
                 } else {
-                    seleccionMediosActivity.setMedios(medios, dominios, "false");
+                  seleccionMediosActivity.setMedios(datosMedios, "false");
                 }
               }
             });
@@ -408,7 +413,7 @@ public class FirebaseServices {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                   if (task.isSuccessful()) {
-                    Toast.makeText(v.getContext(), R.string.modificacionCorreo, Toast.LENGTH_SHORT)
+                    Toast.makeText(v.getContext(), R.string.errModificacionCorreo, Toast.LENGTH_SHORT)
                         .show();
                     Log.d("exito", "Modificación exitosa");
                   } else {
@@ -447,7 +452,7 @@ public class FirebaseServices {
                                 FirebaseAuth.getInstance().signOut();
                                 Toast.makeText(
                                         v.getContext(),
-                                        R.string.modificacionCorreo,
+                                        R.string.errModificacionCorreo,
                                         Toast.LENGTH_SHORT)
                                     .show();
                                 v.getContext()
@@ -541,7 +546,7 @@ public class FirebaseServices {
             });
   }
 
-  public static void comprobarPass(Usuario usuario, String PassAnterior) {
+  public static void comprobarPass(Usuario usuario, String passAnterior) {
     /*valorNombre,valorPass... son los nuevos datos que el usuario quiere estableces, PassAnterior es la contraseña
      * que se tenia antes*/
     GestioncuentaActivity gest = new GestioncuentaActivity();
@@ -554,12 +559,12 @@ public class FirebaseServices {
               public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot.exists()) {
                   String pass = documentSnapshot.getString("contraseña");
-                  String passAnteriorHasheada = hashearMD5(PassAnterior);
+                  String passAnteriorHasheada = hashearMD5(passAnterior);
 
                   if (pass.equals(passAnteriorHasheada)) {
-                    gest.respuestaTestPass(usuario, PassAnterior,  "true");
+                    gest.respuestaTestPass(usuario, passAnterior, "true");
                   } else {
-                    gest.respuestaTestPass(usuario, PassAnterior, "false");
+                    gest.respuestaTestPass(usuario, passAnterior, "false");
                   }
                 }
               }
@@ -568,7 +573,7 @@ public class FirebaseServices {
             new OnFailureListener() {
               @Override
               public void onFailure(@NonNull Exception e) {
-                gest.respuestaTestPass(usuario, PassAnterior, "false");
+                gest.respuestaTestPass(usuario, passAnterior, "false");
               }
             });
   }
@@ -627,6 +632,56 @@ public class FirebaseServices {
   }
 
   public static void borrarDatosUsuario(DocumentReference ref) {
+    FirebaseUser usuario = userAuth.getCurrentUser();
+    String id = usuario.getUid();
+    instancia
+        .collection("Episodios")
+        .get()
+        .addOnSuccessListener(
+            new OnSuccessListener<QuerySnapshot>() {
+              @Override
+              public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
+                  if (queryDocumentSnapshots.getDocuments().get(i).get("usuario").equals(id)) {
+                    String idDocumento = queryDocumentSnapshots.getDocuments().get(i).getId();
+                    instancia.collection("Episodios").document(idDocumento).delete();
+                  }
+                }
+              }
+            });
+
+    instancia
+        .collection("Podcast")
+        .get()
+        .addOnSuccessListener(
+            new OnSuccessListener<QuerySnapshot>() {
+              @Override
+              public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
+                  if (queryDocumentSnapshots.getDocuments().get(i).get("creador").equals(id)) {
+                    String idDocumento = queryDocumentSnapshots.getDocuments().get(i).getId();
+                    instancia.collection("Podcast").document(idDocumento).delete();
+                  }
+                }
+              }
+            });
+
+    instancia
+        .collection("Etiquetas")
+        .get()
+        .addOnSuccessListener(
+            new OnSuccessListener<QuerySnapshot>() {
+              @Override
+              public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
+                  if (queryDocumentSnapshots.getDocuments().get(i).get("creador").equals(id)) {
+                    String idDocumento = queryDocumentSnapshots.getDocuments().get(i).getId();
+                    instancia.collection("Etiquetas").document(idDocumento).delete();
+                  }
+                }
+              }
+            });
+
     ref.delete()
         .addOnCompleteListener(
             new OnCompleteListener<Void>() {
@@ -782,7 +837,7 @@ public class FirebaseServices {
             });
   }
 
-  public static void eliminarUrlLista(String url, String nombre, String nombreEtiqueta) {
+  public static void eliminarUrlLista(String url, String nombreEtiqueta) {
     CollectionReference ref = instancia.collection("Etiquetas");
     ref.get()
         .addOnSuccessListener(
@@ -1074,7 +1129,14 @@ public class FirebaseServices {
               @Override
               public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
-                  ids.add((String) queryDocumentSnapshots.getDocuments().get(i).get("idPodcast"));
+                  if (queryDocumentSnapshots.getDocuments().get(i).get("creador").equals(id)
+                      && queryDocumentSnapshots
+                          .getDocuments()
+                          .get(i)
+                          .get("creador")
+                          .equals(podcast.getId())) {
+                    ids.add((String) queryDocumentSnapshots.getDocuments().get(i).get("idPodcast"));
+                  }
                 }
                 if (!ids.contains(podcast.getId())) {
                   instancia
@@ -1159,7 +1221,7 @@ public class FirebaseServices {
             });
   }
 
-  public static void insertarHistorial(String url, View v) {
+  public static void insertarHistorial(String url) {
     String id = userAuth.getCurrentUser().getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
 
@@ -1191,12 +1253,6 @@ public class FirebaseServices {
                                           public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
                                               Log.d("historial", "add realizado correctamente");
-                                            } else {
-                                              Toast.makeText(
-                                                      v.getContext(),
-                                                      R.string.errHistorial,
-                                                      Toast.LENGTH_SHORT)
-                                                  .show();
                                             }
                                           }
                                         });
@@ -1332,15 +1388,17 @@ public class FirebaseServices {
   public static void setRecordatorio(Episodio episodio, String fecha, View v, String idPodcast) {
     String id = userAuth.getCurrentUser().getUid();
     CollectionReference ref = instancia.collection("Recordatorios");
-    ArrayList<String> listaAudios= new ArrayList<>();
+    ArrayList<String> listaAudios = new ArrayList<>();
     ref.get()
         .addOnSuccessListener(
             new OnSuccessListener<QuerySnapshot>() {
               @Override
               public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
-                  listaAudios.add(
-                      (String) queryDocumentSnapshots.getDocuments().get(i).get("urlAudio"));
+                    if(queryDocumentSnapshots.getDocuments().get(i).get("creador").equals(id)){
+                        listaAudios.add(
+                                (String) queryDocumentSnapshots.getDocuments().get(i).get("urlAudio"));
+                    }
                 }
                 if (!listaAudios.contains(episodio.getAudio())) {
                   ref.get()
@@ -1434,39 +1492,53 @@ public class FirebaseServices {
   }
 
   public static void eliminarRecordatorio(String idPodcast, Context c) {
-      String id = userAuth.getCurrentUser().getUid();
-      CollectionReference ref = instancia.collection("Recordatorios");
-      ref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-          @Override
-          public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-              for(int i = 0; i<queryDocumentSnapshots.size(); i++){
-                  if(queryDocumentSnapshots.getDocuments().get(i).get("idPodcast").equals(idPodcast)){
-                      String idDocumento = queryDocumentSnapshots.getDocuments().get(i).getId();
-                      instancia.collection("Recordatorios").document(idDocumento).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                          @Override
-                          public void onSuccess(Void unused) {
-                              Toast.makeText(c,R.string.txtDeletePodcast,Toast.LENGTH_LONG).show();
-                          }
-                      });
+    String id = userAuth.getCurrentUser().getUid();
+    CollectionReference ref = instancia.collection("Recordatorios");
+    ref.get()
+        .addOnSuccessListener(
+            new OnSuccessListener<QuerySnapshot>() {
+              @Override
+              public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
+                  if (queryDocumentSnapshots
+                      .getDocuments()
+                      .get(i)
+                      .get("idPodcast")
+                      .equals(idPodcast)) {
+                    String idDocumento = queryDocumentSnapshots.getDocuments().get(i).getId();
+                    instancia
+                        .collection("Recordatorios")
+                        .document(idDocumento)
+                        .delete()
+                        .addOnSuccessListener(
+                            new OnSuccessListener<Void>() {
+                              @Override
+                              public void onSuccess(Void unused) {
+                                Toast.makeText(c, R.string.txtDeletePodcast, Toast.LENGTH_LONG)
+                                    .show();
+                              }
+                            });
                   }
+                }
               }
-          }
-      });
+            });
   }
 
-  public static void checkRecordatorios(View v){
-      CreacionRecordatorioActivity creacionRecordatorioActivity = new CreacionRecordatorioActivity();
-      String id = userAuth.getCurrentUser().getUid();
-      DocumentReference ref = instancia.collection("Users").document(id);
-      ref.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-          @Override
-          public void onSuccess(DocumentSnapshot documentSnapshot) {
-              if (documentSnapshot.get("notificaciones").equals("true")){
+  public static void checkRecordatorios() {
+    CreacionRecordatorioActivity creacionRecordatorioActivity = new CreacionRecordatorioActivity();
+    String id = userAuth.getCurrentUser().getUid();
+    DocumentReference ref = instancia.collection("Users").document(id);
+    ref.get()
+        .addOnSuccessListener(
+            new OnSuccessListener<DocumentSnapshot>() {
+              @Override
+              public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.get("notificaciones").equals("true")) {
                   creacionRecordatorioActivity.respuestaRecordatorios("true");
-              }else{
+                } else {
                   creacionRecordatorioActivity.respuestaRecordatorios("false");
+                }
               }
-          }
-      });
+            });
   }
 }

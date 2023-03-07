@@ -89,7 +89,11 @@ public class EtiquetasFragment extends Fragment {
   }
 
   private void addEtiqueta(String titulo, View v) {
-    FirebaseServices.crearEtiqueta(titulo,v);
+    if(titulo.isEmpty()){
+      Toast.makeText(v.getContext(),R.string.errTituloEtiquetaVacia,Toast.LENGTH_LONG).show();
+    }else{
+      FirebaseServices.crearEtiqueta(titulo,v);
+    }
   }
   @SuppressLint("NotifyDataSetChanged")
   public void respuestaGetEtiquetas(String res, ArrayList<Etiqueta> lista, View view) {

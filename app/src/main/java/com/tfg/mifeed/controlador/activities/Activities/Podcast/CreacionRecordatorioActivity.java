@@ -11,6 +11,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import android.widget.Toast;
 
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.Alarmas.AlarmReceiver;
+import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.LoginActivity;
+import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.RegistroActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.modelo.Episodio;
 
@@ -71,7 +74,7 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
     }
 
     private void checkRecordatoriosActivos() {
-        FirebaseServices.checkRecordatorios(v);
+        FirebaseServices.checkRecordatorios();
     }
 
     public void respuestaRecordatorios(String res){
@@ -104,6 +107,13 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
         horaActual = c.get(Calendar.HOUR);
         minutoActual = c.get(Calendar.MINUTE);
         TimePickerDialog timePickerDialog = new TimePickerDialog(v.getContext(), CreacionRecordatorioActivity.this, horaActual, minutoActual, DateFormat.is24HourFormat(v.getContext()));
+        timePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                v.getContext().startActivity(new Intent(v.getContext(), PodcastMainActivity.class));
+                finish();
+            }
+        });
         timePickerDialog.show();
     }
 

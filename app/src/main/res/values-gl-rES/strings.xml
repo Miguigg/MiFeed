@@ -17,6 +17,8 @@
     <string name="cambio">Cambiar a miña contrasinal</string>
     <string name="confirmacioCambio">Acabamos de enviar un correo a túa conta</string>
     <string name="logoutText">Pechar sesión</string>
+    <string name="errTituloEtiquetaVacia">Debes poñerlle un titulo a etiqueta</string>
+    <string name="errRecordatorios">Non tés recordatorios na lista</string>
     <string name="modificacionPass">Contrasinal modificada con éxito</string>
     <string name="episodioEliminado">Capitulo eliminado da túa lista</string>
     <string name="errModifPass">A contrasinal non se pudo modificar</string>
@@ -115,7 +117,12 @@
     <string name="salvarNube">Salvar etiquetas na nube</string>
     <string name="idiomaAplicacion">Idioma da aplicación</string>
     <string name="confirmaCont">Confirmar a contrasinal</string>
-    <string name="modificacionCorreo">Modificación correcta, debes volver a iniciar sesión</string>
+    <string name="recordatorioAñadido">Recordatorio engadido correctamente</string>
+    <string name="recordatorioTitulo">"MiFeed te recorda, tés podcast pendentes "</string>
+    <string name="recordatorioCuerpo">Tés episodios pendentes, pulsa aquí para ver cales son</string>
+    <string name="recordatorioEstablecido">Recordatorio engadido correctamente</string>
+    <string name="añadido">Recordatorio para o: %1$s as %2$s</string>
+    <string name="errModificacionCorreo">Modificación correcta, debes volver a iniciar sesión</string>
     <string name="modificacionCuenta">Modificación correcta</string>
     <string name="errContraseña">O contrasinal non e correcto</string>
     <string name="errEdicionCuenta">Ocurriu un erro na modificación dos teus datos</string>
@@ -125,4 +132,5 @@
     <string name="descripcionInputPass2">" Repite a nova contrasinal"</string>
     <string name="atras">Volver</string>
     <string name="Historial">Historial</string>
+    <string name="errRecordatoriosActivos">Non tés activados os recordatorios en axustes, podes cambialo nas opcións de usuario</string>
 </resources>

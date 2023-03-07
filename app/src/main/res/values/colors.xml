@@ -8,4 +8,5 @@
     <color name="mainbackground">#985FDF</color>
     <color name="fondoComponentes">#C291FF</color>
     <color name="fondoBarraNavegacion">#4A148C</color>
+    <color name="fondoWeb">#B8EAFF</color>
 </resources>

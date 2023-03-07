@@ -65,7 +65,7 @@ public class RecordatoriosFragment extends Fragment {
         }
         break;
       case "false":
-        Toast.makeText(v.getContext(), R.string.errConn, Toast.LENGTH_SHORT).show();
+        Toast.makeText(v.getContext(), R.string.errRecordatorios, Toast.LENGTH_SHORT).show();
         carga.setVisibility(View.GONE);
         err.setVisibility(View.VISIBLE);
     }

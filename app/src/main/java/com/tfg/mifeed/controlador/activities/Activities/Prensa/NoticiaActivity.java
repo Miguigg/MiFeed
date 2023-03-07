@@ -63,7 +63,7 @@ public class NoticiaActivity extends AppCompatActivity {
             btnCompartir.setOnClickListener(v->{
                 compartirNoticia();
             });
-            FirebaseServices.insertarHistorial(url,v);
+            FirebaseServices.insertarHistorial(url);
         }
     }
 
