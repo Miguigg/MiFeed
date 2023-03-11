@@ -36,8 +36,6 @@ public class LoginActivity extends AppCompatActivity {
     //comprobamos  que el usuario tenga conexion en este momento
     if(!CheckConexion.getEstadoActual(LoginActivity.this)){
       Toast.makeText(LoginActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
-    }else{
-      Toast.makeText(LoginActivity.this,R.string.CorrectConn,Toast.LENGTH_LONG).show();
     }
 
     correo = findViewById(R.id.editTextCorreo);

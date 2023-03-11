@@ -72,6 +72,7 @@ public class Validaciones {
               @Override
               public void onClick(DialogInterface dialog, int which) {
                 ((Activity) (c)).finish();
+                System.exit(0);
               }
             })
         .setNegativeButton("No", null)

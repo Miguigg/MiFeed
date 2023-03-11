@@ -682,6 +682,18 @@ public class FirebaseServices {
               }
             });
 
+    instancia.collection("Recordatorios").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        @Override
+        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+            for (int i = 0; i < queryDocumentSnapshots.size(); i++) {
+                if (queryDocumentSnapshots.getDocuments().get(i).get("creador").equals(id)) {
+                    String idDocumento = queryDocumentSnapshots.getDocuments().get(i).getId();
+                    instancia.collection("Recordatorios").document(idDocumento).delete();
+                }
+            }
+        }
+    });
+
     ref.delete()
         .addOnCompleteListener(
             new OnCompleteListener<Void>() {

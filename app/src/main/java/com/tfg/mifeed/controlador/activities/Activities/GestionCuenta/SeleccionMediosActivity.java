@@ -1,7 +1,9 @@
 package com.tfg.mifeed.controlador.activities.Activities.GestionCuenta;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -20,11 +22,14 @@ import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.MediosModel;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 
 public class SeleccionMediosActivity extends AppCompatActivity {
 
     private ConstraintLayout btnAceptar;
+    public static Activity activity;
     public static ArrayList<String>  dominiosSeleccionados = new ArrayList<>();
     public static ArrayList<String> mediosSeleccionados = new ArrayList<>();
     public static View v;
@@ -37,6 +42,7 @@ public class SeleccionMediosActivity extends AppCompatActivity {
         v = this.findViewById(android.R.id.content);
         dominiosSeleccionados = new ArrayList<>();
         mediosSeleccionados = new ArrayList<>();
+        activity = (Activity) v.getContext();
         FirebaseServices.getMedios();
         btnAceptar.setOnClickListener(v -> {
             if(!CheckConexion.getEstadoActual(SeleccionMediosActivity.this)){
@@ -74,7 +80,6 @@ public class SeleccionMediosActivity extends AppCompatActivity {
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SeleccionMediosActivity.this);
                 recyclerView1.setLayoutManager(linearLayoutManager);
                 recyclerView1.setAdapter(adaptadorListaMedios1);
-
                 break;
             case "false":
                 Toast.makeText(v.getContext(), R.string.errConn, Toast.LENGTH_LONG).show();
@@ -85,8 +90,9 @@ public class SeleccionMediosActivity extends AppCompatActivity {
     public void respuestaInsercion(String res){
         switch (res){
             case "true":
-                v.getContext().startActivity(new Intent(v.getContext(), PrensaActivity.class));
-                finish();
+                Intent intent = new Intent(v.getContext(), PrensaActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                v.getContext().startActivity(intent);
                 break;
             case "false":
                 Toast.makeText(v.getContext(), R.string.errSesion, Toast.LENGTH_SHORT).show();
@@ -95,5 +101,11 @@ public class SeleccionMediosActivity extends AppCompatActivity {
                 finish();
                 break;
         }
+    }
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        finish();
     }
 }
