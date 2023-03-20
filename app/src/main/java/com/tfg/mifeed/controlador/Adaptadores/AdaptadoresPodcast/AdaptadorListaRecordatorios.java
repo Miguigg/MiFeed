@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.Alarmas.AlarmReceiver;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.DetallesPodcastActivity;
+import com.tfg.mifeed.controlador.firebase.FirebasePodcast;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Episodio;
@@ -39,6 +40,7 @@ public class AdaptadorListaRecordatorios
   private ArrayList<Recordatorio> listaRecordatorios;
   private Context c;
   MediaPlayer mediaPlayer;
+  public FirebasePodcast firebasePodcast;
 
   private boolean repoduciendo;
 
@@ -46,6 +48,7 @@ public class AdaptadorListaRecordatorios
     this.listaRecordatorios = listaRecordatorios;
     this.c = c;
     this.repoduciendo = false;
+    this.firebasePodcast = new FirebasePodcast();
   }
 
   @NonNull
@@ -141,7 +144,7 @@ public class AdaptadorListaRecordatorios
           Toast.makeText(c, R.string.errConn, Toast.LENGTH_LONG).show();
         } else {
           eliminarAlarmaAndroid(listaRecordatorios.get(holder.getAdapterPosition()).getIdRecordatorio());
-          FirebaseServices.eliminarRecordatorio(listaRecordatorios.get(holder.getAdapterPosition()).getIdPodcast(),c);
+          FirebasePodcast.eliminarRecordatorio(listaRecordatorios.get(holder.getAdapterPosition()).getIdPodcast(),c);
           listaRecordatorios.remove(holder.getAdapterPosition());
           notifyItemRemoved(holder.getAdapterPosition());
           notifyItemRangeChanged(holder.getAdapterPosition(),listaRecordatorios.size());
@@ -159,7 +162,7 @@ public class AdaptadorListaRecordatorios
     alarmManager.cancel(pendingIntent);
   }
   private  void  redireccionAMasTarde(Episodio episodio, String titulo, String id){
-    FirebaseServices.addParaMasTarde(episodio,titulo,c,id,titulo);
+    FirebasePodcast.addParaMasTarde(episodio,titulo,c,id,titulo);
   }
 
   private void reproducir(String url) {

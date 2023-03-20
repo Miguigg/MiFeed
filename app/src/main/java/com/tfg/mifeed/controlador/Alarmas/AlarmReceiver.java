@@ -20,6 +20,7 @@ import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.FragmentsPodcast.RecordatoriosFragment;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.PodcastMainActivity;
+import com.tfg.mifeed.controlador.firebase.FirebaseGestionUsuario;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 
 import java.security.Provider;
@@ -27,11 +28,12 @@ import java.util.List;
 import java.util.Map;
 
 public class AlarmReceiver extends BroadcastReceiver{
-
+    public FirebaseGestionUsuario firebaseServices;
     @Override
     public void onReceive(Context context, Intent intent) {
+        firebaseServices = new FirebaseGestionUsuario();
         Intent i;
-        if(FirebaseServices.checkLogin()){
+        if(FirebaseGestionUsuario.checkLogin()){
             i = new Intent(context, PodcastMainActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             i.putExtra("alarma","redirigeAlarmas");

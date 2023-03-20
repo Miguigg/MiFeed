@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -20,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPrensa.AdaptadorListaNombresEtiquetas;
-import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.firebase.FirebaseNoticias;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class NoticiaActivity extends AppCompatActivity {
     public static String nombreWeb,nombreEtiqueta,url;
     public static TextView errWeb;
     private ImageView btnAtrasWebview,btnAddTag,btnCompartir;
-
+    public FirebaseNoticias firebaseNoticias;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +43,7 @@ public class NoticiaActivity extends AppCompatActivity {
         url = getIntent().getExtras().getString("enlace");
         errWeb = findViewById(R.id.errWeb);
         v = this.findViewById(android.R.id.content);
+        firebaseNoticias = new FirebaseNoticias();
         if(url.substring(0,5).equals("http:")){
             url = "https:"+url.substring(5);
         }
@@ -57,13 +57,13 @@ public class NoticiaActivity extends AppCompatActivity {
             });
 
             btnAddTag.setOnClickListener(v -> {
-                FirebaseServices.getNombresEtiquetas(getLayoutInflater());
+                FirebaseNoticias.getNombresEtiquetas(getLayoutInflater());
             });
 
             btnCompartir.setOnClickListener(v->{
                 compartirNoticia();
             });
-            FirebaseServices.insertarHistorial(url);
+            FirebaseNoticias.insertarHistorial(url);
         }
     }
 
@@ -98,7 +98,7 @@ public class NoticiaActivity extends AppCompatActivity {
                         nombreWeb = inputNombreWeb.getText().toString();
                         nombreEtiqueta = lista.getSelectedItem().toString();
                         if(!inputNombreWeb.getText().toString().isEmpty()){
-                            FirebaseServices.insertarUrlEtiqueta(url,nombreWeb,nombreEtiqueta);
+                            FirebaseNoticias.insertarUrlEtiqueta(url,nombreWeb,nombreEtiqueta);
                             errWeb.setVisibility(View.GONE);
 
                         }else{

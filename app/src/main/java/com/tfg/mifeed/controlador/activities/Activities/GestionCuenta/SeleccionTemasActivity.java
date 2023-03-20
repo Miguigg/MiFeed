@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.PrensaActivity;
+import com.tfg.mifeed.controlador.firebase.FirebaseGestionUsuario;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 
@@ -22,6 +23,7 @@ public class SeleccionTemasActivity extends AppCompatActivity {
   private Switch deportes, negocios, ocio, ciencia, salud, tecnologia;
   private ConstraintLayout btnAceptar;
   public static View v;
+  public FirebaseGestionUsuario firebaseGestionUsuario;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class SeleccionTemasActivity extends AppCompatActivity {
     tecnologia = findViewById(R.id.switchTecnologia);
     btnAceptar = findViewById(R.id.btnAceptar);
     v = this.findViewById(android.R.id.content);
+    firebaseGestionUsuario = new FirebaseGestionUsuario();
     btnAceptar.setOnClickListener(v -> {
       if(!CheckConexion.getEstadoActual(SeleccionTemasActivity.this)){
         Toast.makeText(SeleccionTemasActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
@@ -77,7 +80,7 @@ public class SeleccionTemasActivity extends AppCompatActivity {
       if(isTecnologia){
         toret.add("technology");
       }
-      FirebaseServices.setTemasUsuario(toret);
+      FirebaseGestionUsuario.setTemasUsuario(toret);
     }
   }
 

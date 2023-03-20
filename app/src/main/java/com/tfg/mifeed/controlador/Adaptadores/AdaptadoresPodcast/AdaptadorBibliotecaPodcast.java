@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.DetallesPodcastActivity;
+import com.tfg.mifeed.controlador.firebase.FirebasePodcast;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Podcast;
@@ -25,10 +26,12 @@ public class AdaptadorBibliotecaPodcast extends RecyclerView.Adapter<AdaptadorBi
 
     ArrayList<Podcast> listaPodcast;
     Context c;
+    FirebasePodcast firebasePodcast;
 
     public AdaptadorBibliotecaPodcast(ArrayList<Podcast> listaPodcast, Context c){
         this.c = c;
         this.listaPodcast = listaPodcast;
+        this.firebasePodcast = new FirebasePodcast();
     }
 
 
@@ -78,7 +81,7 @@ public class AdaptadorBibliotecaPodcast extends RecyclerView.Adapter<AdaptadorBi
                 if (!CheckConexion.getEstadoActual(c)) {
                     Toast.makeText(c, R.string.errConn, Toast.LENGTH_LONG).show();
                 } else {
-                    FirebaseServices.eliminarPodcastBiblioteca(listaPodcast.get(holder.getAdapterPosition()).getId(),c);
+                    FirebasePodcast.eliminarPodcastBiblioteca(listaPodcast.get(holder.getAdapterPosition()).getId(),c);
                     listaPodcast.remove(holder.getAdapterPosition());
                     notifyItemRemoved(holder.getAdapterPosition());
                     notifyItemRangeChanged(holder.getAdapterPosition(),listaPodcast.size());

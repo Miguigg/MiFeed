@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.NoticiaActivity;
+import com.tfg.mifeed.controlador.firebase.FirebaseNoticias;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 
@@ -23,10 +24,11 @@ public class AdaptadorHistorial extends RecyclerView.Adapter<AdaptadorHistorial.
 
   private ArrayList<String> listaUrls;
   private Context context;
-
+  public FirebaseNoticias firebaseNoticias;
   public AdaptadorHistorial(ArrayList<String> lista, Context c) {
     this.listaUrls = lista;
     this.context = c;
+    this.firebaseNoticias = new FirebaseNoticias();
   }
 
   @NonNull
@@ -65,7 +67,7 @@ public class AdaptadorHistorial extends RecyclerView.Adapter<AdaptadorHistorial.
   }
 
   public void eliminarHistorial(int pos) {
-    FirebaseServices.eliminarElementoHistorial(listaUrls.get(pos));
+    FirebaseNoticias.eliminarElementoHistorial(listaUrls.get(pos));
     listaUrls.remove(pos);
     notifyItemRemoved(pos);
     notifyItemRangeChanged(pos, listaUrls.size());

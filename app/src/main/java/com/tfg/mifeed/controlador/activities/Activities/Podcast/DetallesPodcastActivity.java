@@ -2,6 +2,7 @@ package com.tfg.mifeed.controlador.activities.Activities.Podcast;
 
 import static android.text.Html.fromHtml;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +18,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPodcast.AdaptadorListaEpisodiosPodcast;
+import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionTemasActivity;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.PrensaActivity;
 import com.tfg.mifeed.controlador.conexioPodcastApi.ApiPodcastConn;
+import com.tfg.mifeed.controlador.firebase.FirebasePodcast;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Episodio;
@@ -36,6 +40,7 @@ public class DetallesPodcastActivity extends AppCompatActivity {
     private ImageView logoPodcast,addPodcast;
     private TextView descripcion, errBusqueda;
     private ProgressBar carga;
+    public FirebasePodcast firebasePodcast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,7 @@ public class DetallesPodcastActivity extends AppCompatActivity {
         String urlImagen = getIntent().getExtras().getString("urlImagen");
         String txtDescripcion = String.valueOf(fromHtml(getIntent().getExtras().getString("descripcion"),0));
         String titulo = getIntent().getExtras().getString("titulo");
+        firebasePodcast = new FirebasePodcast();
         if(titulo.isEmpty()){
             Log.d("titulo","vacio");
         }else{
@@ -71,7 +77,7 @@ public class DetallesPodcastActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Podcast podcast = new Podcast(idPodcast,urlImagen,titulo,txtDescripcion);
-                    FirebaseServices.addPodcastBiblioteca(podcast,DetallesPodcastActivity.this);
+                    FirebasePodcast.addPodcastBiblioteca(podcast,DetallesPodcastActivity.this);
                 }
             });
         }
@@ -98,5 +104,10 @@ public class DetallesPodcastActivity extends AppCompatActivity {
                 errBusqueda.setVisibility(View.VISIBLE);
             }
         });
+    }
+    public void onBackPressed() {
+        //Intent intent = new Intent(DetallesPodcastActivity.this, PodcastMainActivity.class);
+        //startActivity(intent);
+        finish();
     }
 }

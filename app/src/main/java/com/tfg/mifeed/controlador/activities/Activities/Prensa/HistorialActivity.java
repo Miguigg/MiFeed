@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPrensa.AdaptadorHistorial;
-import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.firebase.FirebaseNoticias;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 
 import java.util.ArrayList;
@@ -26,16 +26,19 @@ public class HistorialActivity extends AppCompatActivity {
     public static ArrayList<String> historialUsuario;
     public static View v;
     private ConstraintLayout btnEliminarHistorial;
+    public FirebaseNoticias firebaseNoticias;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial);
+        firebaseNoticias = new FirebaseNoticias();
         v = this.findViewById(android.R.id.content);
         listaHistorial = findViewById(R.id.listaHistorial);
         carga = findViewById(R.id.cargaHistorial);
         err = findViewById(R.id.errHistorial);
-        FirebaseServices.getHistorial();
+        FirebaseNoticias.getHistorial();
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(v.getContext(), LinearLayoutManager.VERTICAL, false);
         listaHistorial.setLayoutManager(linearLayoutManager);
@@ -51,8 +54,8 @@ public class HistorialActivity extends AppCompatActivity {
     }
 
     private void eliminarTodoHistorial() {
-        FirebaseServices.eliminarTodoHistorial(v);
-        FirebaseServices.getHistorial();
+        FirebaseNoticias.eliminarTodoHistorial(v);
+        FirebaseNoticias.getHistorial();
     }
 
     public void respuestaHistorial(ArrayList<String> historial){

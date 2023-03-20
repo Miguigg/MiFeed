@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.NoticiaActivity;
+import com.tfg.mifeed.controlador.firebase.FirebaseGestionUsuario;
+import com.tfg.mifeed.controlador.firebase.FirebaseNoticias;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 
@@ -25,15 +27,15 @@ public class AdaptadorListaArticulosEtiqueta extends RecyclerView.Adapter<Adapta
     private ArrayList<String> urls;
     private ArrayList<String> nombresWebs;
     private String nombreEtiqueta;
-    private View v;
     private Context context;
+    public FirebaseNoticias firebaseGestionUsuario;
 
     public AdaptadorListaArticulosEtiqueta(ArrayList<String> urls, ArrayList<String> nombres,String nombreEtiqueta, View v, Context c){
         this.nombresWebs = nombres;
         this.urls = urls;
-        this.v = v;
         this.context = c;
         this.nombreEtiqueta = nombreEtiqueta;
+        this.firebaseGestionUsuario = new FirebaseNoticias();
     }
 
 
@@ -71,7 +73,7 @@ public class AdaptadorListaArticulosEtiqueta extends RecyclerView.Adapter<Adapta
         });
     }
     private void eliminarWeb(int posicion) {
-        FirebaseServices.eliminarUrlLista(urls.get(posicion),nombreEtiqueta);
+        FirebaseNoticias.eliminarUrlLista(urls.get(posicion),nombreEtiqueta);
         urls.remove(posicion);
         nombresWebs.remove(posicion);
         notifyItemRemoved(posicion);

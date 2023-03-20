@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPodcast.AdaptadorBibliotecaPodcast;
+import com.tfg.mifeed.controlador.firebase.FirebasePodcast;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Podcast;
@@ -26,6 +27,8 @@ public class BibliotecaFragment extends Fragment {
     private static RecyclerView listaBiblioteca;
     private static TextView err;
     private static ProgressBar carga;
+    public FirebasePodcast firebasePodcast;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,11 +38,12 @@ public class BibliotecaFragment extends Fragment {
         err = v.findViewById(R.id.errBiblioteca);
         carga = v.findViewById(R.id.cargaBiblioteca);
         carga.setVisibility(View.VISIBLE);
+        firebasePodcast = new FirebasePodcast();
         if(!CheckConexion.getEstadoActual(v.getContext())) {
             Toast.makeText(v.getContext(), R.string.errConn, Toast.LENGTH_LONG).show();
             carga.setVisibility(View.GONE);
         }else{
-            FirebaseServices.getPodcastBiblioteca();
+            FirebasePodcast.getPodcastBiblioteca();
         }
         return v;
     }

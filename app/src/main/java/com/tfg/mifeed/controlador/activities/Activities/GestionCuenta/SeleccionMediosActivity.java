@@ -3,9 +3,7 @@ package com.tfg.mifeed.controlador.activities.Activities.GestionCuenta;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,11 +16,10 @@ import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.PrensaActivity;
 import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPrensa.AdaptadorListaMedios;
+import com.tfg.mifeed.controlador.firebase.FirebaseGestionUsuario;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.MediosModel;
-
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 
@@ -33,6 +30,7 @@ public class SeleccionMediosActivity extends AppCompatActivity {
     public static ArrayList<String>  dominiosSeleccionados = new ArrayList<>();
     public static ArrayList<String> mediosSeleccionados = new ArrayList<>();
     public static View v;
+    public FirebaseGestionUsuario firebaseGestionUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +41,9 @@ public class SeleccionMediosActivity extends AppCompatActivity {
         dominiosSeleccionados = new ArrayList<>();
         mediosSeleccionados = new ArrayList<>();
         activity = (Activity) v.getContext();
+        firebaseGestionUsuario = new FirebaseGestionUsuario();
         FirebaseServices.getMedios();
+
         btnAceptar.setOnClickListener(v -> {
             if(!CheckConexion.getEstadoActual(SeleccionMediosActivity.this)){
                 Toast.makeText(SeleccionMediosActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
@@ -57,17 +57,17 @@ public class SeleccionMediosActivity extends AppCompatActivity {
         if(dominiosSeleccionados.size()<1 || (mediosSeleccionados.size()<1)){
             Toast.makeText(this, R.string.errSeleccionTemas, Toast.LENGTH_SHORT).show();
         }else{
-            FirebaseServices.setMediosUsuario(mediosSeleccionados,dominiosSeleccionados);
-            FirebaseServices.setFirstLoginFalse();
+            FirebaseGestionUsuario.setMediosUsuario(mediosSeleccionados,dominiosSeleccionados);
+            FirebaseGestionUsuario.setFirstLoginFalse();
         }
     }
 
-    public void insertMedio(String dominio,String nombre){
+    public void insertarDominio(String dominio, String nombre){
         dominiosSeleccionados.add(dominio);
         mediosSeleccionados.add(nombre);
     }
 
-    public void deleteMedio(String dominio,String nombre){
+    public void deleteDominio(String dominio, String nombre){
         dominiosSeleccionados.remove(dominio);
         mediosSeleccionados.remove(nombre);
     }

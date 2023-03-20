@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPodcast.AdaptadorListaMasTarde;
+import com.tfg.mifeed.controlador.firebase.FirebasePodcast;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Episodio;
@@ -26,7 +27,8 @@ public class MasTardeFragment extends Fragment {
     private static ProgressBar carga;
     private static TextView err;
     private static RecyclerView listaEpisodiosRecycleview;
-    private static AdaptadorListaMasTarde adaptadorListaMasTarde;
+    public FirebasePodcast firebasePodcast;
+
     private static ArrayList<Episodio> listaEpisodios;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,11 +40,12 @@ public class MasTardeFragment extends Fragment {
         carga.setVisibility(View.VISIBLE);
         err = v.findViewById(R.id.errMasTarde);
         listaEpisodiosRecycleview = v.findViewById(R.id.listaMastarde);
+        firebasePodcast = new FirebasePodcast();
         if(!CheckConexion.getEstadoActual(v.getContext())){
             Toast.makeText(v.getContext(),R.string.errConn,Toast.LENGTH_LONG).show();
             carga.setVisibility(View.GONE);
         }else{
-            FirebaseServices.getPodcastMasTarde(v);
+            FirebasePodcast.getPodcastMasTarde(v);
         }
         return v;
     }
@@ -55,7 +58,7 @@ public class MasTardeFragment extends Fragment {
         listaEpisodiosRecycleview.setLayoutManager(linearLayoutManager);
     }
 
-    public void respuestaListaPodcast(ArrayList<Episodio> listaEpisodiosNueva, String res, View v){
+    public void respuestaListaPodcast(ArrayList<Episodio> listaEpisodiosNueva, String res){
         switch (res){
             case "true":
                 listaEpisodios = listaEpisodiosNueva;

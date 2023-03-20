@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.PrensaActivity;
+import com.tfg.mifeed.controlador.firebase.FirebaseGestionUsuario;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
@@ -27,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
   private TextView errEmail,errPass;
   private Validaciones validaciones = new Validaciones();
   boolean emailIsSent;
-  FirebaseServices firebaseServices;
+  FirebaseGestionUsuario firebaseServices;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -61,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
           startActivity(new Intent(LoginActivity.this, RegistroActivity.class));
           finish();
         });
-     firebaseServices = new FirebaseServices();
+     firebaseServices = new FirebaseGestionUsuario();
   }
 
   private void iniciarSesion() {
@@ -106,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
       if(esValido){
         //llama a la funcion de login de FirebaseServices
         this.setSession(email,pass);
-        FirebaseServices.ejecutarLogin(emailIsSent,email,pass,this.findViewById(android.R.id.content));
+        FirebaseGestionUsuario.ejecutarLogin(emailIsSent,email,pass,this.findViewById(android.R.id.content));
         this.emailIsSent = true;
       }
     }
@@ -120,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
     switch (res){
       //Si los datos son correctos y el email esta verificado, ejecuta el login
       case "emailVerificado":
-        FirebaseServices.comprobarLogin(v.findViewById(android.R.id.content));
+        FirebaseGestionUsuario.comprobarLogin(v.findViewById(android.R.id.content));
         errorContra.setVisibility(View.GONE);
         break;
       //Si el email no esta verificado y MiFeed aun no se lo ha mandado, se lo envia y le avisa
@@ -135,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
         b.setPositiveButton(R.string.volverMandar, new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-            FirebaseServices.mandarEmailVerificacion(v);
+            FirebaseGestionUsuario.mandarEmailVerificacion(v);
             errorContra.setVisibility(View.GONE);
           }
         });

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.EtiquetasFragment;
-import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.firebase.FirebaseNoticias;
 import com.tfg.mifeed.modelo.Etiqueta;
 
 import java.util.ArrayList;
@@ -23,10 +23,12 @@ public class AdaptadorListaEtiquetas extends RecyclerView.Adapter<AdaptadorLista
     private ArrayList<Etiqueta> listaEtiquetas;
 
     private View view;
+    public FirebaseNoticias firebaseNoticias;
 
     public AdaptadorListaEtiquetas(ArrayList<Etiqueta> listaEtiquetas,View view){
         this.listaEtiquetas = listaEtiquetas;
         this.view = view;
+        this.firebaseNoticias = new FirebaseNoticias();
     }
 
     @NonNull
@@ -59,7 +61,7 @@ public class AdaptadorListaEtiquetas extends RecyclerView.Adapter<AdaptadorLista
         listaEtiquetas.remove(pos);
         notifyItemRemoved(pos);
         notifyItemRangeChanged(pos,listaEtiquetas.size());
-        FirebaseServices.deleteEtiqueta(nombreEtiqueta,view);
+        FirebaseNoticias.deleteEtiqueta(nombreEtiqueta,view);
     }
 
     @Override

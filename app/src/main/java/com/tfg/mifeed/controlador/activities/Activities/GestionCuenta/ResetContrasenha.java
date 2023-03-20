@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.tfg.mifeed.R;
+import com.tfg.mifeed.controlador.firebase.FirebaseGestionUsuario;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
@@ -20,7 +21,7 @@ public class ResetContrasenha extends AppCompatActivity {
     private EditText correo;
     private ConstraintLayout btnReseteo;
     private  static  View v;
-    FirebaseServices conexion;
+    FirebaseGestionUsuario conexion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +32,7 @@ public class ResetContrasenha extends AppCompatActivity {
         btnReseteo.setOnClickListener(v -> {
             reseteo();
         });
-        conexion = new FirebaseServices();
+        conexion = new FirebaseGestionUsuario();
     }
 
     private void reseteo() {
@@ -57,7 +58,7 @@ public class ResetContrasenha extends AppCompatActivity {
                 errReset.setVisibility(View.GONE);
             }
             if(isvalid){
-                FirebaseServices.resetEmail(email);
+                FirebaseGestionUsuario.resetEmail(email);
             }
         }
     }

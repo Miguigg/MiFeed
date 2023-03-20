@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.CreacionRecordatorioActivity;
+import com.tfg.mifeed.controlador.firebase.FirebasePodcast;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Episodio;
@@ -33,6 +34,7 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
     Context context;
     MediaPlayer mediaPlayer;
     boolean reproduciendo;
+    public FirebasePodcast firebasePodcast;
 
     public AdaptadorListaEpisodiosPodcast(ArrayList<Episodio> listaEpisodios, Context context, String idPodcast, String tituloPodcast) {
         this.context = context;
@@ -40,6 +42,7 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
         this.reproduciendo = false;
         this.idPodcast = idPodcast;
         this.tituloPodcast = tituloPodcast;
+        this.firebasePodcast = new FirebasePodcast();
     }
 
     @NonNull
@@ -116,7 +119,7 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
     }
 
     private void addIdEpisodio(Episodio episodio, String titulo) {
-        FirebaseServices.addParaMasTarde(episodio, titulo, context, idPodcast, tituloPodcast);
+        FirebasePodcast.addParaMasTarde(episodio, titulo, context, idPodcast, tituloPodcast);
     }
 
     private void reproducir(String url) {

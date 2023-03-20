@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPodcast.AdaptadorListaRecordatorios;
+import com.tfg.mifeed.controlador.firebase.FirebasePodcast;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Recordatorio;
@@ -28,6 +29,7 @@ public class RecordatoriosFragment extends Fragment {
   private static TextView err;
   private static RecyclerView listaRecordatorios;
   private static ArrayList<Recordatorio> respuestaRecordatorios;
+  public FirebasePodcast firebasePodcast;
 
   @Override
   public View onCreateView(
@@ -36,11 +38,12 @@ public class RecordatoriosFragment extends Fragment {
     carga = v.findViewById(R.id.cargaRecordatorios);
     err = v.findViewById(R.id.errRecordatorios);
     listaRecordatorios = v.findViewById(R.id.listaRecordatorios);
+    firebasePodcast = new FirebasePodcast();
     if(!CheckConexion.getEstadoActual(v.getContext())){
       Toast.makeText(v.getContext(),R.string.errConn,Toast.LENGTH_LONG).show();
       carga.setVisibility(View.GONE);
     }else{
-      FirebaseServices.getRecordatorios(v);
+      FirebasePodcast.getRecordatorios(v);
     }
     return v;
   }

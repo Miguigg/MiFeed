@@ -1,17 +1,13 @@
 package com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPrensa;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionMediosActivity;
 import com.tfg.mifeed.modelo.MediosModel;
-
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
 
@@ -87,11 +81,11 @@ public class AdaptadorListaMedios
           boolean isChecked = ((CheckBox) view).isChecked();
           if(isChecked){
             medios.get(getAdapterPosition()).setSelected(true);
-            seleccionMediosActivity.insertMedio(
+            seleccionMediosActivity.insertarDominio(
                     medios.get(getAdapterPosition()).getDominio(), medios.get(getAdapterPosition()).getMedio());
           }else{
             medios.get(getAdapterPosition()).setSelected(false);
-            seleccionMediosActivity.deleteMedio(
+            seleccionMediosActivity.deleteDominio(
                     medios.get(getAdapterPosition()).getDominio(), medios.get(getAdapterPosition()).getMedio());
           }
         notifyDataSetChanged();

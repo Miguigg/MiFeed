@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
+import com.tfg.mifeed.controlador.firebase.FirebaseGestionUsuario;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
@@ -21,7 +22,7 @@ import com.tfg.mifeed.modelo.Usuario;
 
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
   private Validaciones validaciones = new Validaciones();
-  private FirebaseServices conexion;
+  private FirebaseGestionUsuario conexion;
   public static View v;
   private EditText nombre, email, contrasenha1, contrasenha2;
   private ConstraintLayout registro, toInicioSesion;
@@ -41,7 +42,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
     registro.setOnClickListener(this);
     toInicioSesion.setOnClickListener(this);
     v = this.findViewById(android.R.id.content);
-    conexion = new FirebaseServices();
+    conexion = new FirebaseGestionUsuario();
   }
 
   @Override
@@ -127,7 +128,7 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
   }
 
   private void insercionEnFirebase(Usuario usuario) {
-    FirebaseServices.ejecutarRegistro(usuario,this.findViewById(android.R.id.content));
+    FirebaseGestionUsuario.ejecutarRegistro(usuario);
   }
 
   public void respuestaRegistro(String res){

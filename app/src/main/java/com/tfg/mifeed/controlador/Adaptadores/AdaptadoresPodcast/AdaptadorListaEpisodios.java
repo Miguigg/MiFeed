@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.CreacionRecordatorioActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.DetallesPodcastActivity;
+import com.tfg.mifeed.controlador.firebase.FirebasePodcast;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Episodio;
@@ -33,13 +34,14 @@ public class AdaptadorListaEpisodios
   private ArrayList<Episodio> listaEpisodios;
   private Context context;
   private MediaPlayer mediaPlayer;
-
+  public FirebasePodcast firebasePodcast;
   private boolean repoduciendo;
 
   public AdaptadorListaEpisodios(ArrayList<Episodio> listaEpisodios, Context context) {
     this.context = context;
     this.listaEpisodios = listaEpisodios;
     this.repoduciendo = false;
+    this.firebasePodcast = new FirebasePodcast();
   }
 
   @NonNull
@@ -124,22 +126,27 @@ public class AdaptadorListaEpisodios
             }
           }
         });
-    recordatorio.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Intent intent = new Intent(context, CreacionRecordatorioActivity.class);
-        intent.putExtra("nombreEpisodio",listaEpisodios.get(holder.getAdapterPosition()).getTitle_original());
-        intent.putExtra("urlAudio",listaEpisodios.get(holder.getAdapterPosition()).getAudio());
-        intent.putExtra("urlImagen",listaEpisodios.get(holder.getAdapterPosition()).getImage());
-        intent.putExtra("idPodcast",listaEpisodios.get(holder.getAdapterPosition()).getPodcast().getId());
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-      }
-    });
+    recordatorio.setOnClickListener(
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            Intent intent = new Intent(context, CreacionRecordatorioActivity.class);
+            intent.putExtra(
+                "nombreEpisodio",
+                listaEpisodios.get(holder.getAdapterPosition()).getTitle_original());
+            intent.putExtra("urlAudio", listaEpisodios.get(holder.getAdapterPosition()).getAudio());
+            intent.putExtra(
+                "urlImagen", listaEpisodios.get(holder.getAdapterPosition()).getImage());
+            intent.putExtra(
+                "idPodcast", listaEpisodios.get(holder.getAdapterPosition()).getPodcast().getId());
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+          }
+        });
   }
 
   private void addIdEpisodio(Episodio episodio, String titulo) {
-    FirebaseServices.addParaMasTarde(
+    FirebasePodcast.addParaMasTarde(
         episodio,
         titulo,
         context,

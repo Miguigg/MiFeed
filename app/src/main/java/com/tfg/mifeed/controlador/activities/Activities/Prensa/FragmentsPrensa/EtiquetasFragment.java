@@ -22,8 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.EtiquetaActivity;
 import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPrensa.AdaptadorListaEtiquetas;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.PrensaActivity;
+import com.tfg.mifeed.controlador.firebase.FirebaseGestionUsuario;
+import com.tfg.mifeed.controlador.firebase.FirebaseNoticias;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
+import com.tfg.mifeed.controlador.utilidades.Validaciones;
 import com.tfg.mifeed.modelo.Etiqueta;
 
 import java.util.ArrayList;
@@ -37,6 +41,8 @@ public class EtiquetasFragment extends Fragment {
   private static TextView err;
   private static ProgressBar carga;
 
+  public FirebaseNoticias firebaseGestionUsuario;
+
   private View v;
 
   @Override
@@ -47,6 +53,7 @@ public class EtiquetasFragment extends Fragment {
     err = v.findViewById(R.id.errEtiquetas);
     listaEtiquetas = v.findViewById(R.id.listaEtiquetas);
     carga = v.findViewById(R.id.cargaEtiquetas);
+    firebaseGestionUsuario = new FirebaseNoticias();
 
     if(!CheckConexion.getEstadoActual(v.getContext())){
       Toast.makeText(v.getContext(),R.string.errConn,Toast.LENGTH_LONG).show();
@@ -56,7 +63,7 @@ public class EtiquetasFragment extends Fragment {
               v -> {
                 inputTitulo(v);
               });
-      FirebaseServices.getEtiquetas(v);
+      FirebaseNoticias.getEtiquetas(v);
     }
     return v;
   }
@@ -92,7 +99,7 @@ public class EtiquetasFragment extends Fragment {
     if(titulo.isEmpty()){
       Toast.makeText(v.getContext(),R.string.errTituloEtiquetaVacia,Toast.LENGTH_LONG).show();
     }else{
-      FirebaseServices.crearEtiqueta(titulo,v);
+      FirebaseNoticias.crearEtiqueta(titulo,v);
     }
   }
   @SuppressLint("NotifyDataSetChanged")
@@ -118,7 +125,7 @@ public class EtiquetasFragment extends Fragment {
   public void respuestaCreacionEtiqueta(String res, View view) {
     switch (res) {
       case "true":
-        FirebaseServices.getEtiquetas(view);
+        FirebaseNoticias.getEtiquetas(view);
         break;
       case "false":
         Toast.makeText(v.getContext(), R.string.errConn, Toast.LENGTH_SHORT).show();

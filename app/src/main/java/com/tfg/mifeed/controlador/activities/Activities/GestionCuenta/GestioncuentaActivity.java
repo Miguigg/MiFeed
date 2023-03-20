@@ -22,6 +22,7 @@ import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.HistorialActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.PrensaActivity;
+import com.tfg.mifeed.controlador.firebase.FirebaseGestionUsuario;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
@@ -38,6 +39,7 @@ public class GestioncuentaActivity extends AppCompatActivity {
   public static View v;
   private EditText nombre, pass, pass2, correo;
   private TextView errUsuario,errEmail,errPass;
+  public FirebaseGestionUsuario firebaseGestionUsuario;
 
   @SuppressLint("MissingInflatedId")
   @Override
@@ -59,6 +61,7 @@ public class GestioncuentaActivity extends AppCompatActivity {
     errPass = findViewById(R.id.errEditPass);
     btnHistorial = findViewById(R.id.btnHistorial);
 
+    firebaseGestionUsuario = new FirebaseGestionUsuario();
     btnModificaDatos = findViewById(R.id.btnModificarDatos);
     v = this.findViewById(android.R.id.content);
 
@@ -320,7 +323,7 @@ public class GestioncuentaActivity extends AppCompatActivity {
   public void respuestaTestPass(Usuario usuario,String passAnterior,String res) {
     switch (res) {
       case "true":
-        FirebaseServices.editarUsuario(usuario, passAnterior ,v);
+        FirebaseGestionUsuario.editarUsuario(usuario, passAnterior ,v);
         break;
       case "false":
         Toast.makeText(v.getContext(), R.string.errContraseña, Toast.LENGTH_LONG).show();

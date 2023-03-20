@@ -27,6 +27,7 @@ import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.Alarmas.AlarmReceiver;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.LoginActivity;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.RegistroActivity;
+import com.tfg.mifeed.controlador.firebase.FirebasePodcast;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.modelo.Episodio;
 
@@ -46,6 +47,7 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
     public static NotificationManager notificationManager;
     public static View v;
     public static PendingIntent pendingIntent;
+    public FirebasePodcast firebasePodcast;
     public static int añoSeleccionado,
             mesSeleccionado,
             diaSeleccionado,
@@ -61,6 +63,8 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creacion_recordatorio);
+        firebasePodcast = new FirebasePodcast();
+
         tituloEpisodio = (String) getIntent().getExtras().get("nombreEpisodio");
         urlAudio = (String) getIntent().getExtras().get("urlAudio");
         urlImagen = (String) getIntent().getExtras().get("urlImagen");
@@ -74,7 +78,7 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
     }
 
     private void checkRecordatoriosActivos() {
-        FirebaseServices.checkRecordatorios();
+        FirebasePodcast.checkRecordatorios();
     }
 
     public void respuestaRecordatorios(String res){
@@ -129,7 +133,7 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
         calendar.set(Calendar.MINUTE,minutoSeleccionado);
         String input = String.valueOf(añoSeleccionado) + "-" +String.valueOf(mesSeleccionado)+ "-" + String.valueOf(diaSeleccionado) + "T" + String.valueOf(horaSeleccionada) + ":" +String.valueOf(minutoSeleccionado)+":00"+"Z";
         crearCanal(calendar.getTimeInMillis());
-        FirebaseServices.setRecordatorio(episodio,input,v, idPodcast);
+        FirebasePodcast.setRecordatorio(episodio,input,v, idPodcast);
         ((Activity) v.getContext()).finish();
     }
 
@@ -141,7 +145,7 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
             NotificationChannel channel = new NotificationChannel("recordatorioPodcast",nombreCanal,importancia);
             channel.setDescription(descripcion);
             notificationManager.createNotificationChannel(channel);
-            FirebaseServices.getNumeroRecordatorio(timestamp,v);
+            FirebasePodcast.getNumeroRecordatorio(timestamp,v);
         }
     }
 

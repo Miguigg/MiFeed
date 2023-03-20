@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.CreacionRecordatorioActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.DetallesPodcastActivity;
+import com.tfg.mifeed.controlador.firebase.FirebasePodcast;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Episodio;
@@ -29,15 +30,16 @@ import java.util.ArrayList;
 
 public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaMasTarde.ViewHolderListaMasTarde>{
 
-    ArrayList<Episodio> listaEpisodios;
-    Context context;
-    MediaPlayer mediaPlayer;
-    boolean reproduciendo;
-
+    private ArrayList<Episodio> listaEpisodios;
+    private Context context;
+    private MediaPlayer mediaPlayer;
+    private boolean reproduciendo;
+    public FirebasePodcast firebasePodcast;
     public AdaptadorListaMasTarde(ArrayList<Episodio> listaEpisodios, Context context){
         this.context = context;
         this.listaEpisodios = listaEpisodios;
         this.reproduciendo = false;
+        this.firebasePodcast = new FirebasePodcast();
     }
 
     @NonNull
@@ -126,7 +128,7 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
                 if (!CheckConexion.getEstadoActual(context)) {
                     Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
                 } else {
-                    FirebaseServices.eliminarPodcastMastarde(listaEpisodios.get(holder.getAdapterPosition()).getAudio(),context);
+                    FirebasePodcast.eliminarPodcastMastarde(listaEpisodios.get(holder.getAdapterPosition()).getAudio(),context);
                     listaEpisodios.remove(holder.getAdapterPosition());
                     notifyItemRemoved(holder.getAdapterPosition());
                     notifyItemRangeChanged(holder.getAdapterPosition(),listaEpisodios.size());
