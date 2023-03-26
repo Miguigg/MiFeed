@@ -168,7 +168,7 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
     }
 
     public static class ViewHolderListaMasTarde extends RecyclerView.ViewHolder {
-        ImageView imagenEpisodio, pausa, play, recordatorio, eliminar;
+        ImageView imagenEpisodio, play, recordatorio, eliminar;
         TextView titulo;
 
         public ViewHolderListaMasTarde(@NonNull View itemView) {

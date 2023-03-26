@@ -125,7 +125,7 @@ public class FirebasePodcast {
             });
   }
 
-  public static void getPodcastMasTarde(View v) {
+  public static void getPodcastMasTarde() {
     MasTardeFragment masTardeFragment = new MasTardeFragment();
     String id = userAuth.getCurrentUser().getUid();
     CollectionReference ref = instancia.collection("Episodios");

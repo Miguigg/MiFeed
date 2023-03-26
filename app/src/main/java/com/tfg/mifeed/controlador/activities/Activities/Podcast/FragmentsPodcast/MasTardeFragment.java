@@ -45,7 +45,7 @@ public class MasTardeFragment extends Fragment {
             Toast.makeText(v.getContext(),R.string.errConn,Toast.LENGTH_LONG).show();
             carga.setVisibility(View.GONE);
         }else{
-            FirebasePodcast.getPodcastMasTarde(v);
+            FirebasePodcast.getPodcastMasTarde();
         }
         return v;
     }
