@@ -18,7 +18,6 @@ import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.PrensaActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseGestionUsuario;
-import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
 
@@ -28,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
   private TextView errEmail,errPass;
   private Validaciones validaciones = new Validaciones();
   boolean emailIsSent;
-  FirebaseGestionUsuario firebaseServices;
+  FirebaseGestionUsuario firebaseGestionUsuario;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -62,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
           startActivity(new Intent(LoginActivity.this, RegistroActivity.class));
           finish();
         });
-     firebaseServices = new FirebaseGestionUsuario();
+     firebaseGestionUsuario = new FirebaseGestionUsuario();
   }
 
   private void iniciarSesion() {

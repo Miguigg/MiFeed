@@ -68,6 +68,9 @@ public class FirebaseGestionUsuario {
   }
 
   public static void ejecutarLogin(boolean emailSent, String email, String pass, View v) {
+      /**
+       * Con los datos introducidos por el usuario el sistema intenta acceder a la aplicacion
+       * */
     userAuth
         .signInWithEmailAndPassword(email, pass)
         .addOnCompleteListener(

@@ -65,6 +65,9 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
   }
 
   private void registroUsuario() {
+    /*
+    * Valida los datos introducidos por el usuario y, si son correctos, ejecuta la funcion de insercion
+    * */
     if(!CheckConexion.getEstadoActual(RegistroActivity.this)){
       Toast.makeText(RegistroActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
     }else{
@@ -122,16 +125,15 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
       }
 
       if (isvalid) {
-        insercionEnFirebase(new Usuario(nombreUsuario, emailUsuario, contrasenhaUsuario1));
+        FirebaseGestionUsuario.ejecutarRegistro(new Usuario(nombreUsuario, emailUsuario, contrasenhaUsuario1));
       }
     }
   }
 
-  private void insercionEnFirebase(Usuario usuario) {
-    FirebaseGestionUsuario.ejecutarRegistro(usuario);
-  }
-
   public void respuestaRegistro(String res){
+    /*
+    * Recibe el codigo de respuesta de firebase e informa al usuario del resultado
+    * */
     switch (res){
       case "valido":
         FirebaseAuth.getInstance().signOut();

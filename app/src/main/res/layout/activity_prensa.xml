@@ -8,9 +8,8 @@
 
     <FrameLayout
         android:id="@+id/framePrensa"
-        android:layout_width="match_parent"
-        android:layout_height="655dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="409dp"
+        android:layout_height="686dp"
         android:background="@color/mainbackground"
         app:layout_constraintBottom_toTopOf="@+id/barraApp"
         app:layout_constraintEnd_toEndOf="parent"
