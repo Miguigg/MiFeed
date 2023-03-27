@@ -1,10 +1,9 @@
 package com.tfg.mifeed.controlador.firebase;
 
-import static com.tfg.mifeed.controlador.utilidades.Validaciones.hashearMD5;
+import static com.tfg.mifeed.controlador.utilidades.Validaciones.encriptarPass;
 
 import android.content.Intent;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,11 +17,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.LoginActivity;
@@ -30,10 +27,6 @@ import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.RegistroAc
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.ResetContrasenha;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionMediosActivity;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionTemasActivity;
-import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.EtiquetasFragment;
-import com.tfg.mifeed.controlador.activities.Activities.Prensa.HistorialActivity;
-import com.tfg.mifeed.controlador.activities.Activities.Prensa.NoticiaActivity;
-import com.tfg.mifeed.modelo.Etiqueta;
 import com.tfg.mifeed.modelo.Usuario;
 
 import java.util.ArrayList;
@@ -140,7 +133,8 @@ public class FirebaseGestionUsuario {
                   user.put("correo", usuario.getEmail());
                   user.put(
                       "contraseña",
-                      hashearMD5(usuario.getContraseña())); // insertamos la contraseña encriptada
+                      encriptarPass(
+                          usuario.getContraseña())); // insertamos la contraseña encriptada
                   user.put("firstLogin", "true");
                   user.put("notificaciones", "true");
                   user.put("guardarHistorial", "true");
@@ -301,7 +295,7 @@ public class FirebaseGestionUsuario {
     DocumentReference ref = instancia.collection("Users").document(id);
     Map<String, Object> user = new HashMap<>();
     user.put("nombre", usuario.getNombre());
-    user.put("contraseña", hashearMD5(usuario.getContraseña()));
+    user.put("contraseña", encriptarPass(usuario.getContraseña()));
     user.put("firstLogin", "false");
     if (usuario.isNotificaciones()) {
       user.put("notificaciones", "true");

@@ -41,6 +41,6 @@ public class ValidacionesTest {
 
     @Test
     public void hashearMD5(){
-        assertEquals("ccee5504c9d889922b101124e9e43b71",Validaciones.hashearMD5("hola1234"));
+    assertEquals("ccee5504c9d889922b101124e9e43b71", Validaciones.encriptarPass("hola1234"));
     }
 }

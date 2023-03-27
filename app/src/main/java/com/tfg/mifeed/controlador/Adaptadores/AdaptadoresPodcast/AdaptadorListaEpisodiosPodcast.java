@@ -119,7 +119,7 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
     }
 
     private void addIdEpisodio(Episodio episodio, String titulo) {
-        FirebasePodcast.addParaMasTarde(episodio, titulo, context, idPodcast, tituloPodcast);
+        firebasePodcast.addParaMasTarde(episodio, titulo, context, idPodcast, tituloPodcast);
     }
 
     private void reproducir(String url) {

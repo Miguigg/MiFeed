@@ -71,7 +71,7 @@ public class FirebasePodcast {
             new OnSuccessListener<QuerySnapshot>() {
               @Override
               public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (int i = 0; i < queryDocumentSnapshots.getDocuments().size(); i++) {
+                  for (int i = 0; i < queryDocumentSnapshots.getDocuments().size(); i++) {
                   if (queryDocumentSnapshots
                       .getDocuments()
                       .get(i)

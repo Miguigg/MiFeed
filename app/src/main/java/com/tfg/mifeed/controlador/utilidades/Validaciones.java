@@ -9,7 +9,6 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.tfg.mifeed.R;
 
-import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -79,9 +78,7 @@ public class Validaciones {
         .show();
   }
 
-  public static String hashearMD5(String password) {
-    /*Dada la contraseña introducida por el usuario, se calcula el hash md5 para guardarla en su
-     *coleccion de firebase*/
+  /*public static String hashearMD5(String password) {
     try {
       MessageDigest md = MessageDigest.getInstance("MD5");
 
@@ -98,7 +95,29 @@ public class Validaciones {
     } catch (NoSuchAlgorithmException e) {
       throw new RuntimeException(e);
     }
+  }*/
+
+  public static String encriptarPass(String password) {
+    MessageDigest md = null;
+    try {
+      md = MessageDigest.getInstance("SHA-256");
+    }
+    catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+      return null;
+    }
+
+    byte[] hash = md.digest(password.getBytes());
+    StringBuffer sb = new StringBuffer();
+
+    for(byte b : hash) {
+      sb.append(String.format("%02x", b));
+    }
+
+    return sb.toString();
   }
+
+
   static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
   public static Date getDateFromString(String fechaString){
 
