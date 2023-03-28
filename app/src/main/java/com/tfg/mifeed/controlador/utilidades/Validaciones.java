@@ -78,25 +78,6 @@ public class Validaciones {
         .show();
   }
 
-  /*public static String hashearMD5(String password) {
-    try {
-      MessageDigest md = MessageDigest.getInstance("MD5");
-
-      byte[] messageDigest = md.digest(password.getBytes());
-
-      BigInteger no = new BigInteger(1, messageDigest);
-
-      StringBuilder hashtext = new StringBuilder(no.toString(16));
-      while (hashtext.length() < 32) {
-        hashtext.insert(0, "0");
-      }
-      return hashtext.toString();
-
-    } catch (NoSuchAlgorithmException e) {
-      throw new RuntimeException(e);
-    }
-  }*/
-
   public static String encriptarPass(String password) {
     MessageDigest md = null;
     try {

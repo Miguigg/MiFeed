@@ -48,6 +48,10 @@ public class ImportantesFragment extends Fragment {
     }
 
     public void respuestaListaDominios(ArrayList<String> listaDominios,String res, View v){
+        /*
+        *recibe la lista de dominios que el usuario tiene en favoritos y, en fucion de si la ha obtenido
+        * de forma exitosa, genera la lista de noticias
+        * */
         switch (res){
             case "true":
                 generarLista(listaDominios,v);
@@ -59,6 +63,9 @@ public class ImportantesFragment extends Fragment {
     }
 
     private void generarLista(ArrayList<String> listaDominios,View v) {
+        /*
+        * Con la lista de dominios manda una peticion a la API para obtener la lista
+        * */
         String listString = String.join(", ", listaDominios);
         ArrayList<Noticia> respuesta = new ArrayList<>();
         RecyclerView listaNoticias = v.findViewById(R.id.listaNotiicasImportantes);

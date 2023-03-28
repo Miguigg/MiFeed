@@ -69,6 +69,9 @@ public class EtiquetasFragment extends Fragment {
   }
 
   private void inputTitulo(View v) {
+    /*
+    * Despliega el menu contextual para introducir el nombre que se le quiere asignar a la etiqueta
+    * */
     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
     builder.setTitle(R.string.txtTituloEtiqueta);
     final EditText input = new EditText(v.getContext());
@@ -96,6 +99,9 @@ public class EtiquetasFragment extends Fragment {
   }
 
   private void addEtiqueta(String titulo, View v) {
+    /*
+    * Verifica que el titulo no este vacio y crea la etiqueta en firebase
+    * */
     if(titulo.isEmpty()){
       Toast.makeText(v.getContext(),R.string.errTituloEtiquetaVacia,Toast.LENGTH_LONG).show();
     }else{
@@ -104,6 +110,10 @@ public class EtiquetasFragment extends Fragment {
   }
   @SuppressLint("NotifyDataSetChanged")
   public void respuestaGetEtiquetas(String res, ArrayList<Etiqueta> lista, View view) {
+    /*
+    * Recibe la lista de etiquetas que hay en firebase. En caso de no haber etiquetas comunica que no
+    * se han entcontrado
+    * */
     switch (res) {
       case "true":
         LinearLayoutManager linearLayoutManager =
@@ -123,6 +133,9 @@ public class EtiquetasFragment extends Fragment {
   }
 
   public void respuestaCreacionEtiqueta(String res, View view) {
+    /*
+    * Comunica al usuario el resultado del proceso de creacion de la etiqueta
+    * */
     switch (res) {
       case "true":
         FirebaseNoticias.getEtiquetas(view);
@@ -134,6 +147,9 @@ public class EtiquetasFragment extends Fragment {
   }
 
   public void abrirEtiqueta(Etiqueta e,View view){
+    /*
+    * Si el usuario pulsa alguna etqueta se redirige al usuario a la pestaña con los artuculos dentro
+    * */
     Intent intent = new Intent(view.getContext(), EtiquetaActivity.class);
     intent.putExtra("Nombre",e.getTituloEtiqueta());
     intent.putExtra("urls",e.getUrls());

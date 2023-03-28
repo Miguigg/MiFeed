@@ -66,12 +66,18 @@ public class FavoritosFragment extends Fragment {
     }
 
     private void modificarPreferencias(View v) {
+        /*
+        * Redirige al usuario a la pestaña de modificacion de medios
+        * */
         v.getContext().startActivity(new Intent(v.getContext(),SeleccionTemasActivity.class));
         getActivity().onBackPressed();
         getActivity().finish();
     }
 
     private void inicializarAdaptador(){
+        /*
+        * Inicializa el adaptador pasandole los datos de la lista de medios y temas
+        * */
         cargaFavoritos.setVisibility(View.GONE);
         AdatadorMediosUsuario adatadorMediosUsuario = new AdatadorMediosUsuario(listaMedios);
         recyclerViewMedios.setAdapter(adatadorMediosUsuario);
@@ -80,6 +86,9 @@ public class FavoritosFragment extends Fragment {
 
     }
     public void respuestaListaMedios(ArrayList<String> res, String codigo){
+        /*
+        * Actualiza la lista de medios a mostrar con la actual obtenida de firebase
+        * */
         switch (codigo){
             case "true":
                 listaMedios = res;
@@ -94,6 +103,9 @@ public class FavoritosFragment extends Fragment {
     }
 
     public void  respuestaListaTemas(ArrayList<String> res, String codigo){
+        /*
+         * Actualiza la lista de temas a mostrar con la actual obtenida de firebase
+        * */
         switch (codigo){
             case "true":
                 listaTemas = res;

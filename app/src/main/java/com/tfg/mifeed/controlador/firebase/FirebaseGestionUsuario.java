@@ -117,6 +117,9 @@ public class FirebaseGestionUsuario {
   }
 
   public static void ejecutarRegistro(Usuario usuario) {
+      /*
+      * Recibe un objeto con los datos del usuario validados para mandarlos a firebase
+      * */
     RegistroActivity registroActivity = new RegistroActivity();
     userAuth
         .createUserWithEmailAndPassword(usuario.getEmail(), usuario.getContraseña())
@@ -126,7 +129,6 @@ public class FirebaseGestionUsuario {
               public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                   ArrayList<String> historial = new ArrayList<>();
-                  ArrayList<String> masTarde = new ArrayList<>();
                   Map<String, Object> user = new HashMap<>();
                   user.put("id", userAuth.getCurrentUser().getUid());
                   user.put("nombre", usuario.getNombre());
@@ -169,6 +171,9 @@ public class FirebaseGestionUsuario {
   }
 
   public static void mandarEmailVerificacion(View v) {
+      /*
+      * Cuando el usuario aun no ha validado el email, le manda el email de validacion
+      * */
     userAuth
         .getCurrentUser()
         .sendEmailVerification()
@@ -187,6 +192,9 @@ public class FirebaseGestionUsuario {
   }
 
   public static void resetEmail(String email) {
+      /*
+      * Recibe el email introducido y, si coincide con alguno de la base de datos, le manda el email para resetear la contraseña
+      * */
     ResetContrasenha rst = new ResetContrasenha();
     userAuth
         .sendPasswordResetEmail(email)
@@ -204,6 +212,9 @@ public class FirebaseGestionUsuario {
   }
 
   public static void setTemasUsuario(ArrayList<String> temas) {
+      /*
+      * Recibe un arraylist con los temas seleccionados por el usuario y los guarda en firebase
+      * */
     SeleccionTemasActivity seleccionTemasActivity = new SeleccionTemasActivity();
     String id = userAuth.getCurrentUser().getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
@@ -224,6 +235,9 @@ public class FirebaseGestionUsuario {
   }
 
   public static void setMediosUsuario(ArrayList<String> medios, ArrayList<String> dominios) {
+      /*
+      * Recibe el nombre y el dominio de los medios seleccionados por el usuario y los guarda en firebase
+      * */
     for (int i = 0; i < medios.size(); i++) {
       Log.d("medio", medios.get(i));
     }
@@ -260,6 +274,9 @@ public class FirebaseGestionUsuario {
   }
 
   public static void setFirstLoginFalse() {
+      /*
+      * Cuando el usuario se loguea por primera vez el sistema actualiza su estado en firebase
+      * */
     String id = userAuth.getCurrentUser().getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
     Map<String, Object> valor = new HashMap<>();
@@ -268,7 +285,9 @@ public class FirebaseGestionUsuario {
   }
 
   public static void editarUsuario(Usuario usuario, String passAnterior, View v) {
-
+      /*
+      * Recibe los datos nuevos introducidos por el usuario y los actualiza en firebase
+      * */
     if (usuario.getContraseña().equals("")) {
       usuario.setContraseña(passAnterior);
     }

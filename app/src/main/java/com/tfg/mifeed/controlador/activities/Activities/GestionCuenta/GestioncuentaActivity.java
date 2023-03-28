@@ -111,7 +111,9 @@ public class GestioncuentaActivity extends AppCompatActivity {
   }
 
   private void comprobarDatos() {
-
+    /*
+    * Cuando el usuario pulsa el boton de aceptar, comprueba que todos los inputs son correctos
+    * */
     String valorNombre = nombre.getText().toString();
     String valorContrasenha1 = pass.getText().toString();
     String valorContrasenha2 = pass2.getText().toString();
@@ -193,6 +195,10 @@ public class GestioncuentaActivity extends AppCompatActivity {
   }
 
   private void confirmarContrasenhaEdicion(Usuario usuario) {
+    /*
+    * Antes de proceder a la edicion de la cuenta se comprueba que es verdaderamente el usuario el que
+    * quere realizar la modificacion, comprobando la contraseña
+    * */
     AlertDialog.Builder builder = new AlertDialog.Builder(this);
     builder.setTitle(R.string.confirmaCont);
     final EditText input = new EditText(this);
@@ -321,6 +327,10 @@ public class GestioncuentaActivity extends AppCompatActivity {
   }
 
   public void respuestaTestPass(Usuario usuario,String passAnterior,String res) {
+    /*
+    * Si el test de la contraseña es correcto se invoca a la funcion de modificacion pasandole el usuario y la
+    * contraseña actual. En caso contrario se notifica que la contraseña es incorrecta
+    * */
     switch (res) {
       case "true":
         FirebaseGestionUsuario.editarUsuario(usuario, passAnterior ,v);

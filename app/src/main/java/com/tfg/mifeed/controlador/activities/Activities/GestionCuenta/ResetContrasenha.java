@@ -64,6 +64,7 @@ public class ResetContrasenha extends AppCompatActivity {
     }
 
     public void validacionOK(boolean correcto){
+        /*Redirige al login y manda email de recuperacion*/
         TextView errReset = v.findViewById(R.id.errReset);
         if(correcto){
             Toast.makeText(v.getContext(), R.string.confirmacioCambio,

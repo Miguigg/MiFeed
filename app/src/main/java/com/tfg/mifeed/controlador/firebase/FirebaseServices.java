@@ -50,6 +50,9 @@ public class FirebaseServices {
   }
 
   public static void getMedios() {
+      /*
+      * Obtiene la lista actual de medios disponibles en firebase
+      * */
     SeleccionMediosActivity seleccionMediosActivity = new SeleccionMediosActivity();
     ArrayList<String> medios = new ArrayList<>();
     ArrayList<String> dominios = new ArrayList<>();
@@ -77,7 +80,9 @@ public class FirebaseServices {
   }
 
   public static void getInfoUsuario(View v) {
-
+      /*
+      * Obtiene el nombre,correo y si tiene activas las notificaciones y el guardado del historial
+      * */
     GestioncuentaActivity ges = new GestioncuentaActivity();
     String id = userAuth.getCurrentUser().getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
@@ -107,6 +112,9 @@ public class FirebaseServices {
   }
 
   public static void getMediosUsuario() {
+      /*
+      * Obtiene los medios que el usuario ya tiene en la base de datos
+      * */
     FavoritosFragment favoritosFragment = new FavoritosFragment();
     String id = Objects.requireNonNull(userAuth.getCurrentUser()).getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
@@ -128,6 +136,9 @@ public class FirebaseServices {
   }
 
   public static void getTemasUsuario(View v, String activity) {
+      /*
+       * Obtiene los temas que el usuario ya tiene en la base de datos
+       * */
     String id = userAuth.getCurrentUser().getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
     ref.get()
@@ -166,6 +177,9 @@ public class FirebaseServices {
   }
 
   public static void getDominios(View view) {
+      /*
+      * Obtiene una lista de todos los dominios en la base de dayos
+      * */
     ImportantesFragment importantesFragment = new ImportantesFragment();
     String id = userAuth.getCurrentUser().getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
