@@ -179,6 +179,14 @@ public class AdaptadorListaEpisodios
     }
   }
 
+  public void onBackPressed(){
+    if (mediaPlayer.isPlaying()) {
+      mediaPlayer.stop();
+      mediaPlayer.reset();
+      mediaPlayer.release();
+    }
+  }
+
   @Override
   public int getItemCount() {
     return listaEpisodios.size();

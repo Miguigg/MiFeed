@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.tfg.mifeed.R;
-import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
+import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;import com.tfg.mifeed.controlador.firebase.FirebaseGestionUsuario;
 
 import java.util.ArrayList;
 
@@ -72,7 +72,12 @@ public class AdatadorMediosUsuario extends RecyclerView.Adapter<AdatadorMediosUs
 
     @Override
     public int getItemCount() {
-        return lista.size();
+        try{
+            return lista.size();
+        }catch (java.lang.NullPointerException e){
+            FirebaseAuth.getInstance().signOut();
+            return 0;
+        }
     }
 
     public static class ViewHolderMediosUsuario extends RecyclerView.ViewHolder{

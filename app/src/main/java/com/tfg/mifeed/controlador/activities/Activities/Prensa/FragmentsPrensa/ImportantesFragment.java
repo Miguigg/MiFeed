@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPrensa.AdaptadorListaNoticias;
 import com.tfg.mifeed.controlador.conexionNewsApi.ApiConn;
-import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.firebase.FirebaseGestionUsuario;import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Noticia;
 import com.tfg.mifeed.modelo.RespuestaListaNoticias;
@@ -31,6 +31,7 @@ import retrofit2.Response;
 public class ImportantesFragment extends Fragment {
     private final String API_KEY = "c3afd5ea3f5548adbe7afc7e21c4c0bf";
     private static ProgressBar carga;
+    FirebaseGestionUsuario firebaseGestionUsuario;
 
 
     @Override
@@ -38,11 +39,12 @@ public class ImportantesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_importantes, container, false);
         carga = view.findViewById(R.id.cargaImportantes);
+        firebaseGestionUsuario = new FirebaseGestionUsuario();
         if(!CheckConexion.getEstadoActual(view.getContext())){
             Toast.makeText(view.getContext(),R.string.errConn,Toast.LENGTH_LONG).show();
             carga.setVisibility(View.GONE);
         }else{
-            FirebaseServices.getDominios(view);
+            FirebaseGestionUsuario.getDominios(view);
         }
         return view;
     }

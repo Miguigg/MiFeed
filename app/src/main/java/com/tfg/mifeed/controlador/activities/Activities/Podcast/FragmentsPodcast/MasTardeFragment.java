@@ -51,6 +51,9 @@ public class MasTardeFragment extends Fragment {
     }
 
     private void setAdaptadorListaMasTarde(){
+        /*
+        * Inicializa el adaptado que se utiliza para representar los capitulos
+        * */
         LinearLayoutManager linearLayoutManager =
                 new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         AdaptadorListaMasTarde adaptadorListaMasTarde1 = new AdaptadorListaMasTarde(listaEpisodios,v.getContext());
@@ -59,6 +62,9 @@ public class MasTardeFragment extends Fragment {
     }
 
     public void respuestaListaPodcast(ArrayList<Episodio> listaEpisodiosNueva, String res){
+        /*
+        * Recibe la lista de capitulos y se la pasa al adaptador inicializado
+        * */
         switch (res){
             case "true":
                 listaEpisodios = listaEpisodiosNueva;

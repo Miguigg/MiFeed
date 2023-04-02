@@ -22,17 +22,17 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
-import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.LoginActivity;
+import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.GestioncuentaActivity;import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.LoginActivity;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.RegistroActivity;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.ResetContrasenha;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionMediosActivity;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionTemasActivity;
-import com.tfg.mifeed.modelo.Usuario;
+import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.CategoriasFragment;import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.FavoritosFragment;import com.tfg.mifeed.controlador.activities.Activities.Prensa.FragmentsPrensa.ImportantesFragment;import com.tfg.mifeed.modelo.Usuario;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Map;import java.util.Objects;
 
 public class FirebaseGestionUsuario {
   private static FirebaseFirestore instancia;
@@ -404,4 +404,125 @@ public class FirebaseGestionUsuario {
               });
     }
   }
+
+    public static void getInfoUsuario(View v) {
+        /*
+         * Obtiene el nombre,correo y si tiene activas las notificaciones y el guardado del historial
+         * */
+        GestioncuentaActivity ges = new GestioncuentaActivity();
+        String id = userAuth.getCurrentUser().getUid();
+        DocumentReference ref = instancia.collection("Users").document(id);
+        ref.get()
+                .addOnSuccessListener(
+                        new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.exists()) {
+                                    String nombre = documentSnapshot.getString("nombre");
+                                    String correo = documentSnapshot.getString("correo");
+                                    String notificaciones = documentSnapshot.getString("notificaciones");
+                                    String nube = documentSnapshot.getString("guardarHistorial");
+                                    ges.respuestaDatosUsuario(nombre, correo, notificaciones, nube, v);
+                                } else {
+                                    ges.respuestaDatosUsuario(v);
+                                }
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                ges.respuestaDatosUsuario(v);
+                            }
+                        });
+    }
+
+    public static void getMediosUsuario() {
+        /*
+         * Obtiene los medios que el usuario ya tiene en la base de datos
+         * */
+        FavoritosFragment favoritosFragment = new FavoritosFragment();
+        String id = Objects.requireNonNull(userAuth.getCurrentUser()).getUid();
+        DocumentReference ref = instancia.collection("Users").document(id);
+        ref.get()
+                .addOnSuccessListener(
+                        new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.exists()) {
+                                    ArrayList<String> listaMedios =
+                                            (ArrayList<String>) documentSnapshot.get("medios");
+                                    favoritosFragment.respuestaListaMedios(listaMedios, "true");
+                                } else {
+                                    ArrayList<String> listaMedios = new ArrayList<>();
+                                    favoritosFragment.respuestaListaMedios(listaMedios, "false");
+                                }
+                            }
+                        });
+    }
+
+    public static void getTemasUsuario(View v, String activity) {
+        /*
+         * Obtiene los temas que el usuario ya tiene en la base de datos
+         * */
+        String id = userAuth.getCurrentUser().getUid();
+        DocumentReference ref = instancia.collection("Users").document(id);
+        ref.get()
+                .addOnSuccessListener(
+                        new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.exists()) {
+                                    ArrayList<String> listaTemas = (ArrayList<String>) documentSnapshot.get("temas");
+                                    if (activity.equals("favoritos")) {
+                                        FirebaseGestionUsuario.respuestaFavoritos(listaTemas, "true");
+                                    } else {
+                                        FirebaseGestionUsuario.respuestaCategorias(v, listaTemas, "true");
+                                    }
+                                } else {
+                                    if (activity.equals("favoritos")) {
+                                        ArrayList<String> listaTemas = new ArrayList<>();
+                                        FirebaseGestionUsuario.respuestaFavoritos(listaTemas, "false");
+                                    } else {
+                                        ArrayList<String> listaTemas = new ArrayList<>();
+                                        FirebaseGestionUsuario.respuestaCategorias(v, listaTemas, "false");
+                                    }
+                                }
+                            }
+                        });
+    }
+
+    public static void respuestaFavoritos(ArrayList<String> listaTemas, String codigo) {
+        FavoritosFragment favoritosFragment = new FavoritosFragment();
+        favoritosFragment.respuestaListaTemas(listaTemas, codigo);
+    }
+
+    public static void respuestaCategorias(View v, ArrayList<String> listaTemas, String codigo) {
+        CategoriasFragment categoriasFragment = new CategoriasFragment();
+        categoriasFragment.rellenarCategorias(v, listaTemas, codigo);
+    }
+
+    public static void getDominios(View view) {
+        /*
+         * Obtiene una lista de todos los dominios en la base de dayos
+         * */
+        ImportantesFragment importantesFragment = new ImportantesFragment();
+        String id = userAuth.getCurrentUser().getUid();
+        DocumentReference ref = instancia.collection("Users").document(id);
+        ref.get()
+                .addOnSuccessListener(
+                        new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.exists()) {
+                                    ArrayList<String> listaDominios =
+                                            (ArrayList<String>) documentSnapshot.get("dominios");
+                                    importantesFragment.respuestaListaDominios(listaDominios, "true", view);
+                                } else {
+                                    ArrayList<String> listaDominios = new ArrayList<>();
+                                    importantesFragment.respuestaListaDominios(listaDominios, "false", view);
+                                }
+                            }
+                        });
+    }
 }

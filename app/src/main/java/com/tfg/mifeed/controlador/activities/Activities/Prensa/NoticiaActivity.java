@@ -68,6 +68,10 @@ public class NoticiaActivity extends AppCompatActivity {
     }
 
     public void respuestaNombresEtiquetas(String res, ArrayList<String> nombres, LayoutInflater inf){
+        /*
+        * En caso de haber encontrado etiquetas se reciben para mostrarlas en el menu selector de
+        * etiqueta.
+        * */
         switch (res){
             case "true":
                 listaNombres = nombres;
@@ -80,6 +84,10 @@ public class NoticiaActivity extends AppCompatActivity {
     }
 
     private void mostrarDialogo(LayoutInflater inf){
+        /*
+        * Lanza el menu contextual en el que el usuario introduce el nombre que le quiere dar al articulo
+        * y la etiqueta donde lo quiere meter
+        * */
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setTitle(R.string.txtTituloEtiqueta);
         View dialog_layout = inf.inflate(R.layout.layout_dialogo, null);
@@ -118,6 +126,9 @@ public class NoticiaActivity extends AppCompatActivity {
     }
 
     private void accederNoticia(String url){
+        /*
+        * Con la url recibida accede a la web
+        * */
         WebSettings ws = noticia.getSettings();
         ws.setJavaScriptEnabled(true);
         noticia.setWebViewClient(new WebViewClient());
@@ -125,6 +136,9 @@ public class NoticiaActivity extends AppCompatActivity {
     }
 
     private void compartirNoticia(){
+        /*
+        * Con el boton de compartir permite mandar la url de la web visitada por distintas aplicaciones
+        * */
       Intent intent = new Intent();
       intent.setAction(Intent.ACTION_SEND);
       intent.putExtra(Intent.EXTRA_TEXT,url);

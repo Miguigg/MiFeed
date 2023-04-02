@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPrensa.AdaptadorListaNoticias;
 import com.tfg.mifeed.controlador.conexionNewsApi.ApiConn;
-import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.firebase.FirebaseGestionUsuario;import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.modelo.Noticia;
 import com.tfg.mifeed.modelo.RespuestaListaNoticias;
@@ -38,6 +38,7 @@ public class CategoriasFragment extends Fragment {
 
     private final String API_KEY = "c3afd5ea3f5548adbe7afc7e21c4c0bf";
     public static ProgressBar cargaEleccion;
+    FirebaseGestionUsuario firebaseGestionUsuario;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -45,17 +46,21 @@ public class CategoriasFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_categorias, container, false);
         cargaEleccion = view.findViewById(R.id.cargaEleccion);
+        firebaseGestionUsuario = new FirebaseGestionUsuario();
 
         if(!CheckConexion.getEstadoActual(view.getContext())){
             Toast.makeText(view.getContext(),R.string.errConn,Toast.LENGTH_LONG).show();
             cargaEleccion.setVisibility(View.GONE);
         }else{
-            FirebaseServices.getTemasUsuario(view,"categorias");
+            FirebaseGestionUsuario.getTemasUsuario(view,"categorias");
         }
         return view;
     }
 
     private void getNoticias(String tema, View contenedor) {
+        /*
+        * Pasandole la categoria seleccionada manda una peticion a la API para obtener la lista de noticias
+        * */
         ArrayList<Noticia> respuesta = new ArrayList<>();
         RecyclerView lista = contenedor.findViewById(R.id.RecycleviewNoticias);
         AdaptadorListaNoticias adaptadorListaNoticias = new AdaptadorListaNoticias(contenedor.getContext().getApplicationContext(),respuesta,contenedor);
@@ -92,6 +97,9 @@ public class CategoriasFragment extends Fragment {
     }
 
     public int traducirCategorias(String catIngles){
+        /*
+        * La API trabaja con nombres en ingles, pero al usuario se le muestran en castellano o gallego
+        * */
         switch (catIngles) {
             case "business":
                 return R.string.txtNegocios;
@@ -112,6 +120,9 @@ public class CategoriasFragment extends Fragment {
     }
 
     public void rellenarCategorias(View vContenedor, ArrayList<String> temas, String res){
+        /*
+        * Habiendo accedido a la lista de categorias del usuario, se le muestran las que ha elegido en el menu
+        * */
         LinearLayout.LayoutParams layoutParams =
                 new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -147,6 +158,9 @@ public class CategoriasFragment extends Fragment {
     }
 
     private void setAccion(String tag, View vista) {
+        /*
+        * Para cada uno de los botones de categoria se le atribuye una accion distinta
+        * */
         switch (tag) {
             case "business":
                 getNoticias("business",vista);

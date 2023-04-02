@@ -2,7 +2,7 @@ package com.tfg.mifeed.controlador.activities.Activities.Podcast;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Bundle;
+import android.media.MediaPlayer;import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -27,7 +27,7 @@ public class PodcastMainActivity extends AppCompatActivity {
     private BibliotecaFragment bibliotecaFragment;
     private MasTardeFragment masTardeFragment;
     private RecordatoriosFragment recordatoriosFragment;
-
+    private MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +55,7 @@ public class PodcastMainActivity extends AppCompatActivity {
                 }else{
                     switch (item.getItemId()){
                         case R.id.frag_busqueda:
+
                             getSupportFragmentManager().beginTransaction().replace(R.id.framePodcast,busquedaFragment).commit();
                             return true;
                         case R.id.frag_biblio:

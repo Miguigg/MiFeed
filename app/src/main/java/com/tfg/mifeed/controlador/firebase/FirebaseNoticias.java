@@ -48,6 +48,9 @@ public class FirebaseNoticias {
   }
 
   public static void crearEtiqueta(String nombre, View v) {
+      /*
+      * Recibe el nombre de la nueva etiqueta y la crea en firebase
+      * */
     EtiquetasFragment etiquetasFragment = new EtiquetasFragment();
     Map<String, Object> etiqueta = new HashMap<>();
     ArrayList<String> urls = new ArrayList<>();
@@ -75,6 +78,9 @@ public class FirebaseNoticias {
   }
 
   public static void deleteEtiqueta(String nombre, View v) {
+      /*
+      * Teniendo el nombre de la etiqueta, procede a eliminarla en firebase (solo si el creador coincide)
+      * */
     CollectionReference ref = instancia.collection("Etiquetas");
     ref.get()
         .addOnSuccessListener(
@@ -127,6 +133,9 @@ public class FirebaseNoticias {
   }
 
   public static void getNombresEtiquetas(LayoutInflater inf) {
+      /*
+      * Obtiene de firerbase los nombres de todas las etiquetas, del usuario
+      * */
     NoticiaActivity noticiaActivity = new NoticiaActivity();
     CollectionReference ref = instancia.collection("Etiquetas");
     ArrayList<String> nombreEtiquetas = new ArrayList<>();
@@ -154,6 +163,9 @@ public class FirebaseNoticias {
   }
 
   public static void getEtiquetas(View v) {
+      /*
+      * Obtiene de firebase todas las etiquetas del usuario, con su contenido
+      * */
     EtiquetasFragment etiquetasFragment = new EtiquetasFragment();
     CollectionReference ref = instancia.collection("Etiquetas");
     ArrayList<Etiqueta> etiquetasUsuario = new ArrayList<>();
@@ -189,6 +201,9 @@ public class FirebaseNoticias {
   }
 
   public static void eliminarUrlLista(String url, String nombreEtiqueta) {
+      /*
+      * Dada la url y el nombre de la etiqueta, borra el enlace de la etiqueta en firebase
+      * */
     CollectionReference ref = instancia.collection("Etiquetas");
     ref.get()
         .addOnSuccessListener(
@@ -233,6 +248,9 @@ public class FirebaseNoticias {
 
   public static void actualizarUrlsyTitulos(
       ArrayList<String> listaUrls, ArrayList<String> listaTitulos, String nombreEtiqueta) {
+      /*
+      * recibe la nueva lista de urls y titulos y los actualiza en firebase
+      * */
     CollectionReference ref = instancia.collection("Etiquetas");
     String id = userAuth.getCurrentUser().getUid();
     ref.get()
@@ -259,6 +277,9 @@ public class FirebaseNoticias {
   }
 
   public static void insertarUrlEtiqueta(String url, String nombreSitio, String nombreEtiqueta) {
+      /*
+      * Recibiendo la url y el nombre, los añade a las listas de la etiqueta indicada
+      * */
     CollectionReference ref = instancia.collection("Etiquetas");
     String id = userAuth.getCurrentUser().getUid();
     ref.get()
@@ -297,6 +318,9 @@ public class FirebaseNoticias {
   }
 
   public static void getHistorial() {
+      /*
+      * Obtiene el historial de articulos visitados por el usuario logeado
+      * */
     HistorialActivity historialActivity = new HistorialActivity();
     String id = userAuth.getCurrentUser().getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
@@ -313,6 +337,9 @@ public class FirebaseNoticias {
   }
 
   public static void insertarHistorial(String url) {
+      /*
+      * Inserta en el historial del usuario una vez visita la pagina
+      * */
     String id = userAuth.getCurrentUser().getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
 
@@ -357,6 +384,9 @@ public class FirebaseNoticias {
   }
 
   public static void eliminarElementoHistorial(String url) {
+      /*
+      * Elimina la url indicada del historial
+      * */
     String id = userAuth.getCurrentUser().getUid();
     DocumentReference ref = instancia.collection("Users").document(id);
     ref.get()
@@ -389,6 +419,9 @@ public class FirebaseNoticias {
   }
 
   public static void eliminarTodoHistorial(View v) {
+      /*
+      * Elimina todo el historial del usuario
+      * */
     String id = userAuth.getCurrentUser().getUid();
     ArrayList<String> historial = new ArrayList<>();
     Map<String, Object> historialNuevo = new HashMap<>();

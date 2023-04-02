@@ -18,7 +18,7 @@ import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.SeleccionTemasActivity;
 import com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPrensa.AdatadorMediosUsuario;
-import com.tfg.mifeed.controlador.firebase.FirebaseServices;
+import com.tfg.mifeed.controlador.firebase.FirebaseGestionUsuario;import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 
 import java.util.ArrayList;
@@ -33,12 +33,14 @@ public class FavoritosFragment extends Fragment {
     public static ProgressBar cargaFavoritos;
 
     private ConstraintLayout btnModificar;
+    FirebaseGestionUsuario firebaseGestionUsuario;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_favoritos, container, false);
-        FirebaseServices.getMediosUsuario();
+        firebaseGestionUsuario = new FirebaseGestionUsuario();
+        FirebaseGestionUsuario.getMediosUsuario();
         LinearLayoutManager linearLayoutManager1 =
                 new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         LinearLayoutManager linearLayoutManager2 =
@@ -99,7 +101,7 @@ public class FavoritosFragment extends Fragment {
                 v.getContext().startActivity(new Intent(v.getContext(), BienvenidaActivity.class));
                 break;
         }
-        FirebaseServices.getTemasUsuario(v,"favoritos");
+        FirebaseGestionUsuario.getTemasUsuario(v,"favoritos");
     }
 
     public void  respuestaListaTemas(ArrayList<String> res, String codigo){

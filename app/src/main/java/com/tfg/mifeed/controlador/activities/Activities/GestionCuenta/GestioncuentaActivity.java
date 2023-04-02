@@ -67,7 +67,7 @@ public class GestioncuentaActivity extends AppCompatActivity {
 
 
     // Solicida al serivicio de conexion con Firebase los datos del usuario actual para mostrarlo
-    FirebaseServices.getInfoUsuario(v);
+    FirebaseGestionUsuario.getInfoUsuario(v);
 
     btnLogout.setOnClickListener(
         v -> {

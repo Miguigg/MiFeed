@@ -49,6 +49,9 @@ public class RecordatoriosFragment extends Fragment {
   }
 
   private void rellenarLista(View v){
+    /*
+    * Inicializa el adaptador que usará para representar los recordatorios
+    * */
     LinearLayoutManager linearLayoutManager =
             new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
     AdaptadorListaRecordatorios adaptadorListaRecordatorios = new AdaptadorListaRecordatorios(respuestaRecordatorios, v.getContext());
@@ -57,6 +60,9 @@ public class RecordatoriosFragment extends Fragment {
   }
 
   public void respuestaListaRecordatorios(ArrayList<Recordatorio> recordatorios, String res, View v) {
+    /*
+    * Una vez ha recibido los recordatorios, los representa mandandoselos al adaptador
+    * */
     switch (res) {
       case "true":
         for (int i = 0; i < recordatorios.size(); i++) {

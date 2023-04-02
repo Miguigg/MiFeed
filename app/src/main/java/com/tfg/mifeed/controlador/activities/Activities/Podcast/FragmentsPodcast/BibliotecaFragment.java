@@ -49,6 +49,9 @@ public class BibliotecaFragment extends Fragment {
     }
 
     public void respuestaBiblioteca(String res, ArrayList<Podcast> listaPodcast){
+        /*
+        * Recibe la lista de los podcast en biblioteca y se la envia al adaptador para mostrarla
+        * */
         switch (res){
             case "true":
                 LinearLayoutManager linearLayoutManager =

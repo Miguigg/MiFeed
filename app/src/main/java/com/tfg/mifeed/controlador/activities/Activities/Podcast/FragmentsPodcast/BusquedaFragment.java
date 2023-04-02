@@ -93,6 +93,9 @@ public class BusquedaFragment extends Fragment {
   }
 
   private void getEpisodios(String valor, String idioma) {
+    /*
+    * Dado el valor introducido en la barra de busqueda, se le envia la peticion a la API
+    * */
     ApiPodcastConn.getApiConnInterfacePodcast()
         .getEpisodiosConBusqueda(valor, 1, "episode", "20", idioma)
         .enqueue(
