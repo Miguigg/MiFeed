@@ -29,7 +29,7 @@ import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.LoginActiv
 import com.tfg.mifeed.controlador.activities.Activities.GestionCuenta.RegistroActivity;
 import com.tfg.mifeed.controlador.firebase.FirebasePodcast;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
-import com.tfg.mifeed.modelo.Episodio;
+import com.tfg.mifeed.controlador.utilidades.CheckConexion;import com.tfg.mifeed.modelo.Episodio;
 
 import org.w3c.dom.Text;
 
@@ -134,6 +134,9 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
         String input = String.valueOf(añoSeleccionado) + "-" +String.valueOf(mesSeleccionado)+ "-" + String.valueOf(diaSeleccionado) + "T" + String.valueOf(horaSeleccionada) + ":" +String.valueOf(minutoSeleccionado)+":00"+"Z";
         crearCanal(calendar.getTimeInMillis());
         FirebasePodcast.setRecordatorio(episodio,input,v, idPodcast);
+        if(!CheckConexion.getEstadoActual(CreacionRecordatorioActivity.this)){
+            Toast.makeText(CreacionRecordatorioActivity.this,R.string.txtRecordatorioSinConexion,Toast.LENGTH_LONG).show();
+        }
         ((Activity) v.getContext()).finish();
     }
 

@@ -9,7 +9,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMedios"
-        android:layout_width="413dp"
+        android:layout_width="386dp"
         android:layout_height="197dp"
         android:layout_marginTop="20dp"
         android:foregroundGravity="center_horizontal"
@@ -52,14 +52,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTemas"
-        android:layout_width="match_parent"
-        android:layout_height="185dp"
+        android:layout_width="390dp"
+        android:layout_height="192dp"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toTopOf="@+id/btnModificar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temasSeleccionados" />
+        app:layout_constraintTop_toBottomOf="@+id/temasSeleccionados"
+        app:layout_constraintVertical_bias="0.435" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnModificar"

@@ -56,6 +56,7 @@
     <string name="txtAddPodcast">Podcast añadido</string>
     <string name="txtAddBiblioteca">Añadir a la biblioteca</string>
     <string name="txtTituloBiblioteca">Tu bliblioteca de podcast</string>
+    <string name="txtRecordatorioSinConexion">No hay conexión, por tanto el recordatorio no se ha podido guardar en el servidor</string>
     <string name="cuentaBorrada">Tu cuenta ha sido borrada correctamente</string>
     <string name="notificaciones">Notificaciones</string>
     <string name="BorradoPodcast">Borrado de podcast</string>
