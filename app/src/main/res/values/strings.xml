@@ -85,8 +85,8 @@
     <string name="descripcionDecoracion">Decoración aplicación</string>
     <string name="descripcionInputNombre">Nombre de usuario</string>
     <string name="descripcionInputEmail">Email de tu cuenta</string>
-    <string name="descripcionInputPass">Escribe tu nueva contraseña</string>
-    <string name="descripcionInputPass2">Repetir nueva contraseña</string>
+    <string name="descripcionInputPass">Escribe tu contraseña</string>
+    <string name="descripcionInputPass2">Repetir contraseña</string>
     <string name="descripcionImgMedio">Logotipo periodico</string>
 
     <string name="errRecordatoriosActivos">No tienes activados los recodatorios en ajustes, puedes cambiarlo en las opciones de usuario</string>

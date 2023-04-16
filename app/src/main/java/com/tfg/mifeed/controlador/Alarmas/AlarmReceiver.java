@@ -47,7 +47,7 @@ public class AlarmReceiver extends BroadcastReceiver{
         PendingIntent pendingIntent = PendingIntent.getActivity(context,0,i,PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "recordatorioPodcast")
-                .setSmallIcon(R.drawable.ic_app_v2)
+                .setSmallIcon(R.drawable.ic_noticifacion)
                 .setContentTitle(context.getString(R.string.recordatorioTitulo))
                 .setContentText(context.getString(R.string.recordatorioCuerpo))
                 .setAutoCancel(true)

@@ -11,7 +11,7 @@
         android:id="@+id/modifNombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="60dp"
         android:autofillHints=""
         android:background="@drawable/fondo_input"
         android:ems="10"
@@ -27,8 +27,8 @@
 
     <EditText
         android:id="@+id/modifCorreo"
-        android:layout_width="290dp"
-        android:layout_height="50dp"
+        android:layout_width="356dp"
+        android:layout_height="51dp"
         android:layout_marginTop="15dp"
         android:autofillHints=""
         android:background="@drawable/fondo_input"
@@ -46,7 +46,7 @@
 
     <EditText
         android:id="@+id/modifPass2"
-        android:layout_width="235dp"
+        android:layout_width="288dp"
         android:layout_height="48dp"
         android:layout_marginTop="15dp"
         android:autofillHints="@string/contraseña"
@@ -67,7 +67,7 @@
 
     <EditText
         android:id="@+id/modifPass"
-        android:layout_width="235dp"
+        android:layout_width="288dp"
         android:layout_height="48dp"
         android:layout_marginTop="15dp"
         android:autofillHints="@string/contraseña"
@@ -362,8 +362,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnAtras"
-        android:layout_width="88dp"
-        android:layout_height="35dp"
+        android:layout_width="98dp"
+        android:layout_height="33dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/btn_gestion"

@@ -111,6 +111,8 @@
     <string name="errAddPodcast">Erro ao salvar o Podcast</string>
     <string name="errCargaBiblioteca">Non se encontraron podcast na túa biblioteca</string>
     <string name="errArticulos">Non se encontraron articulos na túa etiqueta</string>
+    <string name="txtRecordatorioSinConexion">Non hai conexión, por tanto o recordatorio non se puido gardar no servidor</string>
+    <string name="horaRecordatorio">Hora do recordatorio</string>
     <string name="cuentaBorrada">A túa conta foi borrada correctamente</string>
     <string name="notificaciones">Notificacións</string>
     <string name="BorradoPodcast">Borrado de podcast</string>
