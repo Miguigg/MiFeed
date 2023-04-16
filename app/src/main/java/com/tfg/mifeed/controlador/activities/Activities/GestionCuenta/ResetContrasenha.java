@@ -20,7 +20,7 @@ public class ResetContrasenha extends AppCompatActivity {
     private Validaciones validaciones = new Validaciones();
     private EditText correo;
     private ConstraintLayout btnReseteo;
-    private  static  View v;
+    private static  View v;
     FirebaseGestionUsuario conexion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

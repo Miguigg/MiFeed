@@ -27,7 +27,6 @@ public class PodcastMainActivity extends AppCompatActivity {
     private BibliotecaFragment bibliotecaFragment;
     private MasTardeFragment masTardeFragment;
     private RecordatoriosFragment recordatoriosFragment;
-    private MediaPlayer mediaPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

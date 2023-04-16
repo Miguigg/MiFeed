@@ -59,6 +59,7 @@
         android:layout_width="83dp"
         android:layout_height="86dp"
         android:layout_marginStart="68dp"
+        android:layout_marginTop="14dp"
         android:layout_marginBottom="35dp"
         android:contentDescription="@string/txtTecnologia"
         app:layout_constraintBottom_toTopOf="@+id/btnAceptar"
@@ -99,10 +100,11 @@
         android:layout_marginTop="12dp"
         android:minWidth="48dp"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imagDeporte"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.234"
         app:layout_constraintStart_toEndOf="@+id/imagDeporte"
-        app:layout_constraintTop_toBottomOf="@+id/txtDeporte"
+        app:layout_constraintTop_toTopOf="@+id/imagDeporte"
         tools:ignore="UseSwitchCompatOrMaterialXml,DuplicateSpeakableTextCheck" />
 
     <TextView
@@ -125,10 +127,11 @@
         android:layout_marginTop="4dp"
         android:minWidth="48dp"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imagNegocios"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.244"
         app:layout_constraintStart_toEndOf="@+id/imagNegocios"
-        app:layout_constraintTop_toBottomOf="@+id/txtNegocios" />
+        app:layout_constraintTop_toTopOf="@+id/imagNegocios" />
 
     <TextView
         android:id="@+id/txtOcio"
@@ -150,10 +153,11 @@
         android:layout_marginTop="8dp"
         android:minWidth="48dp"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imagOcio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.227"
         app:layout_constraintStart_toEndOf="@+id/imagOcio"
-        app:layout_constraintTop_toBottomOf="@+id/txtOcio" />
+        app:layout_constraintTop_toTopOf="@+id/imagOcio" />
 
     <TextView
         android:id="@+id/txtCiencia"
@@ -175,16 +179,17 @@
         android:layout_marginTop="8dp"
         android:minWidth="48dp"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imagCiencia"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.22"
         app:layout_constraintStart_toEndOf="@+id/imagCiencia"
-        app:layout_constraintTop_toBottomOf="@+id/txtCiencia" />
+        app:layout_constraintTop_toTopOf="@+id/imagCiencia" />
 
     <TextView
         android:id="@+id/txtSalud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/txtMedicina"
         android:textColor="#000000"
         android:textStyle="bold"
@@ -200,21 +205,22 @@
         android:layout_marginTop="8dp"
         android:minWidth="48dp"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imagSalud"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.212"
         app:layout_constraintStart_toEndOf="@+id/imagSalud"
-        app:layout_constraintTop_toBottomOf="@+id/txtSalud" />
+        app:layout_constraintTop_toTopOf="@+id/imagSalud" />
 
     <TextView
         android:id="@+id/txtTecnologia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="@string/txtTecnologia"
         android:textColor="#000000"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.181"
+        app:layout_constraintHorizontal_bias="0.184"
         app:layout_constraintStart_toEndOf="@+id/imagTecnologia"
         app:layout_constraintTop_toBottomOf="@+id/switchSalud" />
 
@@ -225,10 +231,11 @@
         android:layout_marginTop="8dp"
         android:minWidth="48dp"
         android:minHeight="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imagTecnologia"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toEndOf="@+id/imagTecnologia"
-        app:layout_constraintTop_toBottomOf="@+id/txtTecnologia" />
+        app:layout_constraintTop_toTopOf="@+id/imagTecnologia" />
 
     <TextView
         android:id="@+id/txtTitulo"

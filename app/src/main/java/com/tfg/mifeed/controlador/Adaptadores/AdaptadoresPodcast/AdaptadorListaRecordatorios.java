@@ -39,7 +39,7 @@ public class AdaptadorListaRecordatorios
 
   private ArrayList<Recordatorio> listaRecordatorios;
   private Context c;
-  MediaPlayer mediaPlayer;
+  private MediaPlayer mediaPlayer;
   public FirebasePodcast firebasePodcast;
 
   private boolean repoduciendo;

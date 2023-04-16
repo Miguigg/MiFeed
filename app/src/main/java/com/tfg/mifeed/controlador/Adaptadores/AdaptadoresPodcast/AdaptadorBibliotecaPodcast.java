@@ -24,9 +24,9 @@ import java.util.ArrayList;
 
 public class AdaptadorBibliotecaPodcast extends RecyclerView.Adapter<AdaptadorBibliotecaPodcast.ViewHolderBiblioteca>{
 
-    ArrayList<Podcast> listaPodcast;
-    Context c;
-    FirebasePodcast firebasePodcast;
+    private final ArrayList<Podcast> listaPodcast;
+    private Context c;
+    public FirebasePodcast firebasePodcast;
 
     public AdaptadorBibliotecaPodcast(ArrayList<Podcast> listaPodcast, Context c){
         this.c = c;

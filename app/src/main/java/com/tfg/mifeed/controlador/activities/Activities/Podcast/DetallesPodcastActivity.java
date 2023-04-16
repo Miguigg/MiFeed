@@ -84,6 +84,9 @@ public class DetallesPodcastActivity extends AppCompatActivity {
     }
 
     private void getPodcast(String id, String titulo){
+        /*
+        * Teniendo el id del podcast se realiza una peticion a la API para obtener los datos
+        * */
         ApiPodcastConn.getApiConnInterfacePodcast().getEpisodiosConid(id,"recent_first").enqueue(new Callback<RespuestaListaPodcast>() {
             @Override
             public void onResponse(Call<RespuestaListaPodcast> call, Response<RespuestaListaPodcast> response) {

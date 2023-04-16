@@ -14,7 +14,6 @@ import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.BienvenidaActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Prensa.PrensaActivity;
 import com.tfg.mifeed.controlador.firebase.FirebaseGestionUsuario;
-import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 
 import java.util.ArrayList;
@@ -42,12 +41,15 @@ public class SeleccionTemasActivity extends AppCompatActivity {
       if(!CheckConexion.getEstadoActual(SeleccionTemasActivity.this)){
         Toast.makeText(SeleccionTemasActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
       }else{
-        checkSelección();
+        checkSeleccion();
       }
     });
   }
 
-  private void checkSelección() {
+  private void checkSeleccion() {
+    /*
+    * Comprueba que temas ha seleccionado el usuario
+    * */
     boolean isDeportes = deportes.isChecked();
     boolean isNegocios = negocios.isChecked();
     boolean isOcio = ocio.isChecked();

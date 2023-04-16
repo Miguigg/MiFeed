@@ -93,6 +93,9 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
     }
 
     public void crearRecordatorio() {
+        /*
+        * Inicializa el objeto de calendario
+        * */
         Calendar calendar = Calendar.getInstance();
         añoActual = calendar.get(Calendar.YEAR);
         mesActual = calendar.get(Calendar.MONTH);
@@ -104,6 +107,9 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
 
     @Override
     public void onDateSet(DatePicker datePicker, int año, int mes, int dia) {
+        /*
+        * Muestra el dialogo para mostrar el selector de fecha
+        * */
         añoSeleccionado = año;
         mesSeleccionado = mes;
         diaSeleccionado = dia;
@@ -123,6 +129,9 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hora, int minuto) {
+        /*
+        * Muestra el selector en el que se selecciona el dia
+        * */
         horaSeleccionada = hora;
         minutoSeleccionado = minuto;
         Calendar calendar = Calendar.getInstance();
@@ -134,13 +143,14 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
         String input = String.valueOf(añoSeleccionado) + "-" +String.valueOf(mesSeleccionado)+ "-" + String.valueOf(diaSeleccionado) + "T" + String.valueOf(horaSeleccionada) + ":" +String.valueOf(minutoSeleccionado)+":00"+"Z";
         crearCanal(calendar.getTimeInMillis());
         FirebasePodcast.setRecordatorio(episodio,input,v, idPodcast);
-        if(!CheckConexion.getEstadoActual(CreacionRecordatorioActivity.this)){
-            Toast.makeText(CreacionRecordatorioActivity.this,R.string.txtRecordatorioSinConexion,Toast.LENGTH_LONG).show();
-        }
         ((Activity) v.getContext()).finish();
     }
 
     public void crearCanal(long timestamp){
+        /*
+        * Crea el canal, utilizando la clase notification manager, a traves del cual se mandara la
+        * notificacion
+        * */
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             String nombreCanal = "notificiacionesMiFeed";
             String descripcion = "Notificaciones para recordar podcast";
@@ -153,6 +163,9 @@ public class CreacionRecordatorioActivity extends AppCompatActivity implements D
     }
 
     public void setAlarma(int id, long timestamp, View v){
+        /*
+        * Añade la alarm a android
+        * */
         Intent intent = new Intent(v.getContext(), AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(v.getContext(),id+1 , intent,PendingIntent.FLAG_IMMUTABLE);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,timestamp,AlarmManager.INTERVAL_DAY,pendingIntent);

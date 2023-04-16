@@ -54,6 +54,9 @@ public class SeleccionMediosActivity extends AppCompatActivity {
     }
 
     private void insertarMedios() {
+        /*
+        * Una vez seleccionados los medios se mandan a firebase
+        * */
         if(dominiosSeleccionados.size()<1 || (mediosSeleccionados.size()<1)){
             Toast.makeText(this, R.string.errSeleccionTemas, Toast.LENGTH_SHORT).show();
         }else{
@@ -63,16 +66,28 @@ public class SeleccionMediosActivity extends AppCompatActivity {
     }
 
     public void insertarDominio(String dominio, String nombre){
+        /*
+        * Funcion llamada desde el adaptador y que inserta en la lista de seleccionados aquellos medios que se
+        * han pulsado
+        * */
         dominiosSeleccionados.add(dominio);
         mediosSeleccionados.add(nombre);
     }
 
     public void deleteDominio(String dominio, String nombre){
+        /*
+         * Funcion llamada desde el adaptador y que elimina en la lista de seleccionados aquellos medios que se
+         * han pulsado
+         * */
         dominiosSeleccionados.remove(dominio);
         mediosSeleccionados.remove(nombre);
     }
 
     public void setMedios(ArrayList<MediosModel> medios, String res){
+        /*
+        * Inicializa el adaptador y le mete los medios que estan disponibles en Firebase
+        * Si no se pudieron obtener los medios, se muestra un error
+        * */
         switch (res){
             case "true":
                 AdaptadorListaMedios adaptadorListaMedios1 = new AdaptadorListaMedios(medios,SeleccionMediosActivity.this);
@@ -88,6 +103,9 @@ public class SeleccionMediosActivity extends AppCompatActivity {
     }
 
     public void respuestaInsercion(String res){
+        /*
+        * Comunica al usuario si se ha realizado la insercion correctamente
+        * */
         switch (res){
             case "true":
                 Intent intent = new Intent(v.getContext(), PrensaActivity.class);

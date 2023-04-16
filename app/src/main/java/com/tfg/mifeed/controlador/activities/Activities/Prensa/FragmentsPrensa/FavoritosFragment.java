@@ -24,13 +24,13 @@ import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import java.util.ArrayList;
 
 public class FavoritosFragment extends Fragment {
-    public static ArrayList<String> listaMedios = new ArrayList<>();
-    public static ArrayList<String> listaTemas = new ArrayList<>();
-    public static RecyclerView recyclerViewMedios;
-    public static RecyclerView recyclerViewTemas;
+    private static ArrayList<String> listaMedios = new ArrayList<>();
+    private static ArrayList<String> listaTemas = new ArrayList<>();
+    private static RecyclerView recyclerViewMedios;
+    private static RecyclerView recyclerViewTemas;
 
-    public static View v;
-    public static ProgressBar cargaFavoritos;
+    private static View v;
+    private static ProgressBar cargaFavoritos;
 
     private ConstraintLayout btnModificar;
     FirebaseGestionUsuario firebaseGestionUsuario;
@@ -72,7 +72,7 @@ public class FavoritosFragment extends Fragment {
         * Redirige al usuario a la pestaña de modificacion de medios
         * */
         v.getContext().startActivity(new Intent(v.getContext(),SeleccionTemasActivity.class));
-        getActivity().onBackPressed();
+        //getActivity().onBackPressed();
         getActivity().finish();
     }
 

@@ -22,10 +22,10 @@ import com.tfg.mifeed.controlador.utilidades.CheckConexion;
 import com.tfg.mifeed.controlador.utilidades.Validaciones;
 
 public class LoginActivity extends AppCompatActivity {
-  private EditText correo,contraseña;
+  private EditText correo, contrasenha;
   private ConstraintLayout loginApp, toReg, toReset;
   private TextView errEmail,errPass;
-  private Validaciones validaciones = new Validaciones();
+  //private Validaciones validaciones = new Validaciones();
   boolean emailIsSent;
   FirebaseGestionUsuario firebaseGestionUsuario;
   @Override
@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     correo = findViewById(R.id.editTextCorreo);
-    contraseña = findViewById(R.id.editTextTextPass);
+    contrasenha = findViewById(R.id.editTextTextPass);
     errEmail = findViewById(R.id.errLoginEmail);
     errPass = findViewById(R.id.errLoginPass);
     loginApp = findViewById(R.id.ejecutarInicio);
@@ -74,8 +74,7 @@ public class LoginActivity extends AppCompatActivity {
       Toast.makeText(LoginActivity.this,R.string.errConn,Toast.LENGTH_LONG).show();
     }else{
       String email = correo.getText().toString().trim();
-      String pass = contraseña.getText().toString().trim();
-
+      String pass = contrasenha.getText().toString().trim();
 
       boolean esValido = true;
 

@@ -21,7 +21,7 @@ import com.tfg.mifeed.controlador.utilidades.Validaciones;
 import com.tfg.mifeed.modelo.Usuario;
 
 public class RegistroActivity extends AppCompatActivity implements View.OnClickListener {
-  private Validaciones validaciones = new Validaciones();
+  //private Validaciones validaciones = new Validaciones();
   private FirebaseGestionUsuario conexion;
   public static View v;
   private EditText nombre, email, contrasenha1, contrasenha2;
@@ -83,12 +83,11 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
 
       boolean isvalid = true;
 
-
-      if(validaciones.validacionUser(nombreUsuario) == "vacio"){
+      if (Validaciones.validacionUser(nombreUsuario).equals("vacio")) {
         errUsuario.setText(R.string.errNombreUsuario);
         errUsuario.setVisibility(View.VISIBLE);
         isvalid = false;
-      }else if(validaciones.validacionUser(nombreUsuario) == "noValido"){
+      } else if (Validaciones.validacionUser(nombreUsuario).equals("noValido")) {
         errUsuario.setText(R.string.errNombreUsuarioNoValido);
         errUsuario.setVisibility(View.VISIBLE);
         isvalid = false;
@@ -96,11 +95,11 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         errUsuario.setVisibility(View.GONE);
       }
 
-      if(validaciones.validacionEmail(emailUsuario) == "vacio"){
+      if (Validaciones.validacionEmail(emailUsuario).equals("vacio")) {
         errEmail.setText(R.string.errEmailVacio);
         isvalid = false;
         errEmail.setVisibility(View.VISIBLE);
-      }else if(validaciones.validacionEmail(emailUsuario) == "falso"){
+      } else if (Validaciones.validacionEmail(emailUsuario).equals("falso")) {
         errEmail.setText(R.string.errEmailNoValido);
         isvalid = false;
         errEmail.setVisibility(View.VISIBLE);
@@ -108,15 +107,15 @@ public class RegistroActivity extends AppCompatActivity implements View.OnClickL
         errEmail.setVisibility(View.GONE);
       }
 
-      if (validaciones.validacionContraseña(contrasenhaUsuario1,contrasenhaUsuario2) == "vacia"){
+      if (Validaciones.validacionContraseña(contrasenhaUsuario1, contrasenhaUsuario2).equals("vacia")){
         errPass.setText(R.string.errContraseñaVacia);
         isvalid = false;
         errPass.setVisibility(View.VISIBLE);
-      }else if(validaciones.validacionContraseña(contrasenhaUsuario1,contrasenhaUsuario2) == "noSegura"){
+      }else if(Validaciones.validacionContraseña(contrasenhaUsuario1, contrasenhaUsuario2).equals("noSegura")){
         errPass.setText(R.string.errContraseñaDebil);
         isvalid = false;
         errPass.setVisibility(View.VISIBLE);
-      }else if(validaciones.validacionContraseña(contrasenhaUsuario1,contrasenhaUsuario2) == "distintas"){
+      }else if(Validaciones.validacionContraseña(contrasenhaUsuario1, contrasenhaUsuario2).equals("distintas")){
         errPass.setText(R.string.errContraseñaNoCoincide);
         isvalid = false;
         errPass.setVisibility(View.VISIBLE);
