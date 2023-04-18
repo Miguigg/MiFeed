@@ -2,10 +2,13 @@ package com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPodcast;
 
 import static android.text.Html.fromHtml;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -21,8 +26,8 @@ import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.CreacionRecordatorioActivity;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.DetallesPodcastActivity;
 import com.tfg.mifeed.controlador.firebase.FirebasePodcast;
-import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
+import com.tfg.mifeed.controlador.utilidades.DescargarEpisodio;
 import com.tfg.mifeed.modelo.Episodio;
 
 import java.io.IOException;
@@ -36,6 +41,7 @@ public class AdaptadorListaEpisodios
   private MediaPlayer mediaPlayer;
   public FirebasePodcast firebasePodcast;
   private boolean repoduciendo;
+
 
   public AdaptadorListaEpisodios(ArrayList<Episodio> listaEpisodios, Context context) {
     this.context = context;
@@ -66,6 +72,19 @@ public class AdaptadorListaEpisodios
     ImageView play = holder.play;
     ImageView masTarde = holder.masTarde;
     ImageView recordatorio = holder.recordatorio;
+    ImageView btnDes = holder.btnDes;
+
+    btnDes.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if (!CheckConexion.getEstadoActual(context)) {
+          Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
+        } else {
+          DescargarEpisodio descargarEpisodio = new DescargarEpisodio(listaEpisodios.get(holder.getAdapterPosition()).getAudio(), listaEpisodios.get(holder.getAdapterPosition()).getTitle_original(), context);
+          descargarEpisodio.accionDescarga();
+        }
+      }
+    });
 
     play.setOnClickListener(
         new View.OnClickListener() {
@@ -75,6 +94,8 @@ public class AdaptadorListaEpisodios
               Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
             } else {
               if (!repoduciendo) {
+                Log.e("Hola", "Hola");
+
                 repoduciendo = true;
                 play.setImageResource(R.drawable.ic_parar_episodio);
                 reproducir(listaEpisodios.get(holder.getAdapterPosition()).getAudio());
@@ -193,7 +214,7 @@ public class AdaptadorListaEpisodios
   }
 
   public static class ViewHolderEpisodios extends RecyclerView.ViewHolder {
-    private ImageView imagenEpisodio, play, recordatorio, masTarde;
+    private ImageView imagenEpisodio, play, recordatorio, masTarde, btnDes;
     private TextView titulo;
 
     public ViewHolderEpisodios(@NonNull View itemView) {
@@ -203,6 +224,7 @@ public class AdaptadorListaEpisodios
       recordatorio = itemView.findViewById(R.id.recordatorio);
       masTarde = itemView.findViewById(R.id.masTarde);
       titulo = itemView.findViewById(R.id.tituloEpisodio);
+      btnDes = itemView.findViewById(R.id.btnDes);
     }
   }
 }

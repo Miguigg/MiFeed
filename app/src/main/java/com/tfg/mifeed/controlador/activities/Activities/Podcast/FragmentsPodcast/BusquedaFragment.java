@@ -59,7 +59,6 @@ public class BusquedaFragment extends Fragment {
     btnBuscar.setOnClickListener(
         v -> {
           if (!TextUtils.isEmpty(valorBusqqueda.getText().toString())) {
-            Log.d("idioma", (String) idioma.getSelectedItem());
             carga.setVisibility(View.VISIBLE);
             String valiorIntroducido = valorBusqqueda.getText().toString();
             String toret = "";

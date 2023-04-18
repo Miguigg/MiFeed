@@ -114,7 +114,6 @@ public class CategoriasFragment extends Fragment {
             case "technology":
                 return R.string.txtTecnologia;
             default:
-                Log.d("valor",catIngles);
                 return R.string.errConn;
         }
     }

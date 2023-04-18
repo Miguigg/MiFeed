@@ -74,4 +74,13 @@
         app:layout_constraintStart_toEndOf="@+id/reproducir"
         app:layout_constraintTop_toBottomOf="@+id/tituloEpisodio"
         app:srcCompat="@drawable/ic_add_mas_tarde" />
+
+    <ImageView
+        android:id="@+id/btnDes"
+        android:layout_width="55dp"
+        android:layout_height="52dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_descarga" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

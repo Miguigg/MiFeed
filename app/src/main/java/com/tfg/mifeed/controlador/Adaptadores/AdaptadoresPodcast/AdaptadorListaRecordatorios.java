@@ -26,6 +26,7 @@ import com.tfg.mifeed.controlador.activities.Activities.Podcast.DetallesPodcastA
 import com.tfg.mifeed.controlador.firebase.FirebasePodcast;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
+import com.tfg.mifeed.controlador.utilidades.DescargarEpisodio;
 import com.tfg.mifeed.modelo.Episodio;
 import com.tfg.mifeed.modelo.Recordatorio;
 
@@ -37,7 +38,7 @@ import java.util.Locale;
 public class AdaptadorListaRecordatorios
     extends RecyclerView.Adapter<AdaptadorListaRecordatorios.ViewHolderListaRecordatorios> {
 
-  private ArrayList<Recordatorio> listaRecordatorios;
+  private final ArrayList<Recordatorio> listaRecordatorios;
   private Context c;
   private MediaPlayer mediaPlayer;
   public FirebasePodcast firebasePodcast;
@@ -72,6 +73,7 @@ public class AdaptadorListaRecordatorios
     ImageView play = holder.play;
     ImageView masTarde = holder.masTarde;
     ImageView eliminar = holder.eliminar;
+    ImageView btnDes = holder.btnDes;
     TextView hora = holder.hora;
 
     Glide.with(c)
@@ -82,6 +84,19 @@ public class AdaptadorListaRecordatorios
     String fecha = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(listaRecordatorios.get(position).getTimestamp());
     String time =  new SimpleDateFormat("HH:mm", Locale.getDefault()).format(listaRecordatorios.get(position).getTimestamp());
     hora.setText(c.getString(R.string.añadido,fecha,time));
+
+    btnDes.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if (!CheckConexion.getEstadoActual(c)) {
+          Toast.makeText(c, R.string.errConn, Toast.LENGTH_LONG).show();
+        } else {
+          DescargarEpisodio descargarEpisodio = new DescargarEpisodio(listaRecordatorios.get(holder.getAdapterPosition()).getUrlAudio(),listaRecordatorios.get(holder.getAdapterPosition()).getTitulo(),c);
+          descargarEpisodio.accionDescarga();
+        }
+      }
+    });
+
     play.setOnClickListener(
         new View.OnClickListener() {
           @Override
@@ -196,7 +211,7 @@ public class AdaptadorListaRecordatorios
   }
 
   public static class ViewHolderListaRecordatorios extends RecyclerView.ViewHolder {
-    ImageView logo, play, masTarde, eliminar;
+    ImageView logo, play, masTarde, eliminar, btnDes;
     TextView titulo, hora;
 
     public ViewHolderListaRecordatorios(@NonNull View itemView) {
@@ -207,6 +222,7 @@ public class AdaptadorListaRecordatorios
       masTarde = itemView.findViewById(R.id.btnMasTarde);
       hora = itemView.findViewById(R.id.horaRecordatorio);
       eliminar = itemView.findViewById(R.id.eliminarRecordatorio);
+      btnDes = itemView.findViewById(R.id.btnDes3);
     }
   }
 }

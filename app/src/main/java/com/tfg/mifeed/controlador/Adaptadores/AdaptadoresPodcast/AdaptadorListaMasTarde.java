@@ -23,6 +23,7 @@ import com.tfg.mifeed.controlador.activities.Activities.Podcast.DetallesPodcastA
 import com.tfg.mifeed.controlador.firebase.FirebasePodcast;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
+import com.tfg.mifeed.controlador.utilidades.DescargarEpisodio;
 import com.tfg.mifeed.modelo.Episodio;
 
 import java.io.IOException;
@@ -64,6 +65,15 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
         ImageView play = holder.play;
         ImageView eliminar =  holder.eliminar;
         ImageView recordatorio = holder.recordatorio;
+        ImageView btnDes = holder.btnDes;
+
+        btnDes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DescargarEpisodio descargarEpisodio = new DescargarEpisodio(listaEpisodios.get(holder.getAdapterPosition()).getAudio(), listaEpisodios.get(holder.getAdapterPosition()).getTitle(), context);
+                descargarEpisodio.accionDescarga();
+            }
+        });
 
         play.setOnClickListener(
                 new View.OnClickListener() {
@@ -72,7 +82,7 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
                         if (!CheckConexion.getEstadoActual(context)) {
                             Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
                         } else {
-                            if(reproduciendo == false){
+                            if(!reproduciendo){
                                 reproduciendo = true;
                                 play.setImageResource(R.drawable.ic_parar_episodio);
                                 reproducir(listaEpisodios.get(holder.getAdapterPosition()).getAudio());
@@ -162,17 +172,13 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
         }
     }
 
-    public void onBackPressed(){
-
-    }
-
     @Override
     public int getItemCount() {
         return listaEpisodios.size();
     }
 
     public static class ViewHolderListaMasTarde extends RecyclerView.ViewHolder {
-        ImageView imagenEpisodio, play, recordatorio, eliminar;
+        ImageView imagenEpisodio, play, recordatorio, eliminar, btnDes;
         TextView titulo;
 
         public ViewHolderListaMasTarde(@NonNull View itemView) {
@@ -182,6 +188,7 @@ public class AdaptadorListaMasTarde extends RecyclerView.Adapter<AdaptadorListaM
             recordatorio = itemView.findViewById(R.id.recordatorio2);
             eliminar = itemView.findViewById(R.id.btnEliminar);
             titulo = itemView.findViewById(R.id.tituloEpisodio2);
+            btnDes = itemView.findViewById(R.id.btnDes2);
         }
     }
 

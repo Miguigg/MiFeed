@@ -2,13 +2,19 @@ package com.tfg.mifeed.controlador.Adaptadores.AdaptadoresPodcast;
 
 import static android.text.Html.fromHtml;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
+import android.webkit.URLUtil;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +28,7 @@ import com.tfg.mifeed.controlador.activities.Activities.Podcast.CreacionRecordat
 import com.tfg.mifeed.controlador.firebase.FirebasePodcast;
 import com.tfg.mifeed.controlador.firebase.FirebaseServices;
 import com.tfg.mifeed.controlador.utilidades.CheckConexion;
+import com.tfg.mifeed.controlador.utilidades.DescargarEpisodio;
 import com.tfg.mifeed.modelo.Episodio;
 
 import java.io.IOException;
@@ -35,7 +42,7 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
     MediaPlayer mediaPlayer;
     boolean reproduciendo;
     public FirebasePodcast firebasePodcast;
-
+    DownloadManager manager;
     public AdaptadorListaEpisodiosPodcast(ArrayList<Episodio> listaEpisodios, Context context, String idPodcast, String tituloPodcast) {
         this.context = context;
         this.listaEpisodios = listaEpisodios;
@@ -67,6 +74,23 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
         ImageView play = holder.play;
         ImageView recordatorio = holder.recordatorio;
         ImageView masTarde = holder.masTarde;
+        ImageView descarga = holder.descarga;
+
+
+        descarga.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                if (!CheckConexion.getEstadoActual(context)) {
+                    Toast.makeText(context, R.string.errConn, Toast.LENGTH_LONG).show();
+                } else {
+                    DescargarEpisodio descargarEpisodio = new DescargarEpisodio(listaEpisodios.get(holder.getAdapterPosition()).getAudio(), listaEpisodios.get(holder.getAdapterPosition()).getTitle(), context);
+                    descargarEpisodio.accionDescarga();
+                }
+            }
+        });
+
+
             play.setOnClickListener(
                     new View.OnClickListener() {
                         @Override
@@ -165,6 +189,7 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
         ImageView imagenEpisodio, pausa, play, recordatorio, masTarde;
         TextView titulo;
 
+        private ImageView descarga;
         public ViewHolderListaEpisodios(@NonNull View itemView) {
             super(itemView);
             imagenEpisodio = itemView.findViewById(R.id.imagenEpisodio);
@@ -173,6 +198,8 @@ public class AdaptadorListaEpisodiosPodcast extends RecyclerView.Adapter<Adaptad
             recordatorio = itemView.findViewById(R.id.recordatorio);
             masTarde = itemView.findViewById(R.id.masTarde);
             titulo = itemView.findViewById(R.id.tituloEpisodio);
+            descarga = itemView.findViewById(R.id.btnDes);
+
         }
     }
 
