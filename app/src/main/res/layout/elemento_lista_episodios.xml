@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:contentDescription="@string/contentImagenPodcast"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tituloEpisodio"
         tools:srcCompat="@tools:sample/avatars" />
@@ -37,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
+        android:contentDescription="@string/contentReproducirPodcast"
         app:layout_constraintStart_toEndOf="@+id/recordatorio"
         app:layout_constraintTop_toBottomOf="@+id/tituloEpisodio"
         app:srcCompat="@drawable/ic_rep_episodio" />
@@ -47,6 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
+        android:contentDescription="@string/contentPararReproduccion"
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/masTarde"
         app:layout_constraintHorizontal_bias="0.0"
@@ -60,6 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="20dp"
+        android:contentDescription="@string/contentRecordatorio"
         app:layout_constraintStart_toEndOf="@+id/imagenEpisodio"
         app:layout_constraintTop_toBottomOf="@+id/tituloEpisodio"
         app:srcCompat="@drawable/ic_add_recordatorio" />
@@ -69,6 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:contentDescription="@string/contentAddToListaMasTarde"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.377"
         app:layout_constraintStart_toEndOf="@+id/reproducir"
@@ -79,6 +84,7 @@
         android:id="@+id/btnDes"
         android:layout_width="55dp"
         android:layout_height="52dp"
+        android:contentDescription="@string/contentBtnDescarga"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_descarga" />

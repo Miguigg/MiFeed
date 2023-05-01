@@ -9,23 +9,25 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMedios"
-        android:layout_width="199dp"
-        android:layout_height="477dp"
+        android:layout_width="177dp"
+        android:layout_height="481dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="13dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/contentListaMedios"
         android:foregroundGravity="center_horizontal"
         app:layout_constraintBottom_toTopOf="@+id/btnModificar"
         app:layout_constraintEnd_toStartOf="@+id/recyclerViewTemas"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mediosSeleccionados" />
+        app:layout_constraintTop_toBottomOf="@+id/mediosSeleccionados"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/mediosSeleccionados"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:foregroundGravity="center_horizontal"
         android:gravity="center_horizontal"
@@ -42,7 +44,7 @@
         android:id="@+id/temasSeleccionados"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
         android:foregroundGravity="center_horizontal"
         android:gravity="center_horizontal"
@@ -57,18 +59,20 @@
         android:id="@+id/recyclerViewTemas"
         android:layout_width="186dp"
         android:layout_height="476dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
+        android:contentDescription="@string/contentListaTemas"
         app:layout_constraintBottom_toTopOf="@+id/btnModificar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temasSeleccionados" />
+        app:layout_constraintTop_toBottomOf="@+id/temasSeleccionados"
+        app:layout_constraintVertical_bias="0.13" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btnModificar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="59dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="70dp"
         android:foregroundGravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,6 +83,7 @@
             android:id="@+id/imageView20"
             android:layout_width="250dp"
             android:layout_height="55dp"
+            android:contentDescription="@string/contentBtnFavoritos"
             android:src="@drawable/btn_aceptar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -8,8 +8,8 @@
 
     <FrameLayout
         android:id="@+id/framePrensa"
-        android:layout_width="409dp"
-        android:layout_height="686dp"
+        android:layout_width="0dp"
+        android:layout_height="660dp"
         android:background="@color/mainbackground"
         app:layout_constraintBottom_toTopOf="@+id/barraApp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,8 +22,8 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        android:layout_width="407dp"
-        android:layout_height="60dp"
+        android:layout_width="418dp"
+        android:layout_height="62dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:background="@color/fondoBarraNavegacion"

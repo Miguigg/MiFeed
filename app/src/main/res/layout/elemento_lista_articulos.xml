@@ -26,6 +26,7 @@
             android:layout_height="68dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
+            android:contentDescription="@string/contentArticulo"
             app:srcCompat="@drawable/ic_periodico_grande" />
 
         <LinearLayout
@@ -49,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/contentDireccionArticulo"
                 android:gravity="center_horizontal"
                 android:textSize="8sp" />
 
@@ -59,6 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:contentDescription="@string/contentEliminarArticulo"
             app:srcCompat="@drawable/ic_delete48px" />
 
     </LinearLayout>

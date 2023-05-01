@@ -38,6 +38,7 @@
         android:id="@+id/eliminarElemento"
         android:layout_width="72dp"
         android:layout_height="66dp"
+        android:contentDescription="@string/contentEliminarEpisodio"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

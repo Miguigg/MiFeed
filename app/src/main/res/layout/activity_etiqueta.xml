@@ -27,6 +27,7 @@
         android:layout_height="539dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="72dp"
+        android:contentDescription="@string/contentListaEtiquetas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTituloArticulos" />

@@ -14,6 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
+        android:contentDescription="@string/contentImagenMedio"
         tools:srcCompat="@tools:sample/avatars" />
 
     <LinearLayout
@@ -25,6 +26,7 @@
             android:id="@+id/nombreMedioUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/contentTituloMeido"
             android:gravity="center_horizontal|center_vertical"
             android:text="TextView"
             android:textColor="#000000"

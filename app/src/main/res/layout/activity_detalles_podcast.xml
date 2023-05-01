@@ -26,8 +26,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:contentDescription="@string/contentDescripcionPodcast"
                 android:foregroundGravity="center_horizontal"
-                android:text="TextView"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
     </ScrollView>
@@ -37,10 +37,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:contentDescription="@string/contentImagenPodcast"
         android:foregroundGravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ImageContrastCheck"
         tools:srcCompat="@tools:sample/avatars" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -61,6 +63,7 @@
         android:layout_height="37dp"
         android:layout_marginStart="140dp"
         android:layout_marginTop="5dp"
+        android:contentDescription="@string/contentBtnAddBiblio"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView3"
         app:srcCompat="@drawable/ic_addpodcast" />
