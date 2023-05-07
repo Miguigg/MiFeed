@@ -16,6 +16,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.tfg.mifeed.R;
 import com.tfg.mifeed.controlador.activities.Activities.Podcast.CreacionRecordatorioActivity;
@@ -446,7 +447,7 @@ public class FirebasePodcast {
     String id = userAuth.getCurrentUser().getUid();
     CollectionReference ref = instancia.collection("Recordatorios");
     ArrayList<Recordatorio> toret = new ArrayList<>();
-    ref.get()
+    ref.orderBy("recordatorio", Query.Direction.DESCENDING).get()
         .addOnSuccessListener(
             new OnSuccessListener<QuerySnapshot>() {
               @Override
