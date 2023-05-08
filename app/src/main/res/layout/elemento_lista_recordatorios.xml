@@ -41,12 +41,12 @@
         android:id="@+id/eliminarRecordatorio"
         android:layout_width="wrap_content"
         android:layout_height="54dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginEnd="68dp"
         android:contentDescription="@string/contentEliminarEpisodio"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tituloRecordatorio"
-        app:layout_constraintVertical_bias="0.47000003"
+        app:layout_constraintVertical_bias="0.061"
         app:srcCompat="@drawable/ic_delete_redondo" />
 
     <ImageView
@@ -56,9 +56,10 @@
         android:contentDescription="@string/contentReproducirPodcast"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/eliminarRecordatorio"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toEndOf="@+id/btnMasTarde"
         app:layout_constraintTop_toBottomOf="@+id/tituloRecordatorio"
-        app:layout_constraintVertical_bias="0.47000003"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_rep_episodio" />
 
     <ImageView
@@ -70,7 +71,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imgPodcast"
         app:layout_constraintTop_toBottomOf="@+id/tituloRecordatorio"
-        app:layout_constraintVertical_bias="0.468"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_add_mas_tarde" />
 
     <TextView
@@ -89,12 +90,15 @@
 
     <ImageView
         android:id="@+id/btnDes3"
-        android:layout_width="47dp"
-        android:layout_height="33dp"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="10dp"
         android:contentDescription="@string/contentBtnDescarga"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eliminarRecordatorio"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_descarga" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

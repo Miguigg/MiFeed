@@ -24,10 +24,10 @@
 
     <ImageView
         android:id="@+id/addEtiqueta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="86dp"
+        android:layout_height="75dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="49dp"
+        android:layout_marginBottom="60dp"
         android:contentDescription="@string/contentCrearEtiqueta"
         android:src="@drawable/btn_add"
         app:layout_constraintBottom_toBottomOf="parent"
