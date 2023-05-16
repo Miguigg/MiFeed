@@ -6,6 +6,9 @@ import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 import android.webkit.CookieManager;
+import android.widget.Toast;
+
+import com.tfg.mifeed.R;
 
 
 public class DescargarEpisodio {
@@ -34,6 +37,6 @@ public class DescargarEpisodio {
 
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         downloadManager.enqueue(request);
+        Toast.makeText(this.context, R.string.txtDescarga,Toast.LENGTH_LONG).show();
     }
-
 }
